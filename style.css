@@ -1,0 +1,101 @@
+body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: #242582; /* Тёмно-синий фон для всего body */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  h1 {
+    color: #FFFF00;
+    font-family: 'Droid serif', serif;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 44px;
+    margin: 0 0 12px;
+    text-align: center;
+  }
+  
+  #menu,
+  #promptLinks,
+  #aiMenu,
+  #aiList {
+    padding-left: 0px;
+    margin: 0px;
+    background-color: #89CFF0;
+    border-radius: 10px; /* Скругление углов */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Тень для эффекта обводки */  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  li,
+  .back,
+  .pages {
+    color: #ffffff;
+    border: none;
+    margin-top: 3px;
+    display: block;
+    width: 180px;
+    cursor: pointer;
+    height: 30px;
+    font-size: 100%;
+    text-align: center;
+    border-radius: 5px;
+    padding-top: 8px;
+    font-size: 16px;
+    outline: thick double #32a1ce;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  .more {
+    font-size: 11px;
+    color: #353535;
+  }
+  
+  .links {
+    margin: 3px;
+  }
+  
+  .newTab {
+    font-size: 13px;
+    margin-top: 10px;
+    color: white;
+  }
+  
+  .orange {
+    background-color: #fb7b2d; /* Оранжевый фон для элементов с классом .orange */
+  }
+  
+  #aiList li {
+    color: #000;
+    border: none;
+    margin-top: 3px;
+    display: block;
+    width: 180px;
+    height: 30px;
+    font-size: 100%; 
+    text-align: center;
+    background-color: #fb7b2d;
+    border-radius: 5px;
+    padding-top: 8px;
+    font-size: 16px;
+    position: relative;
+    cursor: default;
+  }
+  
+  #aiList a {
+    color: red;
+    position: absolute;
+    right: 9px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #fb7b2d; /* Оранжевый фон для ссылок внутри #aiList */
+  }

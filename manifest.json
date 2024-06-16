@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Free AI service",
+  "version": "16.5.8",
+  "description": "Free AI services in Side Panel!",
+  "author": "Processor",
+  
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "action": {
+    "default_title": "Click to open panel"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "icons": {
+    "32": "icon-32.png",
+    "128": "icon.png"
+ },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "sidePanel"]
+}
