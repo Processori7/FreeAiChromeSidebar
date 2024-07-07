@@ -26,7 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
               "https://github.com/KudoAI/duckduckgpt", "https://github.com/KudoAI/bravegpt", "https://github.com/Processori7/llm/releases",
               "https://perchance.org/ai-text-to-image-generator", "https://dewatermark.ai/ru", "https://pika.art/login", 
               "ttps://huggingface.co/spaces/ehristoforu/dalle-3-xl-lora-v2", "https://www.veed.io/", "https://gamma.app/",
-              "https://slidesgo.com/", "https://hidola.ai/en"];
+              "https://slidesgo.com/", "https://hidola.ai/en", "https://gpt-chatbot.ru/chat-gpt-ot-openai-dlya-generacii-teksta",
+			  "https://huggingface.co/spaces/stabilityai/stable-diffusion-3-medium"];
         
               if (checkbox.checked) {
                   window.open(website, '_blank');
