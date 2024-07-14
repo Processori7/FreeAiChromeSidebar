@@ -99,3 +99,12 @@ body {
     cursor: pointer;
     background-color: #fb7b2d; /* Оранжевый фон для ссылок внутри #aiList */
   }
+  .popup {
+      position: absolute;
+      background-color: #333;
+      color: yellow;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      z-index: 1;
+    }
