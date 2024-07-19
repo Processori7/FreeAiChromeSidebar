@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
               "https://slidesgo.com/", "https://hidola.ai/en", "https://gpt-chatbot.ru/chat-gpt-ot-openai-dlya-generacii-teksta",
 			  "https://huggingface.co/spaces/stabilityai/stable-diffusion-3-medium", "https://huggingface.co/spaces/mukaist/DALLE-4K", "https://huggingface.co/spaces/Xenova/whisper-webgpu",
 			  "https://huggingface.co/spaces/THUDM/CodeGeeX", "https://huggingface.co/spaces/gokaygokay/Kolors", "https://www.craiyon.com/","https://simplified.com/",
-			  "https://elevenlabs.io/","https://huggingface.co/spaces/KwaiVGI/LivePortrait","https://character.ai","https://ltx.studio", "https://www.hedra.com/"];
+			  "https://elevenlabs.io/","https://huggingface.co/spaces/KwaiVGI/LivePortrait","https://character.ai","https://ltx.studio", "https://www.hedra.com/",
+			  "https://huggingface.co/spaces/TencentARC/PhotoMaker-Style", "https://app.scenario.com/upscale", "https://easywithai.com/tools/vidiq", 
+			  "https://smartbuddy.ru/models/gpt-4-omni", "https://smartbuddy.ru/models/gpt-4o-mini"];
         
               if (checkbox.checked) {
                   window.open(website, '_blank');
@@ -176,7 +178,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		"https://huggingface.co/spaces/Xenova/whisper-webgpu":"Free audio translator in real time.",
 		"https://elevenlabs.io/":"Free audio services. Need login.",
 		"https://hidola.ai/en":"Free TODO service. Need login.",
-		"https://simplified.com/":"Free TODO service. Need login."
+		"https://simplified.com/":"Free TODO service. Need login.",
+		"https://huggingface.co/spaces/TencentARC/PhotoMaker-Style":"Avatar generation service. Throw in a few of your photos, write a prompt, choose a style and you're done.",
+		"https://app.scenario.com/upscale":"Scenario is a tool for creating game characters using AI",
+		"https://easywithai.com/tools/vidiq":"It is a growth tool for YouTube creators that now has AI features.",
+		"https://www.noota.io/":"A neural network that squeezes out of any meeting, including conferences, voice messages, and podcasts.",
+		"https://smartbuddy.ru/models/gpt-4o-mini":"Chat with GPT-4o-mini."
       };
 
       var aiMenuItems = document.querySelectorAll('#aiMenu li');
