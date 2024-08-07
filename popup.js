@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
               "https://huggingface.co/spaces/TencentARC/PhotoMaker-Style", "https://app.scenario.com/upscale", "https://easywithai.com/tools/vidiq", 
               "https://smartbuddy.ru/models/gpt-4-omni", "https://smartbuddy.ru/models/gpt-4o-mini", "https://huggingface.co/spaces/Xenova/whisper-word-level-timestamps",
               "https://huggingface.co/spaces/gokaygokay/Tile-Upscaler", "https://github.com/Anjok07/ultimatevocalremovergui/releases", "https://huggingface.co/spaces/yizhezhu/MoMA_zeroGPU",
-              "https://klingai.com/"];
+              "https://klingai.com/", "https://huggingface.co/spaces/lllyasviel/IC-Light", "https://huggingface.co/spaces/gokaygokay/AuraSR-v2"];
         
               if (checkbox.checked) {
                   window.open(website, '_blank');
@@ -214,8 +214,12 @@ var websiteDescriptions = {
   "https://huggingface.co/spaces/yizhezhu/MoMA_zeroGPU":"AI will generate a picture from another image for free. You will get quality work based on another. Write a prompt, throw in a reference and get the result. Everything can be customized for yourself, the neural network has a flexible editor.",
   "https://klingai.com/":"Kling creates cool videos and prompt images",
   "https://www.gling.ai/":"Gling is a neural network for novice bloggers. It will be able to remove the words parasites, pauses, and other sounds that spoil the content. Greatly simplify installation and save a lot of time.",
-  "https://www.superupscaler.com/":"The service will quickly improve the quality of images right in the browser. You just need to throw in the source."
-
+  "https://www.superupscaler.com/":"The service will quickly improve the quality of images right in the browser. You just need to throw in the source.",
+  "https://huggingface.co/spaces/lllyasviel/IC-Light":"The service based on a neural network is able to determine how and from where the light falls in the image, and take this into account when creating a new background. In short, the times of long exposure of light in Photoshop are forever gone.",
+  "https://app.chathub.gg/":"The service will compare different neurons. GPT-4, Claude 3.5, Liama 3 and other AIs are collected here. You just throw in a request and see which neural network did better. The perfect way to choose the right AI assistant. Authorization is required.",
+  "https://dubverse.ai/":"Allows you to make your videos multilingual with the click of a button. Need login.",
+  "https://huggingface.co/spaces/gokaygokay/AuraSR-v2":"The service will improve the quality of any picture by 8 times. It works for free, right in the browser.",
+  "https://copilot2trip.com/":"A personalized AI-powered travel assistant with maps. Just tell him where and when you want to go, and he will offer personalized plans with recommended destinations and attractions."
 };
   
   window.addEventListener('DOMContentLoaded', function() {
