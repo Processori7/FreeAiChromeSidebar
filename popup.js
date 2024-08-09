@@ -219,7 +219,9 @@ var websiteDescriptions = {
   "https://app.chathub.gg/":"The service will compare different neurons. GPT-4, Claude 3.5, Liama 3 and other AIs are collected here. You just throw in a request and see which neural network did better. The perfect way to choose the right AI assistant. Authorization is required.",
   "https://dubverse.ai/":"Allows you to make your videos multilingual with the click of a button. Need login.",
   "https://huggingface.co/spaces/gokaygokay/AuraSR-v2":"The service will improve the quality of any picture by 8 times. It works for free, right in the browser.",
-  "https://copilot2trip.com/":"A personalized AI-powered travel assistant with maps. Just tell him where and when you want to go, and he will offer personalized plans with recommended destinations and attractions."
+  "https://copilot2trip.com/":"A personalized AI-powered travel assistant with maps. Just tell him where and when you want to go, and he will offer personalized plans with recommended destinations and attractions.",
+  "https://rugpt.io/chat-gpt-dlya-rerajta-teksta":"The service supports many models, including the GT-4o mini.",
+  "https://chat.eqing.tech/":"The service supports many models, including the GT-4o mini."
 };
   
   window.addEventListener('DOMContentLoaded', function() {
