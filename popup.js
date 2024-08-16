@@ -33,7 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
               "https://huggingface.co/spaces/TencentARC/PhotoMaker-Style", "https://app.scenario.com/upscale", "https://easywithai.com/tools/vidiq", 
               "https://smartbuddy.ru/models/gpt-4-omni", "https://smartbuddy.ru/models/gpt-4o-mini", "https://huggingface.co/spaces/Xenova/whisper-word-level-timestamps",
               "https://huggingface.co/spaces/gokaygokay/Tile-Upscaler", "https://github.com/Anjok07/ultimatevocalremovergui/releases", "https://huggingface.co/spaces/yizhezhu/MoMA_zeroGPU",
-              "https://klingai.com/", "https://huggingface.co/spaces/lllyasviel/IC-Light", "https://huggingface.co/spaces/gokaygokay/AuraSR-v2"];
+              "https://klingai.com/", "https://huggingface.co/spaces/lllyasviel/IC-Light", "https://huggingface.co/spaces/gokaygokay/AuraSR-v2","https://huggingface.co/spaces/finegrain/finegrain-object-eraser",
+              "https://huggingface.co/spaces/finegrain/finegrain-image-enhancer"];
         
               if (checkbox.checked) {
                   window.open(website, '_blank');
@@ -88,20 +89,23 @@ document.addEventListener("DOMContentLoaded", function () {
   var popup = document.createElement('div');
   popup.classList.add('popup');
 
-  aiMenuItems.forEach(function(item) {
-    item.addEventListener('mouseover', function() {
-      var website = this.getAttribute('data-website');
-      var description = websiteDescriptions[website];
-      popup.textContent = description;
-      this.appendChild(popup);
-    });
-    item.addEventListener('mouseout', function() {
-      this.removeChild(popup);
-    });
-  });
-}
+   // Определяем язык браузера
+   var userLang = navigator.language || navigator.userLanguage; 
+   var descriptions = (userLang.startsWith('ru')) ? websiteDescriptionsRu : websiteDescriptionsEn;
 
-var websiteDescriptions = {
+   aiMenuItems.forEach(function(item) {
+       item.addEventListener('mouseover', function() {
+           var website = this.getAttribute('data-website');
+           var description = descriptions[website] || "Описание не доступно"; // Фолбэк на случай отсутствия описания
+           popup.textContent = description;
+           this.appendChild(popup);
+       });
+       item.addEventListener('mouseout', function() {
+           this.removeChild(popup);
+       });
+   });
+}
+var websiteDescriptionsEn = {
   "https://duckduckgo.com/": "Free: Claude3, GPT-3.5 Turbo, Llama3 70B, Mixtral 8x7B",
   "https://thinkany.ai/": "Free: Claude 3 Haiku, DeepSeek-V2, Mixtral 8x7B, Llama 3.1 8B, GPT-4o-mini, Gemeni 1.0 Pro. There is a dark theme on the site.",
   "https://www.phind.com": "Phind LLM. Free Search Engine. There is a dark theme on the site.",
@@ -221,13 +225,138 @@ var websiteDescriptions = {
   "https://huggingface.co/spaces/gokaygokay/AuraSR-v2":"The service will improve the quality of any picture by 8 times. It works for free, right in the browser.",
   "https://copilot2trip.com/":"A personalized AI-powered travel assistant with maps. Just tell him where and when you want to go, and he will offer personalized plans with recommended destinations and attractions.",
   "https://rugpt.io/chat-gpt-dlya-rerajta-teksta":"The service supports many models, including the GT-4o mini.",
-  "https://chat.eqing.tech/":"The service supports many models, including the GT-4o mini."
+  "https://chat.eqing.tech/":"The service supports many models, including the GT-4o mini.",
+  "https://huggingface.co/spaces/finegrain/finegrain-object-eraser":"A service that removes any object from a photo. Just throw in the photo and write what needs to be deleted",
+  "https://huggingface.co/spaces/finegrain/finegrain-image-enhancer":"We improve the quality of images right in the browser. The service works absolutely free of charge. Throw in the picture and get an improved version.",
+  "https://julius.ai/ai-chatbot":"Free chat, have limit and dark them. Free models: GPT-4o, GPT-3.5, Claude Hiku, Claude Sonnet, Gemeni 1.5, Gemeni Flash, Command R, Llama 3."
 };
-  
-  window.addEventListener('DOMContentLoaded', function() {
-	   initializePage();
-     initializePopup();
-    });
+
+var websiteDescriptionsRu = {
+    "https://duckduckgo.com/": "Бесплатно: Claude3, GPT-3.5 Turbo, Llama3 70B, Mixtral 8x7B",
+    "https://thinkany.ai/": "Бесплатно: Claude 3 Haiku, DeepSeek-V2, Mixtral 8x7B, Llama 3.1 8B, GPT-4o-mini, Gemeni 1.0 Pro. На сайте есть темная тема.",
+    "https://www.phind.com": "Phind LLM. Бесплатная поисковая система. На сайте есть темная тема.",
+    "https://www.prefind.ai/": "Бесплатно: Llama-3, Claude 3",
+    "https://www.blackbox.ai/": "Бесплатно: BlackBox AI LLM. На сайте есть темная тема.",
+    "https://www.perplexity.ai/": "Perplexity Ai. Бесплатная поисковая система. На сайте есть темная тема.",
+    "https://chat.tune.app/": "Бесплатно: Llama3 70B, Llama3 8B, Mixtral 8x7b, Tune wizardlm 2 8x22b, Tune mythomax l2 13b. Другие LLM доступны после регистрации. На сайте есть темная тема.",
+    "https://labs.perplexity.ai/": "Бесплатно: Llama 3-Sonar, Llama3 70B, Llama3 8B, Gemma-2, Mixtral 8x7b, Nemotron-4-340B. На сайте есть темная тема.",
+    "https://jeeves.ai/": "Бесплатно: Jeeves LLM. На сайте есть темная тема.",
+    "https://bagoodex.io/": "Бесплатная поисковая система. Бесплатный LLM: GPT-4o, BaGooDex чат и другие инструменты. На сайте есть темная тема.",
+    "https://www.aiuncensored.info": "Бесплатно GPT-3.5. На сайте есть темная тема.",
+    "https://huggingface.co/spaces/Qwen/Qwen2-72B-Instruct": "Бесплатно: Qwen2-72B-Instruct",
+    "https://chat.tinycms.xyz:3002/#/chat": "GPT-4 и другие модели бесплатно, но с ограничениями. На сайте есть темная тема.",
+    "https://you.com/search?q=hi&fromSearchBar=true&tbm=youchat": "Бесплатно: You Chat LLM, GPT-4o (с ограничениями). На сайте есть темная тема.",
+    "https://finechat.ai/ru/app": "Бесплатно GPT-4o (с ограничениями)",
+    "https://gpt-4o.biz/playground": "Бесплатно: GPT-4o (с ограничениями)",
+    "https://gpt4o.so/ru/app": "GPT4o (с ограничениями)",
+    "https://iask.ai/": "Бесплатная поисковая система и другие инструменты ИИ.",
+    "https://www.popai.pro/": "Бесплатно GPT и другие инструменты ИИ, но требуется вход в систему и у этого сервиса есть ограничения.",
+    "https://useadrenaline.com/": "Бесплатный ИИ для программистов, позволяет анализировать репозитории на GitHub.",
+    "https://gpt.h2o.ai/": "Бесплатный LLM.",
+    "https://chat.lmsys.org/": "Большая платформа для тестирования различных ИИ. Некоторые имеют ограничения. На сайте есть темная тема, также возможно использовать несколько LLM одновременно.",
+    "https://chat.deepseek.com/": "ИИ для программистов, отлично справляется с написанием кода, но требуется регистрация.",
+    "https://chatgate.ai/gpt4/": "Бесплатно: ChatGPT-4 и другие инструменты, но с ограничениями.",
+    "https://agentgpt.reworkd.ai/ru": "Это сервис, который может находить решения ваших проблем. Просто напишите, что вам нужно, и он предложит варианты. Требуется регистрация. На сайте есть темная тема.",
+    "https://smartbuddy.ru/models/gpt-4-omni": "Бесплатно GPT-4o, с ограничениями.",
+    "https://andisearch.com/": "Бесплатная поисковая система.",
+    "https://anonchatgpt.com/": "Бесплатно GPT-3.5. На сайте есть темная тема.",
+    "https://aoyo.ai/": "Бесплатная поисковая система.",
+    "https://pi.ai/talk": "Бесплатный ИИ-ассистент.",
+    "https://gpt-chatbot.ru/chat-gpt-ot-openai-dlya-generacii-teksta": "Бесплатно: Чат-бот",
+    "https://devv.ai/": "ИИ для программистов, включает чат с LLM: Gemeni 1.5 и Claude 3 (требуется регистрация), веб-поиск и работа с GitHub, но требуется вход в систему.",
+    "https://huggingface.co/spaces/THUDM/CodeGeeX": "Бесплатный Codex LLM для программистов.",
+    "https://www.cleeai.com/": "Бесплатная поисковая система, с ограничениями, требуется вход в систему.",
+    "https://app.anakin.ai/discover": "Множество LLM и инструментов ИИ, на сайте есть темная тема, с ограничениями.",
+    "https://chatgptchatapp.com": "Бесплатно GPT-3.5.",
+    "https://character.ai": "Бесплатный персонализированный чат, требуется вход в систему.",
+    "https://chat.chatgptdemo.net": "GPT 3.5 Turbo. Бесплатно, лимит 15 запросов.",
+    "https://leingpt.ru/chat/": "Бесплатно GPT, не работает с блокировщиком рекламы. На сайте есть темная тема, с ограничениями.",
+    "https://promptboom.com/PowerChat/PowerChatTalk": "Бесплатные ИИ-сервисы, но требуется регистрация и есть ограничения.",
+    "https://pbot2.bus1.skybyte.me/#/chat/1002": "Бесплатный чат, но нет SSL-сертификата.",
+    "https://chataibot.ru/app/free-chat": "Бесплатный чат (GPT-3.5 Turbo).",
+    "https://chat.mistral.ai/chat": "Бесплатный чат Mistral (требуется вход в систему)",
+    "https://yep.com/chat/": "Бесплатный поиск и чат Yep.",
+    "https://share.wendaalpha.net": "Бесплатно GPT-4o, на сайте есть темная тема, но отвечает только на китайском.",
+    "https://groq.com/": "Бесплатный чат",
+    "https://ya.ru/": "Бесплатно Yandex GPT",
+    "https://talkai.info/ru/": "Бесплатно Gpt-3.5, с ограничениями, на сайте есть темная тема.",
+    "https://ai.mitup.ru/chatgpt-free": "Бесплатный чат",
+    "https://www.anytopic.io": "Бесплатные модели Claude, но требуется регистрация.",
+    "https://codepal.ai/": "Бесплатный чат, но требуется вход в систему.",
+    "https://www.yeschat.ai/claude3": "Бесплатно Yeschat Claude3, с ограничениями.",
+    "https://t.me/EdyaAIrobot": "Бесплатный чат-бот в Telegram",
+    "https://github.com/KudoAI/googlegpt": "Интегрирует GPT Chat в поисковую систему. Для корректной работы рекомендую включить мод API в настройках.",
+    "https://github.com/KudoAI/duckduckgpt": "Интегрирует GPT Chat в поисковую систему. Для корректной работы рекомендую включить мод API в настройках.",
+    "https://github.com/KudoAI/bravegpt": "Интегрирует GPT Chat в поисковую систему. Для корректной работы рекомендую включить мод API в настройках.",
+    "https://github.com/Processori7/llm/releases": "Это программа, которая позволяет использовать различные LLM бесплатно. Внимание: Windows Defender может сработать.",
+    "https://aibro.io/article/": "Это бесплатный генератор статей, просто введите тему.",
+    "https://dezgo.com/": "Бесплатный генератор изображений, доступно много моделей.",
+    "https://perchance.org/ai-text-to-image-generator": "Бесплатный генератор изображений.",
+    "https://fusionbrain.ai/": "Бесплатный генератор изображений и видео. Использует модель Кандинского. Требуется вход в систему.",
+    "https://shedevrum.ai/text-to-image/": "Бесплатный генератор изображений от Яндекса. Требуется вход в систему.",
+    "https://ideogram.ai/": "Бесплатный генератор изображений, требуется вход в систему.",
+    "https://dall-e-2.ru/": "Бесплатный генератор изображений.",
+    "https://www.craiyon.com/": "Бесплатный генератор изображений, генерирует картину и показывает похожие.",
+    "https://stabledifffusion.com/": "Бесплатный генератор изображений.",
+    "https://dreamlike.art/create": "Бесплатный генератор изображений, но требуется вход в систему.",
+    "https://huggingface.co/spaces/gokaygokay/Kolors": "Бесплатный генератор изображений.",
+    "https://magnific.ai/": "Сервис, который улучшает качество фотографий с помощью алгоритмов ИИ. Требуется вход в систему.",
+    "https://dewatermark.ai/ru": "Сервис, который удваивает любой водяной знак.",
+    "https://magic-eraser.ai": "С помощью Imgedit AI eraser вы можете удалить нежелательные объекты из ваших фотографий онлайн бесплатно за считанные секунды!",
+    "https://huggingface.co/spaces/ehristoforu/dalle-3-xl-lora-v2": "Бесплатный генератор изображений Dalle-3.",
+    "https://ru.aiseesoft.com/watermark-remover-online/#": "Сервис, который удваивает любой водяной знак.",
+    "https://remaker.ai/en": "Сервис, который меняет лица на фотографиях.",
+    "https://huggingface.co/spaces/stabilityai/stable-diffusion-3-medium": "Бесплатный генератор изображений Stable-diffusion-3-medium.",
+    "https://huggingface.co/spaces/mukaist/DALLE-4K": "Бесплатный генератор изображений DALLE-4K.",
+    "https://picwish.com/photo-enhancer": "Сервис, который улучшает качество фотографий.",
+    "https://www.artguru.ai/": "Бесплатный генератор изображений, без регистрации, с возможностью выбора стиля.",
+    "https://www.veed.io/": "Бесплатный генератор видео. Требуется вход в систему.",
+    "https://fusionbrain.ai/": "Бесплатный генератор видео. Требуется вход в систему.",
+    "https://app.runwayml.com/": "Бесплатный генератор видео. Требуется вход в систему.",
+    "https://videodubber.ai/": "Бесплатный генератор видео. Требуется вход в систему.",
+    "https://www.typeframes.com/": "Бесплатный генератор видео. Требуется вход в систему.",
+    "https://maestra.ai/tools/video-translator": "Бесплатный видеопереводчик. Требуется вход в систему.",
+    "https://pika.art/login": "Бесплатный генератор видео. Требуется вход в систему.",
+    "https://www.genmo.ai/": "Бесплатный генератор видео. Требуется вход в систему.",
+    "https://huggingface.co/spaces/KwaiVGI/LivePortrait": "Сервис, который позволяет оживить портреты.",
+    "https://ltx.studio": "Бесплатный генератор видео. Требуется вход в систему. Демонстрация.",
+    "https://www.hedra.com/": "Бесплатный генератор видео. Требуется вход в систему.",
+    "https://gamma.app/": "Бесплатный генератор презентаций. Требуется вход в систему.",
+    "https://slidesgo.com/": "Бесплатный генератор презентаций. Требуется вход в систему.",
+    "https://www.crystalsound.ai/": "CrystalSound: ваше умное приложение для подавления шума и записи экрана. Бесплатно, но требуется вход в систему.",
+    "https://diktatorial.com/": "Онлайн инструмент для мастеринга аудио и музыки | DIKTATORIAL Suite. Бесплатно, но требуется вход в систему.",
+    "https://huggingface.co/spaces/Xenova/whisper-webgpu": "Бесплатный аудиопереводчик в реальном времени.",
+    "https://elevenlabs.io/": "Бесплатные аудиосервисы. Требуется вход в систему.",
+    "https://hidola.ai/en": "Бесплатный TODO-сервис. Требуется вход в систему.",
+    "https://simplified.com/": "Бесплатный TODO-сервис. Требуется вход в систему.",
+    "https://huggingface.co/spaces/TencentARC/PhotoMaker-Style": "Сервис генерации аватаров. Загрузите несколько своих фотографий, напишите запрос, выберите стиль и готово.",
+    "https://app.scenario.com/upscale": "Scenario — это инструмент для создания игровых персонажей с использованием ИИ.",
+    "https://easywithai.com/tools/vidiq": "Это инструмент роста для создателей YouTube, который теперь имеет функции ИИ.",
+    "https://www.noota.io/": "Нейронная сеть, которая извлекает информацию из любых встреч, включая конференции, голосовые сообщения и подкасты.",
+    "https://smartbuddy.ru/models/gpt-4o-mini": "Чат с GPT-4o-mini.",
+    "https://websim.ai/": "ИИ ответит на вопросы и также создаст что угодно! Все версии Claude и GPT-4o доступны, но требуется регистрация.",
+    "https://spline.design/": "Генератор 3D-моделей на основе нейронной сети прямо в браузере. Требуется регистрация.",
+    "https://mojo-app.com/ai": "ИИ для анимации логотипов.",
+    "https://www.fontspace.com/": "Сервис для дизайнеров с 120 тысячами шрифтов в одном месте, бесплатно. Также есть генератор и автоматизированный поиск.",
+    "https://huggingface.co/spaces/Xenova/whisper-word-level-timestamps": "Нейронная сеть быстро и бесплатно преобразует видео в текст. Сервис работает прямо в браузере. Загрузите исходник и получите транскрипцию.",
+    "https://huggingface.co/spaces/gokaygokay/Tile-Upscaler": "Нейронная сеть, которая позволяет улучшать размытые фотографии прямо в вашем браузере. Бесплатный аналог Upscayl с максимальным увеличением 20x.",
+    "https://github.com/Anjok07/ultimatevocalremovergui/releases": "Сервис ИИ отделяет музыку от вокала и делит трек на отдельные дорожки. Сервис полностью бесплатен и позволяет извлекать из музыкальных композиций.",
+    "https://huggingface.co/spaces/yizhezhu/MoMA_zeroGPU": "ИИ сгенерирует изображение из другого изображения бесплатно. Вы получите качественную работу на основе другого. Напишите запрос, загрузите ссылку и получите результат. Все можно настроить под себя, нейронная сеть имеет гибкий редактор.",
+    "https://klingai.com/": "Kling создает классные видео и изображения по запросу.",
+    "https://www.gling.ai/": "Gling — нейронная сеть для начинающих блогеров. Она сможет удалить слова-паразиты, паузы и другие звуки, которые портят контент. Значительно упростит монтаж и сэкономит много времени.",
+    "https://www.superupscaler.com/": "Сервис быстро улучшает качество изображений прямо в браузере. Вам просто нужно загрузить исходник.",
+    "https://huggingface.co/spaces/lllyasviel/IC-Light": "Сервис на основе нейронной сети способен определить, как и откуда падает свет на изображение, и учитывать это при создании нового фона. Короче говоря, времена долгой экспозиции света в Photoshop навсегда ушли.",
+    "https://app.chathub.gg/": "Сервис сравнивает различные нейронные сети. Здесь собраны GPT-4, Claude 3.5, Liama 3 и другие ИИ. Просто загрузите запрос и посмотрите, какая нейронная сеть справилась лучше. Идеальный способ выбрать подходящего ИИ-ассистента. Требуется авторизация.",
+    "https://dubverse.ai/": "Позволяет сделать ваши видео многоязычными одним нажатием кнопки. Требуется вход в систему.",
+    "https://huggingface.co/spaces/gokaygokay/AuraSR-v2": "Сервис улучшает качество любого изображения в 8 раз. Работает бесплатно, прямо в браузере.",
+    "https://copilot2trip.com/": "Персонализированный ИИ-ассистент по путешествиям с картами. Просто скажите ему, куда и когда вы хотите поехать, и он предложит персонализированные планы с рекомендованными направлениями и достопримечательностями.",
+    "https://rugpt.io/chat-gpt-dlya-rerajta-teksta": "Сервис поддерживает множество моделей, включая GT-4o mini.",
+    "https://chat.eqing.tech/": "Сервис поддерживает множество моделей, включая GT-4o mini.",
+    "https://huggingface.co/spaces/finegrain/finegrain-object-eraser": "Сервис, который удаляет любой объект из фотографии. Просто загрузите фото и напишите, что нужно удалить.",
+    "https://huggingface.co/spaces/finegrain/finegrain-image-enhancer": "Мы улучшаем качество изображений прямо в браузере. Сервис работает абсолютно бесплатно. Загрузите изображение и получите улучшенную версию.",
+    "https://julius.ai/ai-chatbot": "Бесплатный чат, с ограничениями и темной темой. Бесплатные модели: GPT-4o, GPT-3.5, Claude Hiku, Claude Sonnet, Gemeni 1.5, Gemeni Flash, Command R, Llama 3."
+  };
+
   initializePage();
   initializePopup();
 });

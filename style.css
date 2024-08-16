@@ -42,13 +42,16 @@ body {
     display: block;
     width: 180px;
     cursor: pointer;
-    height: 30px;
+    min-height: 30px;
     font-size: 100%;
     text-align: center;
     border-radius: 5px;
     padding-top: 8px;
     font-size: 16px;
     outline: thick double #32a1ce;
+    padding: 8px;
+    box-sizing: border-box; /* Учитываем отступы и границы в размерах элемента */
+    transition: background-color 0.3s; /* Плавный переход для фона при наведении */
   }
   
   a {
@@ -70,35 +73,6 @@ body {
     color: white;
   }
   
-  .orange {
-    background-color: #fb7b2d; /* Оранжевый фон для элементов с классом .orange */
-  }
-  
-  #aiList li {
-    color: #000;
-    border: none;
-    margin-top: 3px;
-    display: block;
-    width: 180px;
-    height: 30px;
-    font-size: 100%; 
-    text-align: center;
-    background-color: #fb7b2d;
-    border-radius: 5px;
-    padding-top: 8px;
-    font-size: 16px;
-    position: relative;
-    cursor: default;
-  }
-  
-  #aiList a {
-    color: red;
-    position: absolute;
-    right: 9px;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: #fb7b2d; /* Оранжевый фон для ссылок внутри #aiList */
-  }
   .popup {
       position: absolute;
       background-color: #333;
@@ -107,4 +81,5 @@ body {
       border-radius: 5px;
       font-size: 14px;
       z-index: 1;
+      min-width: 150px; 
     }
