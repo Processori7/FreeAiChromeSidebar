@@ -96,7 +96,9 @@ document.addEventListener("DOMContentLoaded", function () {
    aiMenuItems.forEach(function(item) {
        item.addEventListener('mouseover', function() {
            var website = this.getAttribute('data-website');
-           var description = descriptions[website] || "Описание не доступно"; // Фолбэк на случай отсутствия описания
+           if (descriptions.hasOwnProperty(website)) {
+            var description = descriptions[website];
+            }
            popup.textContent = description;
            this.appendChild(popup);
        });
@@ -185,7 +187,6 @@ var websiteDescriptionsEn = {
   "https://picwish.com/photo-enhancer":"The service improves photo quality.",
   "https://www.artguru.ai/":"A free image generator, without registration, with the ability to choose a style.",
   "https://www.veed.io/":"Free video generator. Need login.",
-  "https://fusionbrain.ai/":"Free video generator. Need login.",
   "https://app.runwayml.com/":"Free video generator. Need login.",
   "https://videodubber.ai/":"Free video generator. Need login.",
   "https://www.typeframes.com/":"Free video generator. Need login.",
@@ -311,7 +312,6 @@ var websiteDescriptionsRu = {
     "https://picwish.com/photo-enhancer": "Сервис, который улучшает качество фотографий.",
     "https://www.artguru.ai/": "Бесплатный генератор изображений, без регистрации, с возможностью выбора стиля.",
     "https://www.veed.io/": "Бесплатный генератор видео. Требуется вход в систему.",
-    "https://fusionbrain.ai/": "Бесплатный генератор видео. Требуется вход в систему.",
     "https://app.runwayml.com/": "Бесплатный генератор видео. Требуется вход в систему.",
     "https://videodubber.ai/": "Бесплатный генератор видео. Требуется вход в систему.",
     "https://www.typeframes.com/": "Бесплатный генератор видео. Требуется вход в систему.",
