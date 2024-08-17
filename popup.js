@@ -41,9 +41,18 @@ document.addEventListener("DOMContentLoaded", function () {
               } else {
                 if (blockSites.includes(website))
                   {
-                    let answer = confirm("Attention! This site can't be opened in the sidebar, should I open it in a new tab?");
+                       // Определяем язык браузера
+                    var userLang = navigator.language || navigator.userLanguage; 
+                    let answer = "";
+                    if(userLang.startsWith('ru'))
+                      {
+                        answer = confirm("Внимание! Этот сайт не может быть открыт в боковой панели, открыть его в новой вкладке?");
+                      }
+                      else
+                      {
+                        answer = confirm("Attention! This site can't be opened in the sidebar, should I open it in a new tab?");
+                      }
                     if (answer) {
-                    
                       window.open(website, '_blank');
                     }
                   }
