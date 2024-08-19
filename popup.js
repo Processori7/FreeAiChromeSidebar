@@ -237,7 +237,10 @@ var websiteDescriptionsEn = {
   "https://chat.eqing.tech/":"The service supports many models, including the GT-4o mini.",
   "https://huggingface.co/spaces/finegrain/finegrain-object-eraser":"A service that removes any object from a photo. Just throw in the photo and write what needs to be deleted",
   "https://huggingface.co/spaces/finegrain/finegrain-image-enhancer":"We improve the quality of images right in the browser. The service works absolutely free of charge. Throw in the picture and get an improved version.",
-  "https://julius.ai/ai-chatbot":"Free chat, have limit and dark them. Free models: GPT-4o, GPT-3.5, Claude Hiku, Claude Sonnet, Gemeni 1.5, Gemeni Flash, Command R, Llama 3."
+  "https://julius.ai/ai-chatbot":"Free chat, have limit and dark them. Free models: GPT-4o, GPT-3.5, Claude Hiku, Claude Sonnet, Gemeni 1.5, Gemeni Flash, Command R, Llama 3.",
+  "https://chatgpt5free.com/chatgpt-5-free/":"A free chat room with a lot of features and a dark theme.",
+  "https://felo.ai/search":"A new search engine, fast and detailed search using AI, has a dark theme.",
+  "https://rubiks.ai/":"A search engine with the ability to search using files, many models are available, the default is GPT-4o-mini. There is no dark theme."
 };
 
 var websiteDescriptionsRu = {
@@ -361,7 +364,10 @@ var websiteDescriptionsRu = {
     "https://chat.eqing.tech/": "Сервис поддерживает множество моделей, включая GT-4o mini.",
     "https://huggingface.co/spaces/finegrain/finegrain-object-eraser": "Сервис, который удаляет любой объект из фотографии. Просто загрузите фото и напишите, что нужно удалить.",
     "https://huggingface.co/spaces/finegrain/finegrain-image-enhancer": "Мы улучшаем качество изображений прямо в браузере. Сервис работает абсолютно бесплатно. Загрузите изображение и получите улучшенную версию.",
-    "https://julius.ai/ai-chatbot": "Бесплатный чат, с ограничениями и темной темой. Бесплатные модели: GPT-4o, GPT-3.5, Claude Hiku, Claude Sonnet, Gemeni 1.5, Gemeni Flash, Command R, Llama 3."
+    "https://julius.ai/ai-chatbot": "Бесплатный чат, с ограничениями и темной темой. Бесплатные модели: GPT-4o, GPT-3.5, Claude Hiku, Claude Sonnet, Gemeni 1.5, Gemeni Flash, Command R, Llama 3.",
+    "https://chatgpt5free.com/chatgpt-5-free/":"Бесплатный чат с множеством возможностей и тёмной темой оформления.",
+    "https://felo.ai/search":"Новая поисковая система, быстрый и подробный поиск с использованием ИИ, есть тёмная тема оформления.",
+    "https://rubiks.ai/":"Поисковая система с возможность поиска с использованием файлов, доступны множества моделей, по умолчанию используется GPT-4o-mini. Нет тёмной темы оформления."
   };
 
   initializePage();
