@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
   <title>Free Ai Services</title>
   <link rel="stylesheet" type="text/css" href="style.css">
   <script src="popup.js"></script>
 </head>
 <body>
-<h1>Free AI Chat</h1>
-  <ul id="aiMenu">
+	<div class="menu-container">
+		<label for="menu-toggle" class="menu-label">☰</label>
+		<input type="checkbox" id="menu-toggle" class="menu-toggle" />
+        <div class="dropdown" id="dropdown-menu">
+            <input id="searchInput" type="text" class="search-input" placeholder="Search...">
+            <div class="dropdown-item">
+				<input type="checkbox" id="openInNewTab">Open in a new tab.
+			</div>
+            <div class="dropdown-item">
+				<input type="checkbox" id="favoriteCheckbox">Add to favorites.
+			</div>
+        </div>
+    </div>
+    <!-- Main content -->
+<h1 id="aiChat">Free AI Chat</h1>
+  <ul class="aiMenu">
     <li data-website="https://duckduckgo.com/">Duckduckgo (Ai chat)</li>
-	<li data-website="https://thinkany.ai/">Thinkany (Ai chat)</li>
+	<li data-website="https://bagoodex.io/">Bagoodex</li>
 	<li data-website="https://www.phind.com">Phind</li>
 	<li data-website="https://www.prefind.ai/">Prefind</li>
 	<li data-website="https://www.blackbox.ai/">BlackBox</li>
@@ -18,7 +33,6 @@
 	<li data-website="https://chat.tune.app/">Tune Ai</li>
 	<li data-website="https://labs.perplexity.ai/">Perplexity Ai lab</li>
 	<li data-website="https://jeeves.ai/">Jeeves</li>
-	<li data-website="https://bagoodex.io/">Bagoodex</li>
 	<li data-website="https://www.aiuncensored.info">Aiuncensored</li>
 	<li data-website="https://huggingface.co/spaces/Qwen/Qwen2-72B-Instruct">Qwen2-72B-Instruct</li>
 	<li data-website="https://chat.tinycms.xyz:3002/#/chat">GPT4 free China</li>
@@ -27,6 +41,7 @@
 	<li data-website="https://rubiks.ai/">Rubiks</li>
 	<li data-website="https://felo.ai/search">Felo</li>
 	<li data-website="https://gpt-4o.biz/playground">GPT-4o</li>
+	<li data-website="https://thinkany.ai/">Thinkany (login)</li>
 	<li data-website="https://gpt4o.so/ru/app">GPT4o</li>
 	<li data-website="https://iask.ai/">iAsk</li>
 	<li data-website="https://www.popai.pro/">PopAi (login)</li>
@@ -72,27 +87,29 @@
 	<li data-website="https://codepal.ai/">CODEPAL (login)</li>
     <li data-website="https://t.me/EdyaAIrobot">Edya bot in Telegram</li>
   </ul>
-   <h1>Free GPT scripts for search engines</h1>
-   <ul id="aiMenu">
+   <h1 id="aiScripts">Free GPT scripts for search engines</h1>
+   <ul class="aiMenu">
     <li data-website="https://github.com/KudoAI/googlegpt">Googlegpt</li>
 	<li data-website="https://github.com/KudoAI/duckduckgpt">Duckduckgpt</li>
 	<li data-website="https://github.com/KudoAI/bravegpt">Bravegpt</li>
   </ul>
-  <h1>Free GPT on Windows PC</h1>
-   <ul id="aiMenu">
+  <h1 id="aiPC">Free GPT on Windows PC</h1>
+   <ul class="aiMenu">
     <li data-website="https://github.com/Processori7/llm/releases">LLM</li>
   </ul>
-  <h1>Free Article Generator</h1>
-   <ul id="aiMenu">
+  <h1 id="aiArticle">Free AI Article Generator</h1>
+   <ul class="aiMenu">
     <li data-website="https://aibro.io/article/">Aibro</li>
 	<li data-website="https://www.noota.io/">Noota</li>
+	<li data-website="https://textbot.ru/">TextBot</li>
   </ul>
-  <h1>Free AI Image Services</h1>
-  <ul id="aiMenu">
+  <h1 id ="aiImage">Free AI Image Services</h1>
+  <ul class="aiMenu">
     <li data-website="https://dezgo.com/">Dezgo</li>
     <li data-website="https://perchance.org/ai-text-to-image-generator">Perchance</li>
     <li data-website="https://fusionbrain.ai/">Fusionbrain (login)</li>
 	<li data-website="https://ideogram.ai/">Ideogram (login)</li>
+	<li data-website="https://shedevrum.ai/text-to-image/">Shedevrum</li>
 	<li data-website="https://dall-e-2.ru/">dall-e-2</li>
 	<li data-website="https://www.craiyon.com/">Craiyon</li>
 	<li data-website="https://stabledifffusion.com/">Stabledifffusion</li>
@@ -118,9 +135,11 @@
 	<li data-website="https://huggingface.co/spaces/gokaygokay/AuraSR-v2">AuraSR-v2</li>
 	<li data-website="https://huggingface.co/spaces/finegrain/finegrain-object-eraser">Finegrain Eraser</li>
 	<li data-website="https://huggingface.co/spaces/finegrain/finegrain-image-enhancer">Finegrain Enhancer</li>
+	<li data-website="https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer">Flux</li>
+	<li data-website="https://kidgeni.com/">Kidgeni</li>
   </ul>
-  <h1>Free Video Services</h1>
-  <ul id="aiMenu">
+  <h1 id="aiVideo">Free AI Video Services</h1>
+  <ul class="aiMenu">
     <li data-website="https://www.artguru.ai/">Artguru (login)</li>
     <li data-website="https://www.veed.io/">Veed (login)</li>
     <li data-website="https://fusionbrain.ai/">Fusionbrain (login)</li>
@@ -138,32 +157,29 @@
 	<li data-website="https://klingai.com/">Kling</li>
 	<li data-website="https://dubverse.ai/">Dubverse</li>
   </ul>
-  <h1>Free Presentation Generator</h1>
-  <ul id="aiMenu">
+  <h1 id="aiPresentation">Free AI Presentation Generator</h1>
+  <ul class="aiMenu">
     <li data-website="https://gamma.app/">Gamma (login)</li>
     <li data-website="https://slidesgo.com/">Slidesgo (login)</li>
   </ul>
-  <h1>Free sound services</h1>
-  <ul id="aiMenu">
+  <h1 id="aiSound">Free AI sound services</h1>
+  <ul class="aiMenu">
     <li data-website="https://www.crystalsound.ai/">Crystalsound (login)</li>
 	<li data-website="https://diktatorial.com/">Diktatorial (login)</li>
 	<li data-website="https://huggingface.co/spaces/Xenova/whisper-webgpu">Whisper-webgpu (tr)</li>
 	<li data-website="https://elevenlabs.io/">Elevenlabs(login)</li>
 	<li data-website="https://github.com/Anjok07/ultimatevocalremovergui/releases">Ultimate Vocal Remover</li>
   </ul>
-  <h1>Free TODO Services</h1>
-  <ul id="aiMenu">
+  <h1 id="aiTODO">Free AI TODO Services</h1>
+  <ul class="aiMenu">
     <li data-website="https://hidola.ai/en">Hidola</li>
 	<li data-website="https://simplified.com/">Simplified</li>
   </ul>
-  <h1>Other AI Services</h1>
-  <ul id="aiMenu">
+  <h1 id="aiOther">Other AI Services</h1>
+  <ul class="aiMenu">
     <li data-website="https://www.fontspace.com/">Fontspace</li>
 	<li data-website="https://www.gling.ai/">Gling</li>
 	<li data-website="https://copilot2trip.com/">Copilot2trip</li>
   </ul>
-  <div class="newTab">
-    <input type="checkbox" id="openInNewTab">Open in new tab
-</div>
 </body>
 </html>

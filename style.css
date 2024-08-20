@@ -52,6 +52,7 @@ body {
     padding: 8px;
     box-sizing: border-box; /* Учитываем отступы и границы в размерах элемента */
     transition: background-color 0.3s; /* Плавный переход для фона при наведении */
+    background-color: #89CFF0;
   }
   
   a {
@@ -83,3 +84,66 @@ body {
       z-index: 1;
       min-width: 150px; 
     }
+
+    .menu-toggle {
+      display: none; /* Скрываем чекбокс */
+  }
+  
+  .menu-toggle:checked + .dropdown {
+      display: block; /* Показываем меню, когда чекбокс отмечен */
+  }
+  
+  .menu-container {
+      position: fixed; /* Закрепляем меню */
+      top: 20px; /* Отступ от верхней части страницы */
+      right: 20px; /* Отступ от правой стороны страницы */
+      z-index: 100; /* Устанавливаем высокий z-index, чтобы меню было поверх других элементов */
+  }
+  
+  .menu {
+      color: yellow;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px; /* Увеличиваем размер шрифта для лучшей видимости */
+  }
+  
+  .menu-label {
+      cursor: pointer; /* Указываем, что метка кликабельна */
+      display: inline-block;
+      padding: 10px;
+      color: yellow;
+      border-radius: 5px;
+  }
+  
+  .dropdown {
+      display: none; /* Скрываем выпадающий список по умолчанию */
+      position: absolute;
+      top: 40px; /* Позиционируем ниже меню */
+      right: 0; /* Позиционируем справа */
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+      min-width: 250px; /* Ширина выпадающего списка */
+  }
+  
+  .search-input {
+      width: 93%; /* Полная ширина поля ввода */
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #242582;
+      color: white;
+  }
+  
+  .dropdown-item {
+      padding: 10px;
+      cursor: pointer;
+      color: yellow; /* Оранжевый цвет текста */
+      font-size: 14px;
+      background-color: #242582;
+  }
+  
+  /* .dropdown-item:hover {
+      background-color: #f0f0f0;
+  } */
