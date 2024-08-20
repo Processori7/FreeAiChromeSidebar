@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
   const openInNewTab = document.getElementById("openInNewTab");
-  const menuToggle = document.getElementById('menu-toggle');
   const dropdownMenu = document.getElementById('dropdown-menu');
   const searchInput = document.getElementById('searchInput');
   const userLang = navigator.language || navigator.userLanguage; 
