@@ -85,7 +85,7 @@ body {
       min-width: 150px; 
     }
 
-    .menu-toggle {
+  .menu-toggle {
       display: none; /* Скрываем чекбокс */
   }
   
@@ -144,6 +144,3 @@ body {
       background-color: #242582;
   }
   
-  /* .dropdown-item:hover {
-      background-color: #f0f0f0;
-  } */
