@@ -64,5 +64,5 @@ if exist "%extractDir%" (
     :: Удаление распакованной папки (если нужно)
     rmdir /S /Q "%extractDir%"
 )
-pause
+
 endlocal
