@@ -378,7 +378,14 @@ var websiteDescriptionsEn = {
   "https://rubiks.ai/":"A search engine with the ability to search using files, many models are available, the default is GPT-4o-mini. There is no dark theme.",
   "https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer":"Flux's image generator produces high-quality images. There are several styles to choose from: realism, anime, paintings and others.",
   "https://kidgeni.com/":"Kidgeni allows you to generate images, books, stories, images from sketches. Note: To generate images, you must enter the query only in English. Some features are only available after registration. There is a limit: 15 requests.",
-  "https://textbot.ru/":"TextBot is a neural network that will help generate, supplement, improve or rewrite text on any topic."
+  "https://textbot.ru/":"TextBot is a neural network that will help generate, supplement, improve or rewrite text on any topic.",
+  "https://www.seaart.ai/ai-tools/ai-face-swap":"A tool to combine your face with different art styles and scenes. It supports face swapping in both videos and images, making it easy to create unique and entertaining content.",
+  "https://www.basedgpt.chat/":"GPT-3.5 Trubo is free, chat works without registration.",
+  "https://llmplayground.net/":"A site with a dark theme and a large selection of LLMs.",
+  "https://www.farfalle.dev":"A free search engine, with a dark theme, GPT-3.5 Turbo and LLAMA 3-70B are available.",
+  "https://www.pizzagpt.it/en":"Free Chat GPT-3.5 Turbo, a site with a dark theme.",
+  "https://www.turboseek.io":"Free AI search engine, using LLAMA 3-8B or Mixtrai 8x7B.",
+  "https://www.xdash.ai":"A free search engine that uses AI to improve search results."
 };
 
 var websiteDescriptionsRu = {
@@ -508,7 +515,14 @@ var websiteDescriptionsRu = {
     "https://rubiks.ai/":"Поисковая система с возможность поиска с использованием файлов, доступны множества моделей, по умолчанию используется GPT-4o-mini. Нет тёмной темы оформления.",
     "https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer":"Генератор картинок Flux создаёт изображения высокого качества. На выбор доступно несколько стилей: реализм, аниме, картины и другие.",
     "https://kidgeni.com/":"Kidgeni позволяет генерировать изображения, книги, истории, изображения из набросков. Внимание: для генерации изображений запрос нужно вводить только на ангийском языке. Некоторые функции доступны только после регистрации. Есть лимит: 15 запросов.",
-    "https://textbot.ru/":"TextBot — нейросеть которая поможет сгенерировать, дополнить, улучшить или отрерайтить текст на любую тему."
+    "https://textbot.ru/":"TextBot — нейросеть которая поможет сгенерировать, дополнить, улучшить или отрерайтить текст на любую тему.",
+    "https://www.seaart.ai/ai-tools/ai-face-swap":"Инструмент для объединения вашего лица с различными художественными стилями и сценами. Он поддерживает обмен лицами как в видео, так и в изображениях, что облегчает создание уникального и развлекательного контента.",
+    "https://www.basedgpt.chat/":"Беспалтный GPT-3.5 Trubo, чат работает без регистрации.",
+    "https://llmplayground.net/":"Сайт с тёмной темой оформления и большим выбором LLM.",
+    "https://www.farfalle.dev":"Бесплатный поисковый движок, с тёмной темой оформления, доступны GPT-3.5 Turbo и LLAMA 3-70B.",
+    "https://www.pizzagpt.it/en":"Бесплатный Chat GPT-3.5 Turbo,  сайт с тёмной темой оформления.",
+    "https://www.turboseek.io":"Бесплатная поисковая система с ИИ, используются LLAMA 3-8B или Mixtrai 8x7B.",
+    "https://www.xdash.ai":"Бесплатная поисковая система, использует ИИ для улучшения результатов поиска."
   };
 
   initializePage();
