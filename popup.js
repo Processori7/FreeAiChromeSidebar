@@ -195,7 +195,8 @@ favoriteCheckbox.addEventListener('click', function() {
                 "https://smartbuddy.ru/models/gpt-4-omni", "https://smartbuddy.ru/models/gpt-4o-mini", "https://huggingface.co/spaces/Xenova/whisper-word-level-timestamps",
                 "https://huggingface.co/spaces/gokaygokay/Tile-Upscaler", "https://github.com/Anjok07/ultimatevocalremovergui/releases", "https://huggingface.co/spaces/yizhezhu/MoMA_zeroGPU",
                 "https://klingai.com/", "https://huggingface.co/spaces/lllyasviel/IC-Light", "https://huggingface.co/spaces/gokaygokay/AuraSR-v2","https://huggingface.co/spaces/finegrain/finegrain-object-eraser",
-                "https://huggingface.co/spaces/finegrain/finegrain-image-enhancer", "https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer"];
+                "https://huggingface.co/spaces/finegrain/finegrain-image-enhancer", "https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer", "https://huggingface.co/spaces/Kwai-Kolors/Kolors-Virtual-Try-On",
+                "https://github.com/ToonCrafter/ToonCrafter"];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
                 } else {
@@ -229,27 +230,33 @@ favoriteCheckbox.addEventListener('click', function() {
         });
     }
 
-  function initializePopup() {
-  var aiMenuItems = document.querySelectorAll('.aiMenu li')
-  var popup = document.createElement('div');
-  popup.classList.add('popup');
-
-   var descriptions = (userLang.startsWith('ru')) ? websiteDescriptionsRu : websiteDescriptionsEn;
-
-   aiMenuItems.forEach(function(item) {
-       item.addEventListener('mouseover', function() {
-           var website = this.getAttribute('data-website');
-           if (descriptions.hasOwnProperty(website)) {
-            var description = descriptions[website];
-            }
-           popup.textContent = description;
-           this.appendChild(popup);
-       });
-       item.addEventListener('mouseout', function() {
-           this.removeChild(popup);
-       });
-   });
-}
+    function initializePopup() {
+        var aiMenuItems = document.querySelectorAll('.aiMenu li');
+        var popup = document.createElement('div');
+        popup.classList.add('popup');
+        document.body.appendChild(popup); // Добавляем popup в body один раз
+    
+        var descriptions = (userLang.startsWith('ru')) ? websiteDescriptionsRu : websiteDescriptionsEn;
+    
+        aiMenuItems.forEach(function(item) {
+            item.addEventListener('mouseover', function(event) {
+                var website = this.getAttribute('data-website');
+                if (descriptions.hasOwnProperty(website)) {
+                    var description = descriptions[website];
+                    popup.textContent = description;
+    
+                    // Устанавливаем позицию popup
+                    popup.style.left = event.pageX + 'px'; // Позиция по X
+                    popup.style.top = event.pageY + 'px'; // Позиция по Y
+                    popup.classList.add('show'); // Показываем popup
+                }
+            });
+    
+            item.addEventListener('mouseout', function() {
+                popup.classList.remove('show'); // Скрываем popup
+            });
+        });
+    }
 
 var websiteDescriptionsEn = {
   "https://duckduckgo.com/": "Free: Claude3 Hiku, GPT-4o-mini, Llama3.1 70B, Mixtral 8x7B",
@@ -385,7 +392,12 @@ var websiteDescriptionsEn = {
   "https://www.farfalle.dev":"A free search engine, with a dark theme, GPT-3.5 Turbo and LLAMA 3-70B are available.",
   "https://www.pizzagpt.it/en":"Free Chat GPT-3.5 Turbo, a site with a dark theme.",
   "https://www.turboseek.io":"Free AI search engine, using LLAMA 3-8B or Mixtrai 8x7B.",
-  "https://www.xdash.ai":"A free search engine that uses AI to improve search results."
+  "https://www.xdash.ai":"A free search engine that uses AI to improve search results.",
+  "https://chatify-ai.vercel.app/":"Free chat with LLAMA, has a dark theme.",
+  "https://www.teach-anything.com/":"A free tool that will help you learn anything.",
+  "https://discopixel.app/animator":"AI allows you to bring faces in photos to life in a couple of clicks. The service works for free. Choose a photo, choose an emotion and you're done.",
+  "https://huggingface.co/spaces/Kwai-Kolors/Kolors-Virtual-Try-On":"Kolors Virtual is a neural network that can change a person's clothes using AI. Everything is as simple as possible: upload your photo to the left field, and a picture with clothes to the right.",
+  "https://github.com/ToonCrafter/ToonCrafter": "An open-source video interpolation model that is configured for the production of cartoon videos. It requires two images – the beginning and end of your video or animation (also known as keyframes). The AI then uses these two images to generate and interpolate the motion of the fluid between frames. This can save valuable time for sketchers and illustrators who make animations, as they no longer have to draw each frame individually."
 };
 
 var websiteDescriptionsRu = {
@@ -522,7 +534,12 @@ var websiteDescriptionsRu = {
     "https://www.farfalle.dev":"Бесплатный поисковый движок, с тёмной темой оформления, доступны GPT-3.5 Turbo и LLAMA 3-70B.",
     "https://www.pizzagpt.it/en":"Бесплатный Chat GPT-3.5 Turbo,  сайт с тёмной темой оформления.",
     "https://www.turboseek.io":"Бесплатная поисковая система с ИИ, используются LLAMA 3-8B или Mixtrai 8x7B.",
-    "https://www.xdash.ai":"Бесплатная поисковая система, использует ИИ для улучшения результатов поиска."
+    "https://www.xdash.ai":"Бесплатная поисковая система, использует ИИ для улучшения результатов поиска.",
+    "https://chatify-ai.vercel.app/":"Бесплатный чат с LLAMA, есть тёмная тема оформления.",
+    "https://www.teach-anything.com/":"Бесплатный инструмент, который поможет выучить что угодно, русский язык пока не поддерживается.",
+    "https://discopixel.app/animator":"ИИ позволяет оживить лица на фотографиях в пару кликов. Сервис работает бесплатно.  Выбираем фото, выбираем эмоцию и готово.",
+    "https://huggingface.co/spaces/Kwai-Kolors/Kolors-Virtual-Try-On":"Kolors Virtual — нейросеть которая может переодевать человека с помощью ИИ. Всё максимально просто: в левое поле загружаем своё фото, а в правое — картинку с одеждой.",
+    "https://github.com/ToonCrafter/ToonCrafter":"Модель интерполяции видео с открытым исходным кодом, которая настроена для производства мультипликационных видео. Для этого требуется два изображения - начало и конец вашего видео или анимации (также известные как ключевые кадры). Затем ИИ использует эти два изображения для генерации и интерполяции движения жидкости между кадрами. Это может сэкономить драгоценное время для эскизов и иллюстраторов, которые делают анимацию, так как им больше не нужно рисовать каждый кадр по отдельности."
   };
 
   initializePage();

@@ -75,15 +75,22 @@ body {
   }
   
   .popup {
-      position: absolute;
-      background-color: #333;
-      color: yellow;
-      padding: 10px;
-      border-radius: 5px;
-      font-size: 14px;
-      z-index: 1;
-      min-width: 150px; 
-    }
+    position: absolute; /* Убедитесь, что это absolute */
+    background-color: #333;
+    color: yellow;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 1;
+    min-width: 150px; 
+    visibility: hidden; /* Скрыто по умолчанию */
+    opacity: 0; /* Прозрачность по умолчанию */
+}
+
+.popup.show {
+    visibility: visible; /* Показываем при добавлении класса */
+    opacity: 1; /* Делаем видимым */
+}
 
   .menu-toggle {
       display: none; /* Скрываем чекбокс */
