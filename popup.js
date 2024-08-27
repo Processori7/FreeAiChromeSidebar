@@ -259,7 +259,7 @@ favoriteCheckbox.addEventListener('click', function() {
     }
 
 var websiteDescriptionsEn = {
-  "https://duckduckgo.com/": "Free: Claude3 Hiku, GPT-4o-mini, Llama3.1 70B, Mixtral 8x7B",
+  "https://duck.ai/": "Free: Claude3 Hiku, GPT-4o-mini, Llama3.1 70B, Mixtral 8x7B",
   "https://thinkany.ai/": "Free: Claude 3 Haiku, GPT-4o-mini, Gemeni Flash 1.5. There is a dark theme on the site. Need login.",
   "https://www.phind.com": "Phind LLM. Free Search Engine. There is a dark theme on the site.",
   "https://www.prefind.ai/": "Free Llama-3, Claude 3",
@@ -397,11 +397,14 @@ var websiteDescriptionsEn = {
   "https://www.teach-anything.com/":"A free tool that will help you learn anything.",
   "https://discopixel.app/animator":"AI allows you to bring faces in photos to life in a couple of clicks. The service works for free. Choose a photo, choose an emotion and you're done.",
   "https://huggingface.co/spaces/Kwai-Kolors/Kolors-Virtual-Try-On":"Kolors Virtual is a neural network that can change a person's clothes using AI. Everything is as simple as possible: upload your photo to the left field, and a picture with clothes to the right.",
-  "https://github.com/ToonCrafter/ToonCrafter": "An open-source video interpolation model that is configured for the production of cartoon videos. It requires two images – the beginning and end of your video or animation (also known as keyframes). The AI then uses these two images to generate and interpolate the motion of the fluid between frames. This can save valuable time for sketchers and illustrators who make animations, as they no longer have to draw each frame individually."
+  "https://github.com/ToonCrafter/ToonCrafter": "An open-source video interpolation model that is configured for the production of cartoon videos. It requires two images – the beginning and end of your video or animation (also known as keyframes). The AI then uses these two images to generate and interpolate the motion of the fluid between frames. This can save valuable time for sketchers and illustrators who make animations, as they no longer have to draw each frame individually.",
+  "https://peopleai.app/?_gl=1*gapbb3*_gcl_au*MTMwMjI4MDI1OS4xNzI0Njc3NDg5*_ga*MjA1Mjk5NTAxOC4xNzI0Njc3NDg5*_ga_QJSPV2MRPV*MTcyNDY3NzQ4OC4xLjAuMTcyNDY3NzQ4OC4wLjAuMA":"AI chatbots, allowing you to converse with and learn from some of the most influential and significant figures in human history.",
+  "https://www.pixelcut.ai/":"The service will remove the background from the picture, remove unnecessary objects and improve the quality.",
+  "https://www.segmind.com/":"Segmind has dozens of different models for creating and processing images: Stable Diffusion XL, Dream Shaper or the same Kandinsky. There is a free plan."
 };
 
 var websiteDescriptionsRu = {
-    "https://duckduckgo.com/": "Бесплатно: Claude3 Hiku, GPT-4o-mini, Llama3.1 70B, Mixtral 8x7B",
+    "https://duck.ai/": "Бесплатно: Claude3 Hiku, GPT-4o-mini, Llama3.1 70B, Mixtral 8x7B",
     "https://thinkany.ai/": "Бесплатно: Claude 3 Haiku, GPT-4o-mini, Gemeni Flash 1.5. На сайте есть темная тема. Нужна авторизация.",
     "https://www.phind.com": "Phind LLM. Бесплатная поисковая система. На сайте есть темная тема.",
     "https://www.prefind.ai/": "Бесплатно: Llama 3, Claude 3",
@@ -539,7 +542,10 @@ var websiteDescriptionsRu = {
     "https://www.teach-anything.com/":"Бесплатный инструмент, который поможет выучить что угодно, русский язык пока не поддерживается.",
     "https://discopixel.app/animator":"ИИ позволяет оживить лица на фотографиях в пару кликов. Сервис работает бесплатно.  Выбираем фото, выбираем эмоцию и готово.",
     "https://huggingface.co/spaces/Kwai-Kolors/Kolors-Virtual-Try-On":"Kolors Virtual — нейросеть которая может переодевать человека с помощью ИИ. Всё максимально просто: в левое поле загружаем своё фото, а в правое — картинку с одеждой.",
-    "https://github.com/ToonCrafter/ToonCrafter":"Модель интерполяции видео с открытым исходным кодом, которая настроена для производства мультипликационных видео. Для этого требуется два изображения - начало и конец вашего видео или анимации (также известные как ключевые кадры). Затем ИИ использует эти два изображения для генерации и интерполяции движения жидкости между кадрами. Это может сэкономить драгоценное время для эскизов и иллюстраторов, которые делают анимацию, так как им больше не нужно рисовать каждый кадр по отдельности."
+    "https://github.com/ToonCrafter/ToonCrafter":"Модель интерполяции видео с открытым исходным кодом, которая настроена для производства мультипликационных видео. Для этого требуется два изображения - начало и конец вашего видео или анимации (также известные как ключевые кадры). Затем ИИ использует эти два изображения для генерации и интерполяции движения жидкости между кадрами. Это может сэкономить драгоценное время для эскизов и иллюстраторов, которые делают анимацию, так как им больше не нужно рисовать каждый кадр по отдельности.",
+    "https://peopleai.app/?_gl=1*gapbb3*_gcl_au*MTMwMjI4MDI1OS4xNzI0Njc3NDg5*_ga*MjA1Mjk5NTAxOC4xNzI0Njc3NDg5*_ga_QJSPV2MRPV*MTcyNDY3NzQ4OC4xLjAuMTcyNDY3NzQ4OC4wLjAuMA":"Чат-боты с искусственным интеллектом, позволяющие общаться и учиться у некоторых из самых влиятельных и значимых фигур в истории человечества.",
+    "https://www.pixelcut.ai/":"Сервис уберёт фон с картинки, удалит лишние объекты и улучшит качество.",
+    "https://www.segmind.com/":"В Segmind собраны десятки различных моделей для создания и обработки изображений: Stable Diffusion XL, Dream Shaper или тот же Kandinsky. Есть бесплатный тарифный план."
   };
 
   initializePage();
