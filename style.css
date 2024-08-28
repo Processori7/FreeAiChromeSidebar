@@ -54,7 +54,21 @@ body {
     transition: background-color 0.3s; /* Плавный переход для фона при наведении */
     background-color: #89CFF0;
   }
-  
+
+  /* Стили при наведении */
+  li.highlight {
+    color: #ffff00; /* Жёлтый цвет текста */
+    background-color: #310d75; /* Темнее оригинального фона */
+    transition: background-color 0.5s, color 0.5s; /* Плавный переход */
+}
+
+li:hover,
+.back:hover,
+.pages:hover {
+    color: #ffff00; /* Жёлтый цвет текста */
+    background-color: #310d75; /* Темнее оригинального фона */
+}
+
   a {
     text-decoration: none;
   }

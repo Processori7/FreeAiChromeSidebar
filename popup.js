@@ -5,14 +5,57 @@ document.addEventListener("DOMContentLoaded", function () {
   const userLang = navigator.language || navigator.userLanguage; 
   const items = document.querySelectorAll('.aiMenu li'); // Получаем все элементы li из всех списков
   const favoriteCheckbox =  document.getElementById("favoriteCheckbox");
+  const scrollToElement = document.getElementById("scrollToElement");
 
   // Флаг для отслеживания, добавлены ли чекбоксы
   let checkboxesAdded = false;
   let isMenuVisible = false; // Флаг для отслеживания состояния меню
   let originalContent; // Сохраняем оригинальное содержимое
- 
+  let currentWebsite = null;
   let originalOrder = []; // Массив для хранения исходного порядка элементов
 
+  currentWebsite = localStorage.getItem('currentWebsite'); // Загружаем из localStorage
+  
+  function updateScrollToElementState() {
+    localStorage.setItem("scrollToElement", scrollToElement.checked);
+    console.log('Сохраненное значение:', localStorage.getItem("scrollToElement"));
+}
+scrollToElement.addEventListener("change", updateScrollToElementState);
+
+
+  function smoothScroll(target, duration) {
+    const start = window.scrollY;
+    const end = target.getBoundingClientRect().top + start;
+    const distance = end - start;
+    let startTime = null;
+
+    function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        window.scrollTo(0, start + distance * progress);
+
+        if (timeElapsed < duration) {
+            requestAnimationFrame(animation);
+        }
+    }
+
+    requestAnimationFrame(animation);
+}
+if (currentWebsite) {
+    const item = document.querySelector(`[data-website="${currentWebsite}"]`);
+    if (item) {
+        let scrollToElementChecked = scrollToElement.checked = JSON.parse(localStorage.getItem("scrollToElement")) || false;
+        if(scrollToElementChecked)
+            {
+                smoothScroll(item, 1000); // 1000 миллисекунд = 1 секунда
+            }
+        item.classList.add('highlight');
+        setTimeout(() => {
+            item.classList.remove('highlight');
+        }, 2000);
+    }
+}
 // Сохраняем исходный порядок элементов при загрузке страницы
 function saveOriginalOrder() {
     const itemsArray = Array.from(items);
@@ -122,6 +165,8 @@ favoriteCheckbox.addEventListener('click', function() {
       aiTODO.innerText="Бесплатные сервисы для планирования";
       const aiOther = document.getElementById("aiOther");
       aiOther.innerText="Другие бесплатные сервисы с ИИ";
+      const scrollToElement = document.getElementById("scrollToElement");
+      scrollToElement.nextSibling.textContent="Прокручивать к последнему выбранному элементу";
   }
 
   openInNewTab.checked = JSON.parse(localStorage.getItem("openInNewTab")) || false;
@@ -163,7 +208,6 @@ favoriteCheckbox.addEventListener('click', function() {
         dropdownMenu.style.display = isMenuVisible ? 'block' : 'none'; // Восстанавливаем видимость меню
         favoriteCheckbox.checked = false; // Сбрасываем состояние чекбокса
         checkboxesAdded = false; // Сбрасываем флаг добавления чекбоксов
-
         // Переинициализируем страницу
         initializePage(); // Re-initialize event listeners
         location.reload();
@@ -177,8 +221,10 @@ favoriteCheckbox.addEventListener('click', function() {
     listItems.forEach((li) => {
         li.addEventListener("click", function () {
             let website = this.getAttribute("data-website");
+            currentWebsite = website;
+            localStorage.setItem('currentWebsite', currentWebsite);
             //filters
-            let blockSites = ["https://duckduckgo.com/", "https://www.phind.com", "https://www.perplexity.ai/", 
+            let blockSites = ["https://duck.ai/", "https://www.phind.com", "https://www.perplexity.ai/", 
                 "https://chat.tune.app/", "https://labs.perplexity.ai/", "https://huggingface.co/spaces/Qwen/Qwen2-72B-Instruct",
                 "https://you.com/search?q=hi&fromSearchBar=true&tbm=youchat", "hhttps://finechat.ai/ru/app", "https://iask.ai/", 
                 "https://chatgptchatapp.com", "https://chat.tune.app/", "https://chat.chatgptdemo.net", "https://promptboom.com/PowerChat/PowerChatTalk",
@@ -209,8 +255,9 @@ favoriteCheckbox.addEventListener('click', function() {
                         }
                     } else {
                         // Скрываем оригинальное содержимое и создаем iframe
+                        // Скрываем оригинальное содержимое и создаем iframe
                         document.body.innerHTML = ''; // Очищаем содержимое body
-    
+
                         let iframe = document.createElement("iframe");
                         iframe.id = "websiteFrame";
                         iframe.style.width = "100%";
@@ -221,7 +268,7 @@ favoriteCheckbox.addEventListener('click', function() {
                         iframe.style.border = "none";
                         iframe.src = website;
                         document.body.appendChild(iframe);
-    
+
                         // Создаем кнопку "Назад"
                         createBackButton();
                     }
@@ -262,12 +309,12 @@ var websiteDescriptionsEn = {
   "https://duck.ai/": "Free: Claude3 Hiku, GPT-4o-mini, Llama3.1 70B, Mixtral 8x7B",
   "https://thinkany.ai/": "Free: Claude 3 Haiku, GPT-4o-mini, Gemeni Flash 1.5. There is a dark theme on the site. Need login.",
   "https://www.phind.com": "Phind LLM. Free Search Engine. There is a dark theme on the site.",
-  "https://www.prefind.ai/": "Free Llama-3, Claude 3",
+  "https://www.prefind.ai/": "Free search engine, available models: Llama 3, Claude 3",
   "https://www.blackbox.ai/": "Free: BlackBox AI LLM. There is a dark theme on the site.",
   "https://www.perplexity.ai/": "Perplexity Ai. Free search engine. There is a dark theme on the site.",
   "https://chat.tune.app/": "Free: Llama 3.1 405B, Llama 3.1 8B, Llama 3 70B, Mixtral 8x7B, Tune wizardlm 2 8x22B, Tune mythomax l2 13B. Other LLMs are available after registration. There is a dark theme on the site.",
   "https://labs.perplexity.ai/": "Free: Llama 3.1 70B, Llama 3.1 8B, Gemma-2 9B, Gemma-2 27B, Mixtral 8x7B. There is a dark theme on the site.",
-  "https://jeeves.ai/": "Free: Jeeves LLM. There is a dark theme on the site.",
+  "https://jeeves.ai/": "Free search engine, available models: Jeeves LLM. There is a dark theme on the site.",
   "https://bagoodex.io/": "Free search engine. Free LLM: GPT-4o, BaGooDex chat, and other tools. There is a dark theme on the site.",
   "https://www.aiuncensored.info": "Free GPT-3.5. There is a dark theme on the site.",
   "https://huggingface.co/spaces/Qwen/Qwen2-72B-Instruct": "Free: Qwen2-72B-Instruct",
@@ -400,19 +447,20 @@ var websiteDescriptionsEn = {
   "https://github.com/ToonCrafter/ToonCrafter": "An open-source video interpolation model that is configured for the production of cartoon videos. It requires two images – the beginning and end of your video or animation (also known as keyframes). The AI then uses these two images to generate and interpolate the motion of the fluid between frames. This can save valuable time for sketchers and illustrators who make animations, as they no longer have to draw each frame individually.",
   "https://peopleai.app/?_gl=1*gapbb3*_gcl_au*MTMwMjI4MDI1OS4xNzI0Njc3NDg5*_ga*MjA1Mjk5NTAxOC4xNzI0Njc3NDg5*_ga_QJSPV2MRPV*MTcyNDY3NzQ4OC4xLjAuMTcyNDY3NzQ4OC4wLjAuMA":"AI chatbots, allowing you to converse with and learn from some of the most influential and significant figures in human history.",
   "https://www.pixelcut.ai/":"The service will remove the background from the picture, remove unnecessary objects and improve the quality.",
-  "https://www.segmind.com/":"Segmind has dozens of different models for creating and processing images: Stable Diffusion XL, Dream Shaper or the same Kandinsky. There is a free plan."
+  "https://www.segmind.com/":"Segmind has dozens of different models for creating and processing images: Stable Diffusion XL, Dream Shaper or the same Kandinsky. There is a free plan.",
+  "https://toolbaz.com/":"ToolBaz offers an impressive suite of over 30 free AI writing tools to help writers and content creators."
 };
 
 var websiteDescriptionsRu = {
     "https://duck.ai/": "Бесплатно: Claude3 Hiku, GPT-4o-mini, Llama3.1 70B, Mixtral 8x7B",
     "https://thinkany.ai/": "Бесплатно: Claude 3 Haiku, GPT-4o-mini, Gemeni Flash 1.5. На сайте есть темная тема. Нужна авторизация.",
     "https://www.phind.com": "Phind LLM. Бесплатная поисковая система. На сайте есть темная тема.",
-    "https://www.prefind.ai/": "Бесплатно: Llama 3, Claude 3",
+    "https://www.prefind.ai/": "Бесплатная поисковая система, доступны модели: Llama 3, Claude 3",
     "https://www.blackbox.ai/": "Бесплатно: BlackBox AI LLM. На сайте есть темная тема.",
     "https://www.perplexity.ai/": "Perplexity Ai. Бесплатная поисковая система. На сайте есть темная тема.",
     "https://chat.tune.app/": "Бесплатно: Llama 3.1 405B, Llama 3.1 8B, Llama 3 70B, Mixtral 8x7B, Tune wizardlm 2 8x22B, Tune mythomax l2 13B. Другие LLM доступны после регистрации. На сайте есть темная тема.",
     "https://labs.perplexity.ai/": "Бесплатно: Llama 3.1 70B, Llama 3.1 8B, Gemma-2 9B, Gemma-2 27B, Mixtral 8x7B. На сайте есть темная тема.",
-    "https://jeeves.ai/": "Бесплатно: Jeeves LLM. На сайте есть темная тема.",
+    "https://jeeves.ai/": "Бесплатная поисковая система, доступны модели: Jeeves LLM. На сайте есть темная тема.",
     "https://bagoodex.io/": "Бесплатная поисковая система. Бесплатный LLM: GPT-4o, BaGooDex чат и другие инструменты. На сайте есть темная тема.",
     "https://www.aiuncensored.info": "Бесплатно GPT-3.5. На сайте есть темная тема.",
     "https://huggingface.co/spaces/Qwen/Qwen2-72B-Instruct": "Бесплатно: Qwen2-72B-Instruct",
@@ -545,8 +593,9 @@ var websiteDescriptionsRu = {
     "https://github.com/ToonCrafter/ToonCrafter":"Модель интерполяции видео с открытым исходным кодом, которая настроена для производства мультипликационных видео. Для этого требуется два изображения - начало и конец вашего видео или анимации (также известные как ключевые кадры). Затем ИИ использует эти два изображения для генерации и интерполяции движения жидкости между кадрами. Это может сэкономить драгоценное время для эскизов и иллюстраторов, которые делают анимацию, так как им больше не нужно рисовать каждый кадр по отдельности.",
     "https://peopleai.app/?_gl=1*gapbb3*_gcl_au*MTMwMjI4MDI1OS4xNzI0Njc3NDg5*_ga*MjA1Mjk5NTAxOC4xNzI0Njc3NDg5*_ga_QJSPV2MRPV*MTcyNDY3NzQ4OC4xLjAuMTcyNDY3NzQ4OC4wLjAuMA":"Чат-боты с искусственным интеллектом, позволяющие общаться и учиться у некоторых из самых влиятельных и значимых фигур в истории человечества.",
     "https://www.pixelcut.ai/":"Сервис уберёт фон с картинки, удалит лишние объекты и улучшит качество.",
-    "https://www.segmind.com/":"В Segmind собраны десятки различных моделей для создания и обработки изображений: Stable Diffusion XL, Dream Shaper или тот же Kandinsky. Есть бесплатный тарифный план."
-  };
+    "https://www.segmind.com/":"В Segmind собраны десятки различных моделей для создания и обработки изображений: Stable Diffusion XL, Dream Shaper или тот же Kandinsky. Есть бесплатный тарифный план.",
+    "https://toolbaz.com/":"ToolBaz предлагает впечатляющий набор из более чем 30 бесплатных инструментов для написания искусственного интеллекта, чтобы помочь писателям и создателям контента."
+};
 
   initializePage();
   initializePopup();
