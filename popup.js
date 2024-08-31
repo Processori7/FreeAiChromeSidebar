@@ -242,7 +242,7 @@ favoriteCheckbox.addEventListener('click', function() {
                 "https://huggingface.co/spaces/gokaygokay/Tile-Upscaler", "https://github.com/Anjok07/ultimatevocalremovergui/releases", "https://huggingface.co/spaces/yizhezhu/MoMA_zeroGPU",
                 "https://klingai.com/", "https://huggingface.co/spaces/lllyasviel/IC-Light", "https://huggingface.co/spaces/gokaygokay/AuraSR-v2","https://huggingface.co/spaces/finegrain/finegrain-object-eraser",
                 "https://huggingface.co/spaces/finegrain/finegrain-image-enhancer", "https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer", "https://huggingface.co/spaces/Kwai-Kolors/Kolors-Virtual-Try-On",
-                "https://github.com/ToonCrafter/ToonCrafter"];
+                "https://github.com/ToonCrafter/ToonCrafter","https://github.com/captainzero93/Protect-Images-from-AI-PixelGuard#","https://labs.heygen.com/expressive-photo-avatar"];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
                 } else {
@@ -448,7 +448,10 @@ var websiteDescriptionsEn = {
   "https://peopleai.app/?_gl=1*gapbb3*_gcl_au*MTMwMjI4MDI1OS4xNzI0Njc3NDg5*_ga*MjA1Mjk5NTAxOC4xNzI0Njc3NDg5*_ga_QJSPV2MRPV*MTcyNDY3NzQ4OC4xLjAuMTcyNDY3NzQ4OC4wLjAuMA":"AI chatbots, allowing you to converse with and learn from some of the most influential and significant figures in human history.",
   "https://www.pixelcut.ai/":"The service will remove the background from the picture, remove unnecessary objects and improve the quality.",
   "https://www.segmind.com/":"Segmind has dozens of different models for creating and processing images: Stable Diffusion XL, Dream Shaper or the same Kandinsky. There is a free plan.",
-  "https://toolbaz.com/":"ToolBaz offers an impressive suite of over 30 free AI writing tools to help writers and content creators."
+  "https://toolbaz.com/":"ToolBaz offers an impressive suite of over 30 free AI writing tools to help writers and content creators.",
+  "https://www.memfree.me/":"Free AI search engine. It will find information in just seconds. The site has a dark theme, installed by default.",
+  "https://labs.heygen.com/expressive-photo-avatar":"Expressive Photos is a service that turns a photo into a video that speaks naturally in your voice.",
+  "https://github.com/captainzero93/Protect-Images-from-AI-PixelGuard#":"PixelGuard protects images from being read by AI and unauthorized use in AI training, such as in facial recognition models or style transfer algorithms."
 };
 
 var websiteDescriptionsRu = {
@@ -594,7 +597,10 @@ var websiteDescriptionsRu = {
     "https://peopleai.app/?_gl=1*gapbb3*_gcl_au*MTMwMjI4MDI1OS4xNzI0Njc3NDg5*_ga*MjA1Mjk5NTAxOC4xNzI0Njc3NDg5*_ga_QJSPV2MRPV*MTcyNDY3NzQ4OC4xLjAuMTcyNDY3NzQ4OC4wLjAuMA":"Чат-боты с искусственным интеллектом, позволяющие общаться и учиться у некоторых из самых влиятельных и значимых фигур в истории человечества.",
     "https://www.pixelcut.ai/":"Сервис уберёт фон с картинки, удалит лишние объекты и улучшит качество.",
     "https://www.segmind.com/":"В Segmind собраны десятки различных моделей для создания и обработки изображений: Stable Diffusion XL, Dream Shaper или тот же Kandinsky. Есть бесплатный тарифный план.",
-    "https://toolbaz.com/":"ToolBaz предлагает впечатляющий набор из более чем 30 бесплатных инструментов для написания искусственного интеллекта, чтобы помочь писателям и создателям контента."
+    "https://toolbaz.com/":"ToolBaz предлагает впечатляющий набор из более чем 30 бесплатных инструментов для написания искусственного интеллекта, чтобы помочь писателям и создателям контента.",
+    "https://www.memfree.me/":"Бесплатный ИИ-поисковик. Он найдёт информацию буквально за секунды. На сайте есть тёмная тема оформления, установлена по умолчанию.",
+    "https://labs.heygen.com/expressive-photo-avatar":"Expressive Photos — сервис, который превращает фото в видео, натурально говорящее вашим голосом.",
+    "https://github.com/captainzero93/Protect-Images-from-AI-PixelGuard#":"PixelGuard защищает изображения от считывания AI и несанкционированного использования в обучении AI, например, в моделях распознавания лиц или алгоритмах переноса стиля."
 };
 
   initializePage();
