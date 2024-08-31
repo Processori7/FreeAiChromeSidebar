@@ -284,9 +284,10 @@ scrollToElement.nextSibling.textContent = translateText("Прокручиват�
                     window.open(website, '_blank');
                 } else {
                     if (blockSites.includes(website)) {
+                        let text = translateText("Этот сайт не может быть открыт в боковой панели, открыть его в новой вкладке?");
                         let answer = userLang.startsWith('ru') 
-                            ? confirm("Внимание! Этот сайт не может быть открыт в боковой панели, открыть его в новой вкладке?")
-                            : confirm("Attention! This site can't be opened in the sidebar, should I open it in a new tab?");
+                            ? confirm("Этот сайт не может быть открыт в боковой панели, открыть его в новой вкладке?")
+                            : confirm(text);
                         if (answer) {
                             window.open(website, '_blank');
                         }
