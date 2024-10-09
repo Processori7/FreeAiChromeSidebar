@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const items = document.querySelectorAll('.aiMenu li'); // Получаем все элементы li из всех списков
   const favoriteCheckbox =  document.getElementById("favoriteCheckbox");
   const scrollToElement = document.getElementById("scrollToElement");
-
+  const openOnRightClick = document.getElementById("openOnRightClick");
+  const copyOnRightClick = document.getElementById("copyOnRightClick");
   // Флаг для отслеживания, добавлены ли чекбоксы
   let checkboxesAdded = false;
   let isMenuVisible = false; // Флаг для отслеживания состояния меню
@@ -16,6 +17,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
   currentWebsite = localStorage.getItem('currentWebsite'); // Загружаем из localStorage
   
+  // Загрузка состояния чекбоксов из localStorage
+  openOnRightClick.checked = JSON.parse(localStorage.getItem("openOnRightClick")) || false;
+  copyOnRightClick.checked = JSON.parse(localStorage.getItem("copyOnRightClick")) || false;
+
+  // Сохранение состояния чекбоксов
+  function updateOpenOnRightClickState() {
+      localStorage.setItem("openOnRightClick", openOnRightClick.checked);
+  }
+  openOnRightClick.addEventListener("change", updateOpenOnRightClickState);
+
+  function updateCopyOnRightClickState() {
+      localStorage.setItem("copyOnRightClick", copyOnRightClick.checked);
+  }
+  copyOnRightClick.addEventListener("change", updateCopyOnRightClickState);
+
+  // Обработчик правого клика на элементах списка
+  items.forEach(item => {
+      item.addEventListener("contextmenu", function (event) {
+          event.preventDefault(); // Отменяем стандартное меню
+
+          const website = item.getAttribute('data-website');
+
+          if (openOnRightClick.checked) {
+              window.open(website, '_blank'); // Открываем сайт в новой вкладке
+          }
+
+          if (copyOnRightClick.checked && !openOnRightClick.checked) {
+              navigator.clipboard.writeText(website).then(() => {
+                  //alert("Ссылка скопирована в буфер обмена!"); // Уведомление о копировании
+              }).catch(err => {
+                  //console.error("Ошибка при копировании ссылки: ", err);
+              });
+          }
+      });
+  });
+
+
   function updateScrollToElementState() {
     localStorage.setItem("scrollToElement", scrollToElement.checked);
 }
@@ -175,6 +213,8 @@ function translateText(text) {
       aiOther.innerText="Другие бесплатные сервисы с ИИ";
       const scrollToElement = document.getElementById("scrollToElement");
       scrollToElement.nextSibling.textContent="Прокручивать к последнему выбранному элементу";
+      openOnRightClick.nextSibling.textContent="Открывать сайт в новой вкладке при нажатии правой кнопкой мыши";
+      copyOnRightClick.nextSibling.textContent="Копировать ссылку при нажатии правой кнопкой мыши";
   }
   else
   {
@@ -204,6 +244,8 @@ const aiOther = document.getElementById("aiOther");
 aiOther.innerText = translateText("Другие бесплатные сервисы с ИИ");
 const scrollToElement = document.getElementById("scrollToElement");
 scrollToElement.nextSibling.textContent = translateText("Прокручивать к последнему выбранному элементу");
+openOnRightClick.nextSibling.textContent=translateText("Открывать сайт в новой вкладке при нажатии правой кнопкой мыши");
+copyOnRightClick.nextSibling.textContent=translateText("Копировать ссылку при нажатии правой кнопкой мыши");
   }
   openInNewTab.checked = JSON.parse(localStorage.getItem("openInNewTab")) || false;
 
@@ -281,7 +323,7 @@ scrollToElement.nextSibling.textContent = translateText("Прокручиват�
                 "https://github.com/ToonCrafter/ToonCrafter","https://github.com/captainzero93/Protect-Images-from-AI-PixelGuard#","https://labs.heygen.com/expressive-photo-avatar", "https://elevenlabs.io/dubbing",
                 "https://huggingface.co/spaces/GanymedeNil/Qwen2-VL-7B","https://huggingface.co/spaces/finegrain/finegrain-object-cutter","https://huggingface.co/spaces/yanze/PuLID-FLUX","https://seapik.com/",
                 "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/fffiloni/diffusers-image-outpaint","https://www.figma.com/community/plugin/1326990370920029683/figma-to-replit",
-                "https://tinywow.com/tools/write","https://huggingface.co/spaces/DamarJati/FLUX.1-RealismLora","https://yce.perfectcorp.com/colorize"];
+                "https://tinywow.com/tools/write","https://huggingface.co/spaces/DamarJati/FLUX.1-RealismLora","https://yce.perfectcorp.com/colorize","https://venice.ai/chat","https://huggingface.co/chat/","https://app.giz.ai/assistant?mode=chat"];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
                 } else {
@@ -574,7 +616,15 @@ var websiteDescriptionsRu = {
     "https://www.freepik.com/pikaso":"Генератор эскизов для изображений с ИИ, который превращает ваши рисунки и идеи в жизнь в режиме реального времени",
     "https://yce.perfectcorp.com/colorize":"Сервис раскрасит любое фото, цвета получаются натуральными и насыщенными, войдите используя почту, чтобы скачать фото без вотерки",
     "https://www.figma.com/community/plugin/1326990370920029683/figma-to-replit":"Плагин конвертирует ваши дизайны сразу в приложения на HTML, CSS или React, при этом финальный результат вам не составит труда экспортировать, запустить или подредактировать код.",
-    "https://tinywow.com/tools/write":"Это огромнейшая база ИИ для работы с текстом, доступно множество возможностей от генерации текста до проверки текста на наличия различных ошибок"
+    "https://tinywow.com/tools/write":"Это огромнейшая база ИИ для работы с текстом, доступно множество возможностей от генерации текста до проверки текста на наличия различных ошибок",
+    "https://imagecolorizer.com/":"Это бесплатный онлайн-инструмент на основе ИИ, который может автоматически раскрашивать и восстанавливать старые черно-белые фотографии",
+    "https://melody.ml/":"Сервис позволяет легко разделить аудиодорожки с помощью машинного обучения бесплатно, при этом автоматически изолируйте вокал и генерируйте стебы для ремиксов песен",
+    "https://venice.ai/chat":"Сервис с бесплатный планом, который позволяет общаться с раличными LLM на любые темы",
+    "https://deepai.org/chat":"Сервис с бесплатный планом, который позволяет общаться с раличными LLM на любые темы",
+    "https://lmarena.ai/":"Сервис бесплатно позволяет общаться с раличными LLM на любые темы и оценивать их эффективность",
+    "https://studyable.app/":"Сервис с бесплатным планом, который поможет справиться с любым домашним заданием",
+    "https://huggingface.co/chat/":"Сервис позволяет общаться с различными LLM",
+    "https://app.giz.ai/assistant?mode=chat":"Сервис позволяет общаться с различными LLM",
 };
 
   initializePage();
