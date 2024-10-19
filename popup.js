@@ -302,7 +302,7 @@ copyOnRightClick.nextSibling.textContent=translateText("Копировать с�
             let blockSites = ["https://duck.ai/", "https://www.phind.com", "https://www.perplexity.ai/", 
                 "https://chat.tune.app/", "https://labs.perplexity.ai/", "https://huggingface.co/spaces/Qwen/Qwen2-72B-Instruct",
                 "https://you.com/search?q=hi&fromSearchBar=true&tbm=youchat", "hhttps://finechat.ai/ru/app", "https://iask.ai/", 
-                "https://chatgptchatapp.com", "https://chat.tune.app/", "https://chat.chatgptdemo.net", "https://promptboom.com/PowerChat/PowerChatTalk",
+                "https://chatgptchatapp.com", "https://chat.chatgptdemo.net", "https://promptboom.com/PowerChat/PowerChatTalk",
                 "https://chat.mistral.ai/chat", "https://share.wendaalpha.net", "https://chat.swt-ai.com/", "https://groq.com/", 
                 "https://ya.ru/", "https://codepal.ai/", "https://t.me/EdyaAIrobot", "https://github.com/KudoAI/googlegpt",
                 "https://github.com/KudoAI/duckduckgpt", "https://github.com/KudoAI/bravegpt", "https://github.com/Processori7/llm/releases",
@@ -320,7 +320,8 @@ copyOnRightClick.nextSibling.textContent=translateText("Копировать с�
                 "https://github.com/ToonCrafter/ToonCrafter","https://github.com/captainzero93/Protect-Images-from-AI-PixelGuard#","https://labs.heygen.com/expressive-photo-avatar", "https://elevenlabs.io/dubbing",
                 "https://huggingface.co/spaces/GanymedeNil/Qwen2-VL-7B","https://huggingface.co/spaces/finegrain/finegrain-object-cutter","https://huggingface.co/spaces/yanze/PuLID-FLUX","https://seapik.com/",
                 "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/fffiloni/diffusers-image-outpaint","https://www.figma.com/community/plugin/1326990370920029683/figma-to-replit",
-                "https://tinywow.com/tools/write","https://huggingface.co/spaces/DamarJati/FLUX.1-RealismLora","https://yce.perfectcorp.com/colorize","https://venice.ai/chat","https://huggingface.co/chat/","https://app.giz.ai/assistant?mode=chat"];
+                "https://tinywow.com/tools/write","https://huggingface.co/spaces/DamarJati/FLUX.1-RealismLora","https://yce.perfectcorp.com/colorize","https://venice.ai/chat","https://huggingface.co/chat/","https://app.giz.ai/assistant?mode=chat",
+                "https://huggingface.co/spaces/OzzyGT/diffusers-image-fill","https://app.myshell.ai/explore","https://huggingface.co/spaces/TheEeeeLin/HivisionIDPhotos","https://huggingface.co/spaces/fffiloni/expression-editor"];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
                 } else {
@@ -423,12 +424,12 @@ copyOnRightClick.nextSibling.textContent=translateText("Копировать с�
 var websiteDescriptionsRu = {
     "https://duck.ai/": "Бесплатно: Claude3 Hiku, GPT-4o-mini, Llama3.1 70B, Mixtral 8x7B.",
     "https://thinkany.ai/": "Бесплатно: Claude 3 Haiku, GPT-4o-mini, Gemeni Flash 1.5, на сайте есть тёмная тема и нужна авторизация.",
-    "https://www.phind.com": "Phind LLM, бесплатная поисковая системаб на сайте есть тёмная тема.",
+    "https://www.phind.com": "Phind LLM, бесплатная поисковая система, на сайте есть тёмная тема.",
     "https://www.prefind.ai/": "Бесплатная поисковая система, доступны модели: Llama 3, Claude 3.",
     "https://www.blackbox.ai/": "Бесплатно: BlackBox AI LLM, на сайте есть тёмная тема.",
     "https://www.perplexity.ai/": "Бесплатная поисковая система, на сайте есть тёмная тема, использует GPT-3.5 Turbo",
-    "https://chat.tune.app/": "Бесплатно: Llama 3.1 405B, Llama 3.1 8B, Llama 3 70B, Mixtral 8x7B, Tune wizardlm 2 8x22B, Tune mythomax l2 13B и другие LLM доступные после регистрации, на сайте есть тёмная тема.",
-    "https://labs.perplexity.ai/": "Бесплатно: Llama 3.1 70B, Llama 3.1 8B, Gemma-2 9B, Gemma-2 27B, Mixtral 8x7B, на сайте есть тёмная тема.",
+    "https://chat.tune.app/": "Бесплатно досткпны несколько LLM, а остальные доступные после регистрации, на сайте есть тёмная тема.",
+    "https://labs.perplexity.ai/": "Бесплатно доступны несколько моделей LLM, на сайте есть тёмная тема.",
     "https://jeeves.ai/": "Бесплатная поисковая система, доступны модели: Jeeves LLM, на сайте есть тёмная тема.",
     "https://bagoodex.io/": "Бесплатная поисковая система, использует GPT-4o, BaGooDex чат и другие инструменты, доступна тёмная тема.",
     "https://www.aiuncensored.info": "Бесплатно можно использовать: GPT-3.5, на сайте есть тёмная тема.",
@@ -622,6 +623,14 @@ var websiteDescriptionsRu = {
     "https://studyable.app/":"Сервис с бесплатным планом, который поможет справиться с любым домашним заданием",
     "https://huggingface.co/chat/":"Сервис позволяет общаться с различными LLM",
     "https://app.giz.ai/assistant?mode=chat":"Сервис позволяет общаться с различными LLM",
+    "https://app.myshell.ai/explore":"Платформа предлагает бесплатный доступ к передовым языковым моделям, включая GPT-4 и другие ведущие LLM, что позволяет пользователям создавать высокоспособных и привлекательных ботов",
+    "https://huggingface.co/spaces/OzzyGT/diffusers-image-fill":"Сервис, который поможет убрать лишнее с фотографии",
+    "https://huggingface.co/spaces/TheEeeeLin/HivisionIDPhotos":"Сервис, который позволяет быстро сделать фото на документы",
+    "https://huggingface.co/spaces/fffiloni/expression-editor":"Нейросеть для управления эмоциями на фото в реальном времени",
+    "https://www.transvribe.com/":"Бесплатный инструмент ИИ, который позволяет быстро получать ответы на любые видео на YouTube",
+    "https://aisaver.io/face-swap-video":"Бесплатный инструмент для изменения лица на видео, необходима регистрация или вход в аккаунт",
+    "https://modulbot.ru/text-generator":"Бесплатный генератор текстов",
+    "https://minitoolai.com/":"Сервис, который предоставляет доступ к нескольким полезным сервисам с ИИ в том числе и GPT-4o"
 };
 
   initializePage();
