@@ -150,7 +150,7 @@ li:hover,
       background-color: #3F8FD2	;
       border-radius: 5px;
   }
-  
+
   .dropdown {
       display: none; /* Скрываем выпадающий список по умолчанию */
       position: absolute;
@@ -172,11 +172,71 @@ li:hover,
       color: white;
   }
   
-  .dropdown-item {
-      padding: 10px;
-      cursor: pointer;
-      color: yellow; /* Оранжевый цвет текста */
-      font-size: 14px;
-      background-color: #242582;
-  }
-  
+  .header-menu-container {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index: 100;
+
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  color: yellow; /* Оранжевый цвет текста */
+  font-size: 14px;
+  background-color: #242582;
+}
+
+
+.menu-list {
+    cursor: pointer; /* Указываем, что метка кликабельна */
+    display: inline-block;
+    padding: 10px;
+    background-color: #3F8FD2;
+    border-radius: 5px;
+    position: fixed;
+    right: 0; /* Прикрепляем к правому краю */
+    top: 50%; /* Центрируем по вертикали */
+    transform: translateY(-50%); /* Сдвигаем на половину высоты элемента для центрирования */
+    z-index: 3;
+}
+
+.header-dropdown {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-height: 330px; /* Максимальная высота выпадающего списка */
+  overflow-y: auto; /* Включаем вертикальную прокрутку */
+  display: none;
+  padding: 16px;
+
+  /* Новые свойства для позиционирования */
+  position: fixed; /* Используем фиксированное позиционирование */
+  top: 50%; /* Сдвигаем вниз на 50% высоты экрана */
+  right: 0; /* Привязываем к правому краю */
+  transform: translateY(-50%); /* Сдвигаем на половину высоты элемента для центрирования по вертикали */
+  z-index: 2; /* Увеличиваем z-index, чтобы кнопка была выше выпадающего меню */
+}
+
+.header-dropdown-item {
+    color: yellow; /* Цвет текста */
+    margin-top: 3px;
+    display: block;
+    width: 180px; /* Ширина элемента */
+    cursor: pointer;
+    min-height: 30px;
+    font-size: 16px; /* Размер шрифта */
+    text-align: center;
+    border-radius: 5px;
+    padding: 8px;
+    box-sizing: border-box; /* Учитываем отступы и границы в размерах элемента */
+    transition: background-color 0.3s; /* Плавный переход для фона при наведении */
+    background-color: rgba(36, 37, 130, 0.7); /* Цвет #242582 с 50% прозрачностью */
+}
+
+/* Стили при наведении */
+.header-dropdown-item:hover {
+    color: #ffff00; /* Жёлтый цвет текста */
+    background-color: #310d75; /* Темнее оригинального фона */
+}
