@@ -344,7 +344,7 @@ copyOnRightClick.nextSibling.textContent=translateText("Копировать с�
             //filters
             let blockSites = ["https://duck.ai/", "https://www.phind.com", "https://www.perplexity.ai/", 
                 "https://chat.tune.app/", "https://labs.perplexity.ai/", "https://huggingface.co/spaces/Qwen/Qwen2-72B-Instruct",
-                "https://you.com/search?q=hi&fromSearchBar=true&tbm=youchat", "hhttps://finechat.ai/ru/app", "https://iask.ai/", 
+                "https://you.com/search?q=hi&fromSearchBar=true&tbm=youchat", "https://finechat.ai/ru/app", "https://iask.ai/", 
                 "https://chatgptchatapp.com", "https://chat.chatgptdemo.net", "https://promptboom.com/PowerChat/PowerChatTalk",
                 "https://chat.mistral.ai/chat", "https://share.wendaalpha.net", "https://chat.swt-ai.com/", "https://groq.com/", 
                 "https://ya.ru/", "https://codepal.ai/", "https://t.me/EdyaAIrobot", "https://github.com/KudoAI/googlegpt",
@@ -364,8 +364,7 @@ copyOnRightClick.nextSibling.textContent=translateText("Копировать с�
                 "https://huggingface.co/spaces/GanymedeNil/Qwen2-VL-7B","https://huggingface.co/spaces/finegrain/finegrain-object-cutter","https://huggingface.co/spaces/yanze/PuLID-FLUX","https://seapik.com/",
                 "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/fffiloni/diffusers-image-outpaint","https://www.figma.com/community/plugin/1326990370920029683/figma-to-replit",
                 "https://tinywow.com/tools/write","https://huggingface.co/spaces/DamarJati/FLUX.1-RealismLora","https://yce.perfectcorp.com/colorize","https://venice.ai/chat","https://huggingface.co/chat/","https://app.giz.ai/assistant?mode=chat",
-                "https://huggingface.co/spaces/OzzyGT/diffusers-image-fill","https://app.myshell.ai/explore","https://huggingface.co/spaces/TheEeeeLin/HivisionIDPhotos","https://huggingface.co/spaces/fffiloni/expression-editor","https://komo.ai/",
-                "https://finechat.ai/ru/app","https://pythonspath.ru/gpt4o"];
+                "https://huggingface.co/spaces/OzzyGT/diffusers-image-fill","https://app.myshell.ai/explore","https://huggingface.co/spaces/TheEeeeLin/HivisionIDPhotos","https://huggingface.co/spaces/fffiloni/expression-editor","https://komo.ai/","https://pythonspath.ru/gpt4o"];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
                 } else {
@@ -678,7 +677,6 @@ var websiteDescriptionsRu = {
     "https://komo.ai/":"Бесплатная поисковая система с ИИ, имеет дополнительные платные функции",
     "https://heybro.ai/web":"Бесплатный доступ к GPT-4o-mini",
     "https://kingnish-opengpt-4o.hf.space/?__theme=dark":"Сервис позволяет общаться с GPT-4o, генерировать видео и картинки",
-    "https://finechat.ai/ru/app":"Сервис позволяет использовать GPT-4o и GPT-4o-mini",
     "https://pythonspath.ru/gpt4o":"Сервис позволяет использовать GPT-4o"
 };
 
