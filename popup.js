@@ -334,6 +334,28 @@ copyOnRightClick.nextSibling.textContent=translateText("Копировать с�
     document.body.appendChild(backButton);
 }
 
+async function canLoadInIframe(url) {
+    try {
+        const response = await fetch(url, { method: 'HEAD' });
+        const xFrameOptions = response.headers.get('X-Frame-Options');
+        const contentSecurityPolicy = response.headers.get('Content-Security-Policy');
+
+        // Проверяем заголовки
+        if (xFrameOptions && (xFrameOptions === 'DENY' || xFrameOptions === 'SAMEORIGIN')) {
+            return false; // Сайт не может быть загружен во фрейме
+        }
+
+        if (contentSecurityPolicy && contentSecurityPolicy.includes('frame-ancestors')) {
+            return false; // Сайт не может быть загружен во фрейме
+        }
+
+        return true; // Сайт может быть загружен во фрейме
+    } catch (error) {
+        console.error('Ошибка при проверке сайта:', error);
+        return false; // Если произошла ошибка, считаем, что сайт не может быть загружен
+    }
+}
+
   function initializeListItems() {
     const listItems = document.querySelectorAll("li");
     listItems.forEach((li) => {
@@ -365,7 +387,8 @@ copyOnRightClick.nextSibling.textContent=translateText("Копировать с�
                 "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/fffiloni/diffusers-image-outpaint","https://www.figma.com/community/plugin/1326990370920029683/figma-to-replit",
                 "https://tinywow.com/tools/write","https://huggingface.co/spaces/DamarJati/FLUX.1-RealismLora","https://yce.perfectcorp.com/colorize","https://venice.ai/chat","https://huggingface.co/chat/","https://app.giz.ai/assistant?mode=chat",
                 "https://huggingface.co/spaces/OzzyGT/diffusers-image-fill","https://app.myshell.ai/explore","https://huggingface.co/spaces/TheEeeeLin/HivisionIDPhotos","https://huggingface.co/spaces/fffiloni/expression-editor","https://komo.ai/","https://pythonspath.ru/gpt4o",
-                "https://huggingface.co/spaces/kayfahaarukku/fufufafa-makan-brem"];
+                "https://huggingface.co/spaces/kayfahaarukku/fufufafa-makan-brem","https://gpt-4o.biz/playground","https://gpt4o.so/ru/app","https://rubiks.ai/","https://julius.ai/ai-chatbot","https://chat.eqing.tech/","https://ai.mitup.ru/chatgpt-free","https://magictellers.com/",
+                "https://tools.rotato.app/compress"];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
                 } else {
@@ -594,7 +617,6 @@ var websiteDescriptionsRu = {
     "https://kidgeni.com/":"Kidgeni позволяет генерировать изображения, книги, истории, изображения из набросков, но для генерации изображений запрос нужно вводить только на ангийском языке, а также некоторые функции доступны только после регистрации, есть лимит: 15 запросов.",
     "https://textbot.ru/":"TextBot — нейросеть которая поможет сгенерировать, дополнить, улучшить или отрерайтить текст на любую тему.",
     "https://www.seaart.ai/ai-tools/ai-face-swap":"Инструмент для объединения вашего лица с различными художественными стилями и сценами, он поддерживает обмен лицами как в видео, так и в изображениях, что облегчает создание уникального и развлекательного контента.",
-    "https://www.basedgpt.chat/":"Беспалтный GPT-3.5 Trubo, чат работает без регистрации.",
     "https://llmplayground.net/":"Сайт с тёмной темой оформления и большим выбором LLM.",
     "https://www.farfalle.dev":"Бесплатный поисковый движок, с тёмной темой оформления, доступны GPT-3.5 Turbo и LLAMA 3-70B.",
     "https://www.pizzagpt.it/en":"Бесплатный Chat GPT-3.5 Turbo, сайт с тёмной темой оформления.",
@@ -681,7 +703,11 @@ var websiteDescriptionsRu = {
     "https://pythonspath.ru/gpt4o":"Сервис позволяет использовать GPT-4o",
     "https://huggingface.co/spaces/kayfahaarukku/fufufafa-makan-brem":"Бесплатный генератор изображений высокого качества",
     "https://www.genmo.ai/play":"Бесплатный генератор видео, нобходима авторизация",
-    "https://giga.chat/":"Бесплатный ИИ чат из России"
+    "https://giga.chat/":"Бесплатный ИИ чат из России",
+    "https://storm.genie.stanford.edu/":"ИИ для исследователей, которая способна писать качественные работы, требуется вход в систему",
+    "https://tools.rotato.app/compress":"Бесплатный сервис, который позволяет сжимать видео без видимой потери качества",
+    "https://mokker.ai/":"Инструмент для генерации фотографий на основе искусственного интеллекта, требуется регистрация, лимит бесплатно плана: 40 картинок",
+    "https://hix.ai/ru/search":"Бесплатная поисковая система с ИИ и подробными ответами на вопросы, включая генерацию перезентаций и ментальную карту"
 };
 
   initializePage();
