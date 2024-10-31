@@ -12,7 +12,7 @@ Next, in the Chrome browser, go to "Settings" - "Extensions" - "Manage extension
 # Update
 
 If you are using Git, run:
-``
+```
 git pull
 ```
 Or download the archive and copy the replacement files.
