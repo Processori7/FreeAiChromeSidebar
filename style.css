@@ -136,6 +136,16 @@ li:hover,
       z-index: 100; /* Устанавливаем высокий z-index, чтобы меню было поверх других элементов */
   }
   
+  .updateMessage
+  {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    color: #FFFF00; 
+    font-size: 16px; 
+    display: none;
+  }
+
   .menu {
       color: yellow;
       border-radius: 4px;

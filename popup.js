@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const scrollToElement = document.getElementById("scrollToElement");
   const openOnRightClick = document.getElementById("openOnRightClick");
   const copyOnRightClick = document.getElementById("copyOnRightClick");
+  const updateMessageElement = document.getElementById('update-message');
   // Флаг для отслеживания, добавлены ли чекбоксы
   let checkboxesAdded = false;
   let isMenuVisible = false; // Флаг для отслеживания состояния меню
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let originalOrder = []; // Массив для хранения исходного порядка элементов
   let translateUrl = "";
   let translatedText = "";
+  let updateText = "Доступно обновление! Перейти на сайт с инструкцией?"
 
   currentWebsite = localStorage.getItem('currentWebsite'); // Загружаем из localStorage
   
@@ -26,6 +28,44 @@ document.addEventListener("DOMContentLoaded", function () {
   openOnRightClick.checked = JSON.parse(localStorage.getItem("openOnRightClick")) || false;
   copyOnRightClick.checked = JSON.parse(localStorage.getItem("copyOnRightClick")) || false;
 
+// Функция для проверки обновлений
+async function checkForUpdates() {
+    const repoUrl = "https://api.github.com/repos/Processori7/FreeAiChromeSidebar/contents/manifest.json";
+    
+    // Получаем локальную версию из manifest.json расширения
+    //const localVersion = "16.6.27"; // Для тестирования
+    const localVersion = chrome.runtime.getManifest().version;
+    const updateMessageElement = document.getElementById('update-message');
+    
+    try {
+        const response = await fetch(repoUrl);
+        const data = await response.json();
+        
+        // Декодируем содержимое файла manifest.json
+        const manifestContent = JSON.parse(atob(data.content));
+        const remoteVersion = manifestContent.version; // Извлекаем версию из полученного манифеста
+
+        // Сравниваем локальную версию с удаленной версией
+        if (localVersion !== remoteVersion) {
+            // Если версии не совпадают, показываем сообщение
+            if (!userLang.startsWith('ru')) {
+                updateMessageElement.textContent = updateText;
+            } else {
+                updateMessageElement.textContent = translateText(updateText, "ru");
+            }
+            updateMessageElement.style.display = 'block';
+
+            // Добавляем обработчик клика на сообщение
+            updateMessageElement.onclick = function() {
+                window.open("https://github.com/Processori7/FreeAiChromeSidebar", "_blank");
+                updateMessageElement.style.display = 'none'; // Скрываем сообщение после клика
+            };
+        }
+    } catch (error) {
+        console.error("Ошибка при проверке обновлений:", error);
+    }
+}
+    
    // Создаем элементы меню для каждого заголовка
    h1items.forEach(h1 => {
     const menuItem = document.createElement('div');
@@ -709,7 +749,8 @@ var websiteDescriptionsRu = {
     "https://mokker.ai/":"Инструмент для генерации фотографий на основе искусственного интеллекта, требуется регистрация, лимит бесплатно плана: 40 картинок",
     "https://hix.ai/ru/search":"Бесплатная поисковая система с ИИ и подробными ответами на вопросы, включая генерацию перезентаций и ментальную карту"
 };
-
+  // Проверяем обновления при загрузке страницы
+  checkForUpdates();
   initializePage();
   initializePopup();
 });
