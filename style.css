@@ -136,16 +136,28 @@ li:hover,
       z-index: 100; /* Устанавливаем высокий z-index, чтобы меню было поверх других элементов */
   }
   
-  .updateMessage
-  {
-    position: absolute; 
+  .updateMessage {
+    position: relative; 
     top: 0; 
     left: 0; 
-    color: #FFFF00; 
+    color: orange; 
     font-size: 16px; 
     display: none;
-  }
+    text-decoration: underline; /* Подчеркивание текста */
+    animation: colorChange 2s infinite; /* Анимация смены цвета */
+}
 
+@keyframes colorChange {
+    0% {
+        color: yellow; /* Начальный цвет */
+    }
+    50% {
+        color: orange; /* Промежуточный цвет */
+    }
+    100% {
+        color: yellow; /* Конечный цвет */
+    }
+}
   .menu {
       color: yellow;
       border-radius: 4px;
