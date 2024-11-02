@@ -11,7 +11,7 @@ Next, in the Chrome browser, go to "Settings" - "Extensions" - "Manage extension
 
 # Update
 
-If you are using Git, run:
+If you're using Git, go to the directory with the extension and run:
 ```
 git pull
 ```
@@ -33,7 +33,7 @@ git clone https://github.com/Processori7/FreeAiChromeSidebar.git
 
 # Обновление
 
-Если вы используете Git выполните:
+Если вы используете Git перейдите в каталог с расширением и выполните:
 ```
 git pull
 ```
