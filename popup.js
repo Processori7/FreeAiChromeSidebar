@@ -33,8 +33,8 @@ async function checkForUpdates() {
     const repoUrl = "https://api.github.com/repos/Processori7/FreeAiChromeSidebar/contents/manifest.json";
     
     // Получаем локальную версию из manifest.json расширения
-    const localVersion = "16.6.27"; // Для тестирования
-    //const localVersion = chrome.runtime.getManifest().version;
+    //const localVersion = "16.6.27"; // Для тестирования
+    const localVersion = chrome.runtime.getManifest().version;
     const updateMessageElement = document.getElementById('update-message');
     
     try {
