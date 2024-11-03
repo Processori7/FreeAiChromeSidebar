@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         snowman.style.display= "block";
         snowlayer.style.display= "block";
         garland.style.padding = "20px";
+        snowcont.style.top="80px";
         localStorage.setItem("newYearTheme", "enabled");
     } else {
         body.classList.remove("snow");
@@ -102,6 +103,7 @@ window.onload = () => {
         snowman.style.display= "block";
         snowlayer.style.display= "block";
         santa.style.display = "block";
+        snowcont.style.top="80px";
     } else {
         NewYearTheme.checked = false; // Устанавливаем чекбокс в состояние "выключен"
         body.classList.remove("snow"); // Убираем класс для анимации снега
@@ -116,6 +118,7 @@ window.onload = () => {
 
 // Добавляем обработчик события для чекбокса
 NewYearTheme.addEventListener("change", updateTheme);
+
 // Функция для проверки обновлений
 async function checkForUpdates() {
     const repoUrl = "https://api.github.com/repos/Processori7/FreeAiChromeSidebar/contents/manifest.json";
