@@ -12,6 +12,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const openOnRightClick = document.getElementById("openOnRightClick");
   const copyOnRightClick = document.getElementById("copyOnRightClick");
   const updateMessageElement = document.getElementById('update-message');
+  const NewYearTheme = document.getElementById("NewYearTheme");
+  const santa = document.getElementById('santa');
+  const body = document.body;
+  const aiChat = document.getElementById("aiChat");
+  const aiScripts = document.getElementById("aiScripts");
+  const aiPC = document.getElementById("aiPC");
+  const aiArticle = document.getElementById("aiArticle");
+  const aiImage = document.getElementById("aiImage");
+  const aiVideo = document.getElementById("aiVideo");
+  const aiPresentation = document.getElementById("aiPresentation");
+  const aiSound = document.getElementById("aiSound");
+  const aiTODO = document.getElementById("aiTODO");
+  const aiOther = document.getElementById("aiOther");
+  const garland = document.getElementById('garland');
+  const snowman = document.getElementById('snowman');
+  const snowlayer = document.getElementById('snowlayer');
+  const snowcont = document.getElementById('snowcont');
   // Флаг для отслеживания, добавлены ли чекбоксы
   let checkboxesAdded = false;
   let isMenuVisible = false; // Флаг для отслеживания состояния меню
@@ -28,13 +45,84 @@ document.addEventListener("DOMContentLoaded", function () {
   openOnRightClick.checked = JSON.parse(localStorage.getItem("openOnRightClick")) || false;
   copyOnRightClick.checked = JSON.parse(localStorage.getItem("copyOnRightClick")) || false;
 
+  function isTouchDevice() {
+    try {
+      document.createEvent("TouchEvent");
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  
+  const move = (e) => {
+    try {
+      var x = !isTouchDevice() ? e.pageX : e.touches[0].pageX;
+      var y = !isTouchDevice() ? e.pageY : e.touches[0].pageY;
+    } catch (e) {}
+    santa.style.left = x - 100 + "px";
+    santa.style.top = y - 100 + "px";
+  };
+  document.addEventListener("mousemove", (e) => {
+    move(e);
+  });
+  document.addEventListener("touchmove", (e) => {
+    move(e);
+  });
+
+  function updateTheme() {
+    if (NewYearTheme.checked) {
+        body.classList.add("snow");
+        body.classList.remove("no-snow");
+        santa.style.display = "block";
+        garland.style.display = "block";
+        snowman.style.display= "block";
+        snowlayer.style.display= "block";
+        garland.style.padding = "20px";
+        localStorage.setItem("newYearTheme", "enabled");
+    } else {
+        body.classList.remove("snow");
+        body.classList.add("no-snow");
+        santa.style.display = "none"; // Скрыть элемент
+        garland.style.display = "none";
+        snowman.style.display= "none";
+        snowlayer.style.display= "none";
+        snowcont.style.top="40px";
+        localStorage.setItem("newYearTheme", "disabled");
+    }
+}
+
+// Проверяем состояние чекбокса при загрузке страницы
+window.onload = () => {
+    const savedTheme = localStorage.getItem("newYearTheme");
+    if (savedTheme === "enabled") {
+        NewYearTheme.checked = true; // Устанавливаем чекбокс в состояние "включен"
+        body.classList.add("snow"); // Добавляем класс для анимации снега
+        body.classList.remove("no-snow"); // Убираем класс, если он есть
+        garland.style.display = "block";
+        snowman.style.display= "block";
+        snowlayer.style.display= "block";
+        santa.style.display = "block";
+    } else {
+        NewYearTheme.checked = false; // Устанавливаем чекбокс в состояние "выключен"
+        body.classList.remove("snow"); // Убираем класс для анимации снега
+        garland.style.display = "none";
+        body.classList.add("no-snow"); // Добавляем класс для остановки анимации
+        snowman.style.display= "none";
+        snowlayer.style.display= "none";
+        snowcont.style.top="40px";
+        santa.style.display = "none";
+    }
+};
+
+// Добавляем обработчик события для чекбокса
+NewYearTheme.addEventListener("change", updateTheme);
 // Функция для проверки обновлений
 async function checkForUpdates() {
     const repoUrl = "https://api.github.com/repos/Processori7/FreeAiChromeSidebar/contents/manifest.json";
     
     // Получаем локальную версию из manifest.json расширения
-    //const localVersion = "16.6.27"; // Для тестирования
-    const localVersion = chrome.runtime.getManifest().version;
+    const localVersion = "16.6.27"; // Для тестирования
+    //const localVersion = chrome.runtime.getManifest().version;
     const updateMessageElement = document.getElementById('update-message');
     
     try {
@@ -271,30 +359,20 @@ function translateText(text, lang) {
       openInNewTab.nextSibling.textContent = 'Открывать сайты в новой вкладке.';
       searchInput.placeholder = 'Поиск...';
       favoriteCheckbox.nextSibling.textContent = 'Добавить в избранное';
-      const aiChat = document.getElementById("aiChat");
       aiChat.innerText = "Бесплатный чат с ИИ";
-      const aiScripts = document.getElementById("aiScripts");
       aiScripts.innerText="Бесплатные GPT скрипты помощники для поисковых систем";
-      const aiPC = document.getElementById("aiPC");
       aiPC.innerText="Бесплатный GPT на ПК с Windows";
-      const aiArticle = document.getElementById("aiArticle");
       aiArticle.innerText="Бесплатные генераторы статей с ИИ";
-      const aiImage = document.getElementById("aiImage");
       aiImage.innerText="Бесплатные сервисы для работы с изображениями";
-      const aiVideo = document.getElementById("aiVideo");
       aiVideo.innerText="Бесплатные сервисы для работы с видео";
-      const aiPresentation = document.getElementById("aiPresentation");
       aiPresentation.innerText="Бесплатные сервисы для генерации презентаций";
-      const aiSound = document.getElementById("aiSound");
       aiSound.innerText="Бесплатные сервисы для работы со звуком";
-      const aiTODO = document.getElementById("aiTODO");
       aiTODO.innerText="Бесплатные сервисы для планирования";
-      const aiOther = document.getElementById("aiOther");
       aiOther.innerText="Другие бесплатные сервисы с ИИ";
-      const scrollToElement = document.getElementById("scrollToElement");
       scrollToElement.nextSibling.textContent="Прокручивать к последнему выбранному элементу";
       openOnRightClick.nextSibling.textContent="Открывать сайт в новой вкладке при нажатии правой кнопкой мыши";
       copyOnRightClick.nextSibling.textContent="Копировать ссылку при нажатии правой кнопкой мыши";
+      NewYearTheme.nextSibling.textContent = "Новогодняя тема";
   }
   else
   {
@@ -326,6 +404,7 @@ const scrollToElement = document.getElementById("scrollToElement");
 scrollToElement.nextSibling.textContent = translateText("Прокручивать к последнему выбранному элементу", "ru");
 openOnRightClick.nextSibling.textContent=translateText("Открывать сайт в новой вкладке при нажатии правой кнопкой мыши", "ru");
 copyOnRightClick.nextSibling.textContent=translateText("Копировать ссылку при нажатии правой кнопкой мыши", "ru");
+NewYearTheme.nextSibling.textContent = translateText("Новогодняя тема", "ru");
   }
   openInNewTab.checked = JSON.parse(localStorage.getItem("openInNewTab")) || false;
 

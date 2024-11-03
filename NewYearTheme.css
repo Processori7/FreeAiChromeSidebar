@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url('https://sitespectr.ru/test/sneg/img/snow.png'), 
+                      url('https://sitespectr.ru/test/sneg/img/snow3.png'), 
+                      url('https://sitespectr.ru/test/sneg/img/snow2.png');
+    -webkit-animation: snow 10s linear infinite;
+    -moz-animation: snow 10s linear infinite;
+    -ms-animation: snow 10s linear infinite;
+    animation: snow 10s linear infinite;
+}
+
+@keyframes snow {
+    0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+    30% {background-position: 150px 200px, 100px 100px, 100px 100px;}
+    60% {background-position: 350px 600px, 250px 250px, 200px 200px;}    
+    100% {background-position: 500px 1000px, 400px 400px, 300px 300px;}
+}
+
+@-moz-keyframes snow {
+    0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+    30% {background-position: 150px 200px, 100px 100px, 100px 100px;}
+    60% {background-position: 350px 600px, 250px 250px, 200px 200px;}    
+    100% {background-position: 500px 1000px, 400px 400px, 300px 300px;}
+}
+
+@-webkit-keyframes snow {
+    0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+    30% {background-position: 150px 200px, 100px 100px, 100px 100px;}
+    60% {background-position: 350px 600px, 250px 250px, 200px 200px;}    
+    100% {background-position: 500px 1000px, 400px 400px, 300px 300px;}
+}
+
+@-ms-keyframes snow {
+    0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+    30% {background-position: 150px 200px, 100px 100px, 100px 100px;}
+    60% {background-position: 350px 600px, 250px 250px, 200px 200px;}    
+    100% {background-position: 500px 1000px, 400px 400px, 300px 300px;}
+}
+
+.no-snow {
+    background-image: none; /* Убираем фоновое изображение снега */
+    animation: none;
+}
+
+#santa {
+    display:none;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    transition: 0.5s ease-in-out; /* Увеличено время и изменена функция */
+}
+
+#santa img {
+    width: 80px;
+    filter: drop-shadow(0 0 20px rgba(1, 1, 42, 0.2)); /* Исправлено на rgba для корректного использования */
+}
+
+.snowman {
+    display:none;
+    background: transparent url("img/snowman.png") no-repeat scroll right top / 140px auto;
+    bottom: 0;
+    display: block;
+    height: 150px;
+    position: fixed;
+    right: 2%;
+    width: 150px;
+    z-index:-5;
+}
+.snow-layer {
+    display:none;
+    background: transparent url("img/snow-layer.png") repeat-x scroll center top / auto 20px;
+    bottom: 0;
+    display: block;
+    height: 20px;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    z-index:-5;
+}
+@media screen and (max-width: 1024px){
+ .snowman, .snow-layer {display: none;}
+}
+.snow-cont
+{
+    position: absolute; 
+    top: 80px; 
+    left: 50%; 
+    width: 200px; 
+    transform: translateX(-50%); 
+    text-align: center;
+    z-index:-5;
+}
