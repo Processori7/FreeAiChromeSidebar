@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const snowman = document.getElementById('snowman');
   const snowlayer = document.getElementById('snowlayer');
   const snowcont = document.getElementById('snowcont');
+  const treecont = document.getElementById('treecont');
   // Флаг для отслеживания, добавлены ли чекбоксы
   let checkboxesAdded = false;
   let isMenuVisible = false; // Флаг для отслеживания состояния меню
@@ -78,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
         snowman.style.display= "block";
         snowlayer.style.display= "block";
         garland.style.padding = "20px";
+        treecont.style.display= "block";
         snowcont.style.top="80px";
         localStorage.setItem("newYearTheme", "enabled");
     } else {
@@ -88,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
         snowman.style.display= "none";
         snowlayer.style.display= "none";
         snowcont.style.top="40px";
+        treecont.style.display= "none";
         localStorage.setItem("newYearTheme", "disabled");
     }
 }
@@ -102,6 +105,7 @@ window.onload = () => {
         garland.style.display = "block";
         snowman.style.display= "block";
         snowlayer.style.display= "block";
+        treecont.style.display= "block";
         santa.style.display = "block";
         snowcont.style.top="80px";
     } else {
@@ -111,6 +115,7 @@ window.onload = () => {
         body.classList.add("no-snow"); // Добавляем класс для остановки анимации
         snowman.style.display= "none";
         snowlayer.style.display= "none";
+        treecont.style.display= "none";
         snowcont.style.top="40px";
         santa.style.display = "none";
     }
@@ -835,7 +840,9 @@ var websiteDescriptionsRu = {
     "https://claude3.free2gpt.xyz/":"Позволяет бесплатно использовать Claude 3.5 Sonnet",
     "https://copilot.getbind.co/":"Бесплатная поисковая система с ИИ, позволяет использовать GPT-4o mini",
     "https://flowith.io/":"Инструмент повышения производительности на основе искусственного интеллекта, предназначенный для глубокой работы",
-    "https://llmchat.in/":"Бесплатный чат с большим выбором LLM"
+    "https://llmchat.in/":"Бесплатный чат с большим выбором LLM",
+    "https://www.me.bot/":"Приложение-компаньон с искусственным интеллектом, доступное онлайн, а также на Android и iOS, лимит 100 запросов в месяц",
+    "https://www.mathgptpro.com/app/ask":"ИИ решит математические примеры любой сложности, бесплатно с ограничениями"
 };
   // Проверяем обновления при загрузке страницы
   checkForUpdates();
