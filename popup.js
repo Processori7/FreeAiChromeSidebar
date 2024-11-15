@@ -515,7 +515,7 @@ async function canLoadInIframe(url) {
                 "https://tinywow.com/tools/write","https://huggingface.co/spaces/DamarJati/FLUX.1-RealismLora","https://yce.perfectcorp.com/colorize","https://venice.ai/chat","https://huggingface.co/chat/","https://app.giz.ai/assistant?mode=chat",
                 "https://huggingface.co/spaces/OzzyGT/diffusers-image-fill","https://app.myshell.ai/explore","https://huggingface.co/spaces/TheEeeeLin/HivisionIDPhotos","https://huggingface.co/spaces/fffiloni/expression-editor","https://komo.ai/","https://pythonspath.ru/gpt4o",
                 "https://huggingface.co/spaces/kayfahaarukku/fufufafa-makan-brem","https://gpt-4o.biz/playground","https://gpt4o.so/ru/app","https://rubiks.ai/","https://julius.ai/ai-chatbot","https://chat.eqing.tech/","https://ai.mitup.ru/chatgpt-free","https://magictellers.com/",
-                "https://tools.rotato.app/compress"];
+                "https://tools.rotato.app/compress","https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt"];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
                 } else {
@@ -842,7 +842,14 @@ var websiteDescriptionsRu = {
     "https://flowith.io/":"Инструмент повышения производительности на основе искусственного интеллекта, предназначенный для глубокой работы",
     "https://llmchat.in/":"Бесплатный чат с большим выбором LLM",
     "https://www.me.bot/":"Приложение-компаньон с искусственным интеллектом, доступное онлайн, а также на Android и iOS, лимит 100 запросов в месяц",
-    "https://www.mathgptpro.com/app/ask":"ИИ решит математические примеры любой сложности, бесплатно с ограничениями"
+    "https://www.mathgptpro.com/app/ask":"ИИ решит математические примеры любой сложности, бесплатно с ограничениями",
+    "https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step":"Качественный генератор изображений",
+    "https://www.meshcapade.com/":"Сервис предлагает функцию, которая преобразовывает текст в движение и как бы «оживляет» персонажей",
+    "https://mojo-app.com/ai":"Инструмент на основе ИИ, который может превращать статические логотипы в короткие анимации",
+    "https://www.eraser.io/diagramgpt":"Инструмент позволяет генерировать различные диагрымы на основе текста или фото",
+    "https://www.photoroom.com/tools":"Набор инструментов для обработки фото",
+    "https://llamaocr.com/":"Бесплатная нейросеть для распознавания текста на фото",
+    "https://gptengineer.app/":"Агент с открытым исходным кодом, который может помочь в создании кода"
 };
   // Проверяем обновления при загрузке страницы
   checkForUpdates();
