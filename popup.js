@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const snowlayer = document.getElementById('snowlayer');
   const snowcont = document.getElementById('snowcont');
   const treecont = document.getElementById('treecont');
+  const advancedSearch = document.getElementById('advancedSearch');
   // Флаг для отслеживания, добавлены ли чекбоксы
   let checkboxesAdded = false;
   let isMenuVisible = false; // Флаг для отслеживания состояния меню
@@ -39,12 +40,22 @@ document.addEventListener("DOMContentLoaded", function () {
   let translateUrl = "";
   let translatedText = "";
   let updateText = "Доступно обновление!"
+  let userLangDesc = [];
 
   currentWebsite = localStorage.getItem('currentWebsite'); // Загружаем из localStorage
   
   // Загрузка состояния чекбоксов из localStorage
   openOnRightClick.checked = JSON.parse(localStorage.getItem("openOnRightClick")) || false;
   copyOnRightClick.checked = JSON.parse(localStorage.getItem("copyOnRightClick")) || false;
+  copyOnRightClick.checked = JSON.parse(localStorage.getItem("advancedSearch")) || false;
+
+  // Функция для обновления состояния advancedSearch в localStorage
+  function updateOpenOnAdvancedSearchState() {
+      localStorage.setItem("advancedSearch", advancedSearch.checked);
+  }
+  
+  // Обработчик события для advancedSearch
+  advancedSearch.addEventListener('change', updateOpenOnAdvancedSearchState);
 
   function isTouchDevice() {
     try {
@@ -129,9 +140,8 @@ async function checkForUpdates() {
     const repoUrl = "https://api.github.com/repos/Processori7/FreeAiChromeSidebar/contents/manifest.json";
     
     // Получаем локальную версию из manifest.json расширения
-    //const localVersion = "16.6.27"; // Для тестирования
+    //const localVersion = "16.6.27"; // Для тестирования;
     const localVersion = chrome.runtime.getManifest().version;
-    const updateMessageElement = document.getElementById('update-message');
     
     try {
         const response = await fetch(repoUrl);
@@ -340,21 +350,46 @@ favoriteCheckbox.addEventListener('click', function() {
     }
 });
 
-  // Поиск
-  searchInput.addEventListener('input', function() {
-      const filter = searchInput.value.toLowerCase();
+searchInput.addEventListener('input', function() {
+    const filter = searchInput.value.toLowerCase();
+    const filterWords = filter.split(); // Разбиваем фильтр на слова
+    console.log(filterWords);
+    
+    items.forEach(item => {
+        const text = item.textContent || item.innerText;
+        const website = item.getAttribute('data-website'); // Получаем URL сайта
+        let descriptionText = ""; // Переименуем переменную для ясности
+        
+        if (userLang.startsWith("ru")) {
+            descriptionText = websiteDescriptionsRu[website]; // Получаем описание по URL
+        } else {
+            let userDesc = localStorage.getItem('translatedDescriptions');
 
-      items.forEach(item => {
-          const text = item.textContent || item.innerText;
+            // Проверяем, есть ли данные в localStorage
+            if (userDesc) {
+                // Преобразуем строку в объект
+                userDesc = JSON.parse(userDesc);
 
-          if (text.toLowerCase().indexOf(filter) > -1) {
-              item.style.display = ""; // Показываем элемент
-          } else {
-              item.style.display = "none"; // Скрываем элемент
-          }
-      });
-  });
+                // Теперь вы можете получить описание по URL
+                const description = userDesc.find(item => item.url === website); // Используем find для поиска по URL
 
+                if (description) {
+                    descriptionText = description.translatedText; // Получаем переведенный текст
+                }
+            }
+        }
+
+        // Проверяем, содержится ли хотя бы одно слово из фильтра в тексте или описании
+        const matchesText = filterWords.some(word => text.toLowerCase().includes(word));
+        const matchesDescription = filterWords.some(word => descriptionText.toLowerCase().includes(word));
+
+        if (matchesText || matchesDescription) {
+            item.style.display = ""; // Показываем элемент
+        } else {
+            item.style.display = "none"; // Скрываем элемент
+        }
+    });
+});
 
 // Функция для перевода текста
 function translateText(text, lang) {
@@ -381,6 +416,8 @@ function translateText(text, lang) {
       openOnRightClick.nextSibling.textContent="Открывать сайт в новой вкладке при нажатии правой кнопкой мыши";
       copyOnRightClick.nextSibling.textContent="Копировать ссылку при нажатии правой кнопкой мыши";
       NewYearTheme.nextSibling.textContent = "Новогодняя тема";
+      advancedSearch.style.display = "none";
+      document.getElementById('advancedSearchText').style.display="none";
   }
   else
   {
@@ -413,6 +450,7 @@ scrollToElement.nextSibling.textContent = translateText("Прокручиват�
 openOnRightClick.nextSibling.textContent=translateText("Открывать сайт в новой вкладке при нажатии правой кнопкой мыши", "ru");
 copyOnRightClick.nextSibling.textContent=translateText("Копировать ссылку при нажатии правой кнопкой мыши", "ru");
 NewYearTheme.nextSibling.textContent = translateText("Новогодняя тема", "ru");
+advancedSearch.nextSibling.textContent = translateText("Enable contextual search (Attention! Initialization can take up to 20 seconds on first startup)", "en");
   }
   openInNewTab.checked = JSON.parse(localStorage.getItem("openInNewTab")) || false;
 
@@ -461,28 +499,6 @@ NewYearTheme.nextSibling.textContent = translateText("Новогодняя те�
     document.body.appendChild(backButton);
 }
 
-async function canLoadInIframe(url) {
-    try {
-        const response = await fetch(url, { method: 'HEAD' });
-        const xFrameOptions = response.headers.get('X-Frame-Options');
-        const contentSecurityPolicy = response.headers.get('Content-Security-Policy');
-
-        // Проверяем заголовки
-        if (xFrameOptions && (xFrameOptions === 'DENY' || xFrameOptions === 'SAMEORIGIN')) {
-            return false; // Сайт не может быть загружен во фрейме
-        }
-
-        if (contentSecurityPolicy && contentSecurityPolicy.includes('frame-ancestors')) {
-            return false; // Сайт не может быть загружен во фрейме
-        }
-
-        return true; // Сайт может быть загружен во фрейме
-    } catch (error) {
-        console.error('Ошибка при проверке сайта:', error);
-        return false; // Если произошла ошибка, считаем, что сайт не может быть загружен
-    }
-}
-
   function initializeListItems() {
     const listItems = document.querySelectorAll("li");
     listItems.forEach((li) => {
@@ -515,7 +531,7 @@ async function canLoadInIframe(url) {
                 "https://tinywow.com/tools/write","https://huggingface.co/spaces/DamarJati/FLUX.1-RealismLora","https://yce.perfectcorp.com/colorize","https://venice.ai/chat","https://huggingface.co/chat/","https://app.giz.ai/assistant?mode=chat",
                 "https://huggingface.co/spaces/OzzyGT/diffusers-image-fill","https://app.myshell.ai/explore","https://huggingface.co/spaces/TheEeeeLin/HivisionIDPhotos","https://huggingface.co/spaces/fffiloni/expression-editor","https://komo.ai/","https://pythonspath.ru/gpt4o",
                 "https://huggingface.co/spaces/kayfahaarukku/fufufafa-makan-brem","https://gpt-4o.biz/playground","https://gpt4o.so/ru/app","https://rubiks.ai/","https://julius.ai/ai-chatbot","https://chat.eqing.tech/","https://ai.mitup.ru/chatgpt-free","https://magictellers.com/",
-                "https://tools.rotato.app/compress","https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt"];
+                "https://tools.rotato.app/compress","https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt","https://huggingface.co/spaces/AI4Editing/MagicQuill","https://www.askmarcus.app/chat"];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
                 } else {
@@ -571,7 +587,6 @@ async function canLoadInIframe(url) {
             if (quoteIndex !== -1) {
                 trimmedText = trimmedText.slice(0, quoteIndex);
             }
-        
             return trimmedText;
         }
 
@@ -615,6 +630,31 @@ async function canLoadInIframe(url) {
         });
     }
 
+    function translate_and_write_desc() {
+        var descriptions = websiteDescriptionsRu;
+    
+        // Перебираем каждую запись в объекте описаний
+        for (var url in descriptions) {
+            if (descriptions.hasOwnProperty(url)) {
+                var description = descriptions[url]; // Получаем описание для текущего URL
+                let translateUrl = "https://translate.googleapis.com/translate_a/single?format=text&client=gtx&sl=ru&tl=" + userLang + "&dt=t&q=" + encodeURIComponent(description);
+    
+                // Если язык пользователя не русский, переводим описание
+                if (!userLang.startsWith('ru')) {
+                    // Получаем переведенный текст
+                    let translatedText = httpGet(translateUrl);
+                    translatedText = cleanAndTrimData(translatedText);
+                    userLangDesc.push({url, translatedText }); // Добавляем объект с URL и переведенным описанием
+                } else {
+                    // Если язык русский, просто добавляем оригинальное описание
+                    userLangDesc.push({url, description });
+                }
+            }
+        }
+        // Здесь можно записать userLangDesc в кэш, если это необходимо
+        localStorage.setItem('translatedDescriptions', JSON.stringify(userLangDesc));
+    }
+    
 var websiteDescriptionsRu = {
     "https://duck.ai/": "Бесплатно: Claude3 Hiku, GPT-4o-mini, Llama3.1 70B, Mixtral 8x7B.",
     "https://thinkany.ai/": "Бесплатно можно использовать различные LLM, на сайте есть тёмная тема и нужна авторизация.",
@@ -848,10 +888,24 @@ var websiteDescriptionsRu = {
     "https://www.eraser.io/diagramgpt":"Инструмент позволяет генерировать различные диагрымы на основе текста или фото",
     "https://www.photoroom.com/tools":"Набор инструментов для обработки фото",
     "https://llamaocr.com/":"Бесплатная нейросеть для распознавания текста на фото",
-    "https://gptengineer.app/":"Агент с открытым исходным кодом, который может помочь в создании кода"
+    "https://gptengineer.app/":"Агент с открытым исходным кодом, который может помочь в создании кода",
+    "https://www.yeschat.ai/ru/gpts-ZxWyZIKg-EE-GPT":"GPT эксперт по электротехнике на основе ИИ",
+    "https://www.rubbrband.com/":"Бесплатный генератор изображений и видео, который позволяет последовательно создавать изображения в уникальных стилях, есть лимит",
+    "https://huggingface.co/spaces/AI4Editing/MagicQuill":"Бесплатный редактор изображений с ИИ",
+    "https://iki.ai":"Платформа для хранения и организации знаний",
+    "https://mcanswers.ai/":"Чат-бот по кодированию с ИИ, который может предоставить вам уточненные, подробные ответы на вопросы по кодированию благодаря своей полной библиотеке, бесплатный план позволяет задавать 100 вопросов каждый день",
+    "https://www.askmarcus.app/chat":"Чат-бот предоставляет бесплатный доступ к Chat GPT",
+    "https://www.askmyai.chat/":"Чат-бот предоставляет бесплатный доступ к Chat GPT"
 };
   // Проверяем обновления при загрузке страницы
   checkForUpdates();
   initializePage();
   initializePopup();
+  // Проверяем, существует ли элемент 'translatedDescriptions' в localStorage
+  if (!userLang.startsWith('ru'))
+    {
+        if (!localStorage.getItem('translatedDescriptions') !== null && advancedSearch.checked) {
+            translate_and_write_desc();
+        }
+    } 
 });
