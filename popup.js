@@ -451,6 +451,7 @@ openOnRightClick.nextSibling.textContent=translateText("Открывать са�
 copyOnRightClick.nextSibling.textContent=translateText("Копировать ссылку при нажатии правой кнопкой мыши", "ru");
 NewYearTheme.nextSibling.textContent = translateText("Новогодняя тема", "ru");
 advancedSearch.nextSibling.textContent = translateText("Enable contextual search (Attention! Initialization can take up to 20 seconds on first startup)", "en");
+document.getElementById('advancedSearchText').style.display="block";
   }
   openInNewTab.checked = JSON.parse(localStorage.getItem("openInNewTab")) || false;
 
