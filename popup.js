@@ -532,7 +532,7 @@ document.getElementById('advancedSearchText').style.display="block";
                 "https://tinywow.com/tools/write","https://huggingface.co/spaces/DamarJati/FLUX.1-RealismLora","https://yce.perfectcorp.com/colorize","https://venice.ai/chat","https://huggingface.co/chat/","https://app.giz.ai/assistant?mode=chat",
                 "https://huggingface.co/spaces/OzzyGT/diffusers-image-fill","https://app.myshell.ai/explore","https://huggingface.co/spaces/TheEeeeLin/HivisionIDPhotos","https://huggingface.co/spaces/fffiloni/expression-editor","https://komo.ai/","https://pythonspath.ru/gpt4o",
                 "https://huggingface.co/spaces/kayfahaarukku/fufufafa-makan-brem","https://gpt-4o.biz/playground","https://gpt4o.so/ru/app","https://rubiks.ai/","https://julius.ai/ai-chatbot","https://chat.eqing.tech/","https://ai.mitup.ru/chatgpt-free","https://magictellers.com/",
-                "https://tools.rotato.app/compress","https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt","https://huggingface.co/spaces/AI4Editing/MagicQuill","https://www.askmarcus.app/chat"];
+                "https://tools.rotato.app/compress","https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt","https://huggingface.co/spaces/AI4Editing/MagicQuill","https://www.askmarcus.app/chat", "https://huggingface.co/spaces/fffiloni/text-guided-image-colorization"];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
                 } else {
@@ -896,7 +896,15 @@ var websiteDescriptionsRu = {
     "https://iki.ai":"Платформа для хранения и организации знаний",
     "https://mcanswers.ai/":"Чат-бот по кодированию с ИИ, который может предоставить вам уточненные, подробные ответы на вопросы по кодированию благодаря своей полной библиотеке, бесплатный план позволяет задавать 100 вопросов каждый день",
     "https://www.askmarcus.app/chat":"Чат-бот предоставляет бесплатный доступ к Chat GPT",
-    "https://www.askmyai.chat/":"Чат-бот предоставляет бесплатный доступ к Chat GPT"
+    "https://www.askmyai.chat/":"Чат-бот предоставляет бесплатный доступ к Chat GPT",
+    "https://acetone.ai/":"Инструмент для удаление фона с картинок",
+    "https://otio.ai/":"Полезный ИИ для учёбы и работы, требуется авторизация",
+    "https://fal.ai/models/fal-ai/ltx-video":"Генератор видео по текстовому запросу",
+    "https://copycoder.ai/":"Копируем ЛЮБОЙ сайт с помощью CopyCoder, просто делаем скриншот понравившегося сайта ,загружаем в CopyCoder и получаем промт для ChatGPT или любой другой модели",
+    "https://huggingface.co/spaces/fffiloni/text-guided-image-colorization":"Раскрашиваем черно-белые фото бесплатно",
+    "https://replit.com/":"Генератор приложений, бесплатный план с ограничениями",
+    "https://aihairstyle.net/":"ИИ подберет вам варианты причесок, которые лучше всего будут на вас смотреться",
+    "https://discord.com/invite/domoai":"Нейросеть которая делает анимацию по выбранному стилю, сервис может сгенерировать из исходного ролика анимацию с помощью одной из десяти моделей, весь процесс генерации проходит на Discord сервере разработчиков"
 };
   // Проверяем обновления при загрузке страницы
   checkForUpdates();
