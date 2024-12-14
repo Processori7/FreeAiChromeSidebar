@@ -1,21 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    background-color: #242582; /* Тёмно-синий фон для всего body */
+    background-color: #a1a1a1;
+    /* background-color: #789c3e; */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
   
   h1 {
-    color: #FFFF00;
+    /* color: #ffde22; */
+    color: #ffde22;
+    /* color: #113b0d; */
     font-family: 'Droid serif', serif;
-    font-size: 20px;
+    font-size: 32px;
     font-weight: 400;
     font-style: italic;
     line-height: 44px;
-    margin: 0 0 12px;
+    margin: 10px 0 22px;
+    font-weight: 500;
     text-align: center;
   }
   
@@ -28,46 +34,52 @@ body {
     background-color: #89CFF0;
     border-radius: 10px; /* Скругление углов */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Тень для эффекта обводки */  
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
-  
-  li,
-  .back,
-  .pages {
-    color: #ffffff;
-    border: none;
-    margin-top: 3px;
-    display: block;
-    width: 180px;
-    cursor: pointer;
-    min-height: 30px;
-    font-size: 100%;
+
+  p {
+    padding: 45px 0;
+  }
+
+  li {
+    display: inline-block;
+    margin: 5px;
+    /* padding: 50px 0 0; */
+    min-height: 100px;
+    width: 220px;
+    border-radius: 3px;
     text-align: center;
-    border-radius: 5px;
-    padding-top: 8px;
+    box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
+    background: #70040e;
+    color: white;
     font-size: 16px;
-    outline: thick double #32a1ce;
-    padding: 8px;
-    box-sizing: border-box; /* Учитываем отступы и границы в размерах элемента */
-    transition: background-color 0.3s; /* Плавный переход для фона при наведении */
-    background-color: #89CFF0;
+    transition: background-color .6s ease;
+    overflow: hidden;
   }
 
   /* Стили при наведении */
   li.highlight {
-    color: #ffff00; /* Жёлтый цвет текста */
-    background-color: #310d75; /* Темнее оригинального фона */
+    /* Жёлтый цвет текста */
+    /* color: #ffff00;  */
+    color: white; 
+    /* Темнее оригинального фона */
+    /* background-color: #310d75;  */
+    background-color: #52020b; 
     transition: background-color 0.5s, color 0.5s; /* Плавный переход */
-}
+  }
 
-li:hover,
-.back:hover,
-.pages:hover {
-    color: #ffff00; /* Жёлтый цвет текста */
-    background-color: #310d75; /* Темнее оригинального фона */
-}
+  li:hover {
+      /* Жёлтый цвет текста */
+      color:white; 
+      /* Темнее оригинального фона */
+      background-color: #52020b;
+  }
+
+  .favorite-checkbox {
+    accent-color: #9d3039;
+    height: 25px; /* not needed */
+    width: 25px; /* not needed */
+    margin-top: 20px;
+  }
 
   a {
     text-decoration: none;
@@ -137,9 +149,15 @@ li:hover,
   }
   
   .updateMessage {
-    position: relative; 
-    top: 0; 
-    left: 0; 
+    text-align: center;
+    width: 50%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -920%);
+    z-index: 1000;
+    padding: 10px;
+    box-sizing: border-box;
     color: orange; 
     font-size: 16px; 
     display: none;
@@ -173,6 +191,18 @@ li:hover,
       border-radius: 5px;
   }
 
+  .popup-chackbox {
+    accent-color: #9d3039;
+    height: 20px; /* not needed */
+    width: 20px; /* not needed */
+    margin: 5px;
+  }
+
+  .dropdown-label {
+    /* position: absolute; */
+    font-weight: 300;
+  }
+
   .dropdown {
       display: none; /* Скрываем выпадающий список по умолчанию */
       position: absolute;
@@ -180,6 +210,7 @@ li:hover,
       right: 0; /* Позиционируем справа */
       border: 1px solid #ccc;
       border-radius: 4px;
+      background-color: rgb(146, 142, 142);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       z-index: 1;
       min-width: 250px; /* Ширина выпадающего списка */
@@ -190,7 +221,7 @@ li:hover,
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      background-color: #242582;
+      background-color: #70040e;
       color: white;
   }
   
@@ -203,11 +234,14 @@ li:hover,
 }
 
 .dropdown-item {
-  padding: 10px;
+  /* padding: 10px; */
   cursor: pointer;
-  color: yellow; /* Оранжевый цвет текста */
+  color: white; /* Оранжевый цвет текста */
   font-size: 14px;
-  background-color: #242582;
+  background-color: #70040e;
+  border: 1px solid rgb(214, 207, 207); 
+  border-radius: 2px;
+  margin: 2px;
 }
 
 
@@ -254,11 +288,190 @@ li:hover,
     padding: 8px;
     box-sizing: border-box; /* Учитываем отступы и границы в размерах элемента */
     transition: background-color 0.3s; /* Плавный переход для фона при наведении */
-    background-color: rgba(36, 37, 130, 0.7); /* Цвет #242582 с 50% прозрачностью */
+    background-color: rgba(36, 37, 130, 0.7); /*Цвет #242582 с 50% прозрачностью*/
+    border: 1px solid #ffffff; /* Рамка 1px белого цвета */
 }
 
 /* Стили при наведении */
 .header-dropdown-item:hover {
     color: #ffff00; /* Жёлтый цвет текста */
     background-color: #310d75; /* Темнее оригинального фона */
+}
+
+/* Theme Settings Styles */
+.theme-settings {
+    padding: 15px;
+    margin-top: 10px;
+    background-color: #89CFF0;
+    border-radius: 10px;
+}
+
+.theme-settings h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: #ffde22;
+}
+
+.color-picker-group,
+.font-settings-group,
+.size-settings-group,
+.border-settings-group,
+.shadow-settings-group {
+    margin-bottom: 15px;
+}
+
+.color-picker-group label,
+.font-settings-group label,
+.size-settings-group label,
+.border-settings-group label,
+.shadow-settings-group label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.color-picker-group input[type="color"],
+.border-settings-group input[type="color"] {
+    width: 50px;
+    height: 25px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#fontFamilySelect {
+    width: 150px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+input[type="range"] {
+    width: 150px;
+    margin: 0 10px;
+}
+
+.shadow-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+#resetTheme {
+    width: 100%;
+    padding: 8px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+#resetTheme:hover {
+    background-color: #d32f2f;
+}
+
+/* Value display spans */
+#fontSizeValue,
+#itemWidthValue,
+#itemHeightValue,
+#borderWidthValue {
+    min-width: 45px;
+    text-align: right;
+}
+
+/* Theme Menu Styles */
+.theme-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    min-width: 200px;
+    margin-top: 5px;
+}
+
+.theme-dropdown-menu.show {
+    display: block;
+}
+
+#theme-menu-toggle {
+    margin-left: 5px;
+}
+
+.menu-list {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0;
+    color: #ffde22;
+}
+
+.menu-list:hover {
+    opacity: 0.8;
+}
+
+.descriptionText {
+    background-color: #89CFF0;
+    color: #000000;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Стили для кнопки меню */
+#header-menu-toggle {
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px;
+    background-color: #3F8FD2;
+    border-radius: 5px;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+}
+
+/* Стили для кнопки темы */
+#theme-menu-toggle {
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px;
+    background-color: #3F8FD2;
+    border-radius: 5px;
+    position: fixed;
+    right: 0;
+    top: calc(50% - 60px);
+    transform: translateY(-50%);
+    z-index: 3;
+}
+
+.header-dropdown-menu,
+.theme-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    min-width: 200px;
+    margin-top: 5px;
+    background-color: #89CFF0;
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid #ffffff; /* Рамка 1px белого цвета */
+    max-height: 300px; /* Максимальная высота для прокрутки */
+    overflow-y: auto; /* Прокрутка по вертикали */
 }
