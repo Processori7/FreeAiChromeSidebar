@@ -593,7 +593,7 @@ document.getElementById('advancedSearchText').style.display="block";
                             window.open(website, '_blank');
                         }
                     } else {
-                        // Скрываем оригинальное содержимое и создаем iframe
+
                         // Скрываем оригинальное содержимое и создаем iframe
                         document.body.innerHTML = ''; // Очищаем содержимое body
 

@@ -47,6 +47,7 @@ body {
     width: 100px;
     position: absolute;
     transition: 0.5s ease-in-out; /* Увеличено время и изменена функция */
+    z-index: 20;
 }
 
 #santa img {
@@ -63,7 +64,6 @@ body {
     position: fixed;
     right: 2%;
     width: 150px;
-    z-index:-5;
 }
 .snow-layer {
     display:none;
@@ -87,7 +87,7 @@ body {
     /* width: 200px;  */
     /* transform: translateX(-50%);  */
     text-align: center;
-    z-index:-5;
+    z-index:0;
 }
 
 .tree-cont {
