@@ -621,7 +621,10 @@ document.getElementById('advancedSearchText').style.display="block";
                 "https://tools.rotato.app/compress","https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt","https://huggingface.co/spaces/AI4Editing/MagicQuill","https://www.askmarcus.app/chat", "https://huggingface.co/spaces/fffiloni/text-guided-image-colorization",
                 "https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt","https://huggingface.co/spaces/AI4Editing/MagicQuill","https://www.askmarcus.app/chat", "https://huggingface.co/spaces/fffiloni/text-guided-image-colorization",
                 "https://huggingface.co/spaces/JeffreyXiang/TRELLIS","https://discord.com/invite/domoai","https://aistudio.google.com/live","https://huggingface.co/spaces/OAOA/InvSR","https://huggingface.co/spaces/MoonQiu/FreeScale","https://www.zarla.com/","https://www.hotbot.com/chat","https://suno.com/me",
-                "https://huggingface.co/spaces/artificialguybr/video-dubbing", "https://huggingface.co/spaces/lllyasviel/iclight-v2-vary","https://doodad.dev/pattern-generator/","https://sourcegraph.com/cody/chat","https://huggingface.co/spaces/franciszzj/Leffa","https://oo.ai/","https://x-doc.ai/"];
+                "https://huggingface.co/spaces/artificialguybr/video-dubbing", "https://huggingface.co/spaces/lllyasviel/iclight-v2-vary","https://doodad.dev/pattern-generator/","https://sourcegraph.com/cody/chat","https://huggingface.co/spaces/franciszzj/Leffa","https://oo.ai/","https://x-doc.ai/","https://huggingface.co/spaces/osanseviero/gemini-coder",
+                "https://huggingface.co/spaces/akhaliq/anychat","https://huggingface.co/spaces/Qwen/QVQ-72B-preview","https://huggingface.co/spaces/stabilityai/stable-diffusion-3.5-large","https://huggingface.co/spaces/eswardivi/phi-4","https://huggingface.co/spaces/playgroundai/playground-v2.5","https://huggingface.co/spaces/llamameta/llama3.1-405B","https://huggingface.co/spaces/Qwen/Qwen2.5-Coder-demo",
+                "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground"
+              ];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
                 } else {
@@ -1025,8 +1028,19 @@ document.getElementById('advancedSearchText').style.display="block";
       "https://www.warp.dev/warp-ai":"Терминал для разработчиков, который теперь интегрирует ИИ для отладки, поиска команд и решения проблем",
       "https://x-doc.ai/":"ИИ для перевода книг и документов на 108 языков, требуется регистрация",
       "https://fokus.am":"Генератор презентаий с бесплатным планом, доступ можно получить только по ссылке, экспорт в PPTX не доступен",
-      "https://www.gptpanda.io/":"Помощник ChatGPT для Slack, основываясь на последних моделях OpenAI, GptPanda предлагает неограниченное количество запросов, а также имеет бесплатный стартовый план"
-  };
+      "https://www.gptpanda.io/":"Помощник ChatGPT для Slack, основываясь на последних моделях OpenAI, GptPanda предлагает неограниченное количество запросов, а также имеет бесплатный стартовый план",
+      "https://riverside.fm/transcription":"ИИ-инструмент для транскрибирования видео и подкастов",
+      "https://huggingface.co/spaces/osanseviero/gemini-coder":"ИИ для создания различных приложений на React",
+      "https://huggingface.co/spaces/akhaliq/anychat":"Сервис предоставляет доступ к большому количеству языковых моделей, поэтому может загружаться довольно долго",
+      "https://huggingface.co/spaces/Qwen/QVQ-72B-preview":"Сервис позволяет общаться с QVQ-72B-preview",
+      "https://huggingface.co/spaces/stabilityai/stable-diffusion-3.5-large":"Сервис позволяет использовать Stable-diffusion-3.5-large для генерации изображений",
+      "https://huggingface.co/spaces/eswardivi/phi-4":"Сервис позволяет общаться с Phi-4",
+      "https://huggingface.co/spaces/playgroundai/playground-v2.5":"Очень быстрый генератор изображений по запросу",
+      "https://huggingface.co/spaces/llamameta/llama3.1-405B":"Сервис позволяет использовать LLaMA3.1-405B для общения",
+      "https://huggingface.co/spaces/Qwen/Qwen2.5-Coder-demo":"Сервис позволяет общаться с Qwen2.5-Coder-demo",
+      "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground":"Сервис позволяет генерировать видео по описанию, бесплатно и без регистрации",
+      "https://chat.qwenlm.ai/":"Сервис позволяет использовать различные модели QwenLM для общения, требуется авторизация"
+  };  
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
   try {
