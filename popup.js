@@ -623,7 +623,7 @@ document.getElementById('advancedSearchText').style.display="block";
                 "https://huggingface.co/spaces/JeffreyXiang/TRELLIS","https://discord.com/invite/domoai","https://aistudio.google.com/live","https://huggingface.co/spaces/OAOA/InvSR","https://huggingface.co/spaces/MoonQiu/FreeScale","https://www.zarla.com/","https://www.hotbot.com/chat","https://suno.com/me",
                 "https://huggingface.co/spaces/artificialguybr/video-dubbing", "https://huggingface.co/spaces/lllyasviel/iclight-v2-vary","https://doodad.dev/pattern-generator/","https://sourcegraph.com/cody/chat","https://huggingface.co/spaces/franciszzj/Leffa","https://oo.ai/","https://x-doc.ai/","https://huggingface.co/spaces/osanseviero/gemini-coder",
                 "https://huggingface.co/spaces/akhaliq/anychat","https://huggingface.co/spaces/Qwen/QVQ-72B-preview","https://huggingface.co/spaces/stabilityai/stable-diffusion-3.5-large","https://huggingface.co/spaces/eswardivi/phi-4","https://huggingface.co/spaces/playgroundai/playground-v2.5","https://huggingface.co/spaces/llamameta/llama3.1-405B","https://huggingface.co/spaces/Qwen/Qwen2.5-Coder-demo",
-                "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground"
+                "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground","https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo","https://huggingface.co/spaces/webml-community/text-to-speech-webgpu","https://t.me/gpt_lama_bot","https://www.hailuo.ai/","https://v0.dev/","https://www.whatmore.ai/studio"
               ];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
@@ -1039,7 +1039,19 @@ document.getElementById('advancedSearchText').style.display="block";
       "https://huggingface.co/spaces/llamameta/llama3.1-405B":"Сервис позволяет использовать LLaMA3.1-405B для общения",
       "https://huggingface.co/spaces/Qwen/Qwen2.5-Coder-demo":"Сервис позволяет общаться с Qwen2.5-Coder-demo",
       "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground":"Сервис позволяет генерировать видео по описанию, бесплатно и без регистрации",
-      "https://chat.qwenlm.ai/":"Сервис позволяет использовать различные модели QwenLM для общения, требуется авторизация"
+      "https://www.whatmore.ai/studio":"Инструмент для создания видео на основе ИИ, предназначенный для брендов электронной коммерции для быстрого создания высококачественных маркетинговых видео, требуется регистрация",
+      "https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo":"EXAONE 3.5: Набор инструктивных моделей от LG AI, это ссылка на универсальную 7.8B модель",
+      "https://huggingface.co/spaces/webml-community/text-to-speech-webgpu":"Данный сервис позволяет переводить текст в речь",
+      "http://chat.qwenlm.ai/":"Сервис позволяет использовать 8 моделей QwenLM для общения, требуется авторизация",
+      "https://t.me/gpt_lama_bot":"Бот в Телеграм, который позволяет общаться с несколькими моделями LLM, включая GPT4o",
+      "https://consensus.app/":"Поисковая система на основе искусственного интеллекта, которая помогает вам найти основанные на фактических данных ответы на ваши исследовательские вопросы",
+      "https://bexi.ai/":"Сервис предлагает два основных инструмента: AI Humanizer для преобразования текста, созданного ИИ, в естественный, похожий на человека язык, и AI Detector для обнаружения контента, созданного AI, с высокой точностью",
+      "https://Metatable.ai":"Metatable — это платформа для визуальной разработки приложений, позволяющая создавать базы данных, конечные точки и целые приложения от фронтенда до бэкенда без написания кода",
+      "https://lovable.dev/":"Это инструмент, который превращает текстовые идеи в рабочие приложения, требуется регистрация",
+      "https://llamacoder.together.ai/":"Этот сервис генерирует полноценные проекты по одному запросу: просто вводите текстовый промпт, и она выдаёт рабочее решение с готовым бэкендом и фронтендом",
+      "https://v0.dev/":"ИИ превращает макеты в готовый React-код, создаёт адаптивные компоненты на Next.js и TailwindCSS, а ещё помогает улучшать UX и визуализировать архитектуры через диаграммы, требуется регистрация",
+      "https://bolt.new/":"Нейросеть, которая может генерировать интерфейсы, анимации и даже писать код по текстовым или визуальным запросам, требуется регистрация",
+      "https://www.hailuo.ai/":"Сервис позволяет использовать ИИ для общения, требуется авторизация"
   };  
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
