@@ -623,7 +623,7 @@ document.getElementById('advancedSearchText').style.display="block";
                 "https://huggingface.co/spaces/JeffreyXiang/TRELLIS","https://discord.com/invite/domoai","https://aistudio.google.com/live","https://huggingface.co/spaces/OAOA/InvSR","https://huggingface.co/spaces/MoonQiu/FreeScale","https://www.zarla.com/","https://www.hotbot.com/chat","https://suno.com/me",
                 "https://huggingface.co/spaces/artificialguybr/video-dubbing", "https://huggingface.co/spaces/lllyasviel/iclight-v2-vary","https://doodad.dev/pattern-generator/","https://sourcegraph.com/cody/chat","https://huggingface.co/spaces/franciszzj/Leffa","https://oo.ai/","https://x-doc.ai/","https://huggingface.co/spaces/osanseviero/gemini-coder",
                 "https://huggingface.co/spaces/akhaliq/anychat","https://huggingface.co/spaces/Qwen/QVQ-72B-preview","https://huggingface.co/spaces/stabilityai/stable-diffusion-3.5-large","https://huggingface.co/spaces/eswardivi/phi-4","https://huggingface.co/spaces/playgroundai/playground-v2.5","https://huggingface.co/spaces/llamameta/llama3.1-405B","https://huggingface.co/spaces/Qwen/Qwen2.5-Coder-demo",
-                "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground","https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo","https://huggingface.co/spaces/webml-community/text-to-speech-webgpu","https://t.me/gpt_lama_bot","https://www.hailuo.ai/","https://v0.dev/","https://www.whatmore.ai/studio"
+                "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground","https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo","https://huggingface.co/spaces/webml-community/text-to-speech-webgpu","https://t.me/gpt_lama_bot","https://www.hailuo.ai/","https://v0.dev/","https://www.whatmore.ai/studio","https://huggingface.co/spaces/tencent/Hunyuan3D-2","https://www.dzine.ai/"
               ];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
@@ -1051,7 +1051,10 @@ document.getElementById('advancedSearchText').style.display="block";
       "https://llamacoder.together.ai/":"Этот сервис генерирует полноценные проекты по одному запросу: просто вводите текстовый промпт, и она выдаёт рабочее решение с готовым бэкендом и фронтендом",
       "https://v0.dev/":"ИИ превращает макеты в готовый React-код, создаёт адаптивные компоненты на Next.js и TailwindCSS, а ещё помогает улучшать UX и визуализировать архитектуры через диаграммы, требуется регистрация",
       "https://bolt.new/":"Нейросеть, которая может генерировать интерфейсы, анимации и даже писать код по текстовым или визуальным запросам, требуется регистрация",
-      "https://www.hailuo.ai/":"Сервис позволяет использовать ИИ для общения, требуется авторизация"
+      "https://www.dzine.ai/":"Универсальный ИИ-редактор фото — в нём есть ВСЕ ИИ-инструменты для работы с изображениями, есть бесплтаный план, требуется авторизация",
+      "https://ai-icon.top/":"Бесплатный ИИ генератор иконок и логотипов, требуется авторизация",
+      "https://www.soundverse.ai/":"Генератор музыки с бесплатным планом, требуется авторизация",
+      "https://huggingface.co/spaces/tencent/Hunyuan3D-2":"Генерации 3D из текста и изображения"
   };  
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) {

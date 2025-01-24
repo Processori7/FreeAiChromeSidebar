@@ -27,7 +27,6 @@ var Balls = function () {
   function Balls() {
     _classCallCheck(this, Balls);
   }
-
   _createClass(Balls, [{
     key: 'play',
     value: function play() {
@@ -39,7 +38,6 @@ var Balls = function () {
       // Здесь можно добавить логику для остановки анимации или других эффектов
     }
   }]);
-
   return Balls;
 }();
 
@@ -51,7 +49,9 @@ function playBalls() {
 }
 
 function stopBalls() {
-  balls.stop();
+  if (balls) {
+    balls.stop();
+  }
 }
 
 var buttons = document.querySelectorAll('.b-ball_bounce');
@@ -62,13 +62,15 @@ buttons.forEach(function (button) {
 
 function ballBounce(e) {
   var i = e;
-  if (e.className.indexOf(" bounce") > -1) {
+  if (!i || i.className.indexOf(" bounce") > -1) {
     return;
   }
   toggleBounce(i);
 }
 
 function toggleBounce(i) {
+  if (!i) return; // Добавляем проверку на null
+
   i.classList.add("bounce");
   function n() {
     i.classList.remove("bounce");
@@ -109,9 +111,11 @@ for (var i = 0; i < array2.length; i++) {
 var l = ["49", "50", "51", "52", "53", "54", "55", "56", "57", "48", "189", "187", "81", "87", "69", "82", "84", "89", "85", "73", "79", "80", "219", "221", "65", "83", "68", "70", "71", "72", "74", "75", "76", "186", "222", "220"];
 var k = ["90", "88", "67", "86", "66", "78", "77", "188", "190", "191"];
 var a = {};
+
 for (var e = 0, c = l.length; e < c; e++) {
   a[l[e]] = e;
 }
+
 for (var _e = 0, _c = k.length; _e < _c; _e++) {
   a[k[_e]] = _e;
 }
@@ -123,6 +127,8 @@ document.addEventListener('keydown', function (j) {
     balls = new Balls();
     balls.play();
     var ball = document.querySelector('[data-note="' + index + '"]');
-    toggleBounce(ball);
+    if (ball) { // Добавляем проверку на null
+      toggleBounce(ball);
+    }
   }
 });
