@@ -1054,7 +1054,12 @@ document.getElementById('advancedSearchText').style.display="block";
       "https://www.dzine.ai/":"Универсальный ИИ-редактор фото — в нём есть ВСЕ ИИ-инструменты для работы с изображениями, есть бесплтаный план, требуется авторизация",
       "https://ai-icon.top/":"Бесплатный ИИ генератор иконок и логотипов, требуется авторизация",
       "https://www.soundverse.ai/":"Генератор музыки с бесплатным планом, требуется авторизация",
-      "https://huggingface.co/spaces/tencent/Hunyuan3D-2":"Генерации 3D из текста и изображения"
+      "https://huggingface.co/spaces/tencent/Hunyuan3D-2":"Генерации 3D из текста и изображения",
+      "https://www.autodraw.com/":"Онлайн-инструмент для рисования, созданный Дэном Моценбекером и Кайлом Филлипсом с друзьями в Google Creative Lab",
+      "https://photoeditor.ai/":"Набор инструментов для редактирования фотографий, которые могут легко удалять ненужные объекты, людей или текст из изображений, это позволяет вам хранить только то, что наиболее важно в ваших фотографиях",
+      "https://www.promptengine.cc/":"Генератор промптов для ChatGPT и других ИИ",
+      "https://www.deepfind.co/":"Поисковая система с ИИ",
+      "https://nomorecopyright.com/":"Сервис генерирует изображение, похожее на оригинал, но без авторских прав"
   };  
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
