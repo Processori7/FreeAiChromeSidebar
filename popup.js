@@ -623,7 +623,8 @@ document.getElementById('advancedSearchText').style.display="block";
                 "https://huggingface.co/spaces/JeffreyXiang/TRELLIS","https://discord.com/invite/domoai","https://aistudio.google.com/live","https://huggingface.co/spaces/OAOA/InvSR","https://huggingface.co/spaces/MoonQiu/FreeScale","https://www.zarla.com/","https://www.hotbot.com/chat","https://suno.com/me",
                 "https://huggingface.co/spaces/artificialguybr/video-dubbing", "https://huggingface.co/spaces/lllyasviel/iclight-v2-vary","https://doodad.dev/pattern-generator/","https://sourcegraph.com/cody/chat","https://huggingface.co/spaces/franciszzj/Leffa","https://oo.ai/","https://x-doc.ai/","https://huggingface.co/spaces/osanseviero/gemini-coder",
                 "https://huggingface.co/spaces/akhaliq/anychat","https://huggingface.co/spaces/Qwen/QVQ-72B-preview","https://huggingface.co/spaces/stabilityai/stable-diffusion-3.5-large","https://huggingface.co/spaces/eswardivi/phi-4","https://huggingface.co/spaces/playgroundai/playground-v2.5","https://huggingface.co/spaces/llamameta/llama3.1-405B","https://huggingface.co/spaces/Qwen/Qwen2.5-Coder-demo",
-                "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground","https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo","https://huggingface.co/spaces/webml-community/text-to-speech-webgpu","https://t.me/gpt_lama_bot","https://www.hailuo.ai/","https://v0.dev/","https://www.whatmore.ai/studio","https://huggingface.co/spaces/tencent/Hunyuan3D-2","https://www.dzine.ai/"
+                "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground","https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo","https://huggingface.co/spaces/webml-community/text-to-speech-webgpu","https://t.me/gpt_lama_bot","https://www.hailuo.ai/","https://v0.dev/","https://www.whatmore.ai/studio","https://huggingface.co/spaces/tencent/Hunyuan3D-2","https://www.dzine.ai/",
+                "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home"
               ];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
@@ -1059,7 +1060,11 @@ document.getElementById('advancedSearchText').style.display="block";
       "https://photoeditor.ai/":"Набор инструментов для редактирования фотографий, которые могут легко удалять ненужные объекты, людей или текст из изображений, это позволяет вам хранить только то, что наиболее важно в ваших фотографиях",
       "https://www.promptengine.cc/":"Генератор промптов для ChatGPT и других ИИ",
       "https://www.deepfind.co/":"Поисковая система с ИИ",
-      "https://nomorecopyright.com/":"Сервис генерирует изображение, похожее на оригинал, но без авторских прав"
+      "https://nomorecopyright.com/":"Сервис генерирует изображение, похожее на оригинал, но без авторских прав",
+      "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small":"Новая модель DeepSeek-VL2-small, распознающая объекты на изображениях и объясняющая их «смысл»",
+      "https://app.dreamlab.gg/":"Генерируем игры прямо в браузере",
+      "https://huggingface.co/spaces/Trudy/gemini-image-to-code":"Превращает изображения в интерактивные картинки",
+      "https://backgrounderase.net/home":"ИИ для удаления фона"
   };  
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
