@@ -624,7 +624,7 @@ document.getElementById('advancedSearchText').style.display="block";
                 "https://huggingface.co/spaces/artificialguybr/video-dubbing", "https://huggingface.co/spaces/lllyasviel/iclight-v2-vary","https://doodad.dev/pattern-generator/","https://sourcegraph.com/cody/chat","https://huggingface.co/spaces/franciszzj/Leffa","https://oo.ai/","https://x-doc.ai/","https://huggingface.co/spaces/osanseviero/gemini-coder",
                 "https://huggingface.co/spaces/akhaliq/anychat","https://huggingface.co/spaces/Qwen/QVQ-72B-preview","https://huggingface.co/spaces/stabilityai/stable-diffusion-3.5-large","https://huggingface.co/spaces/eswardivi/phi-4","https://huggingface.co/spaces/playgroundai/playground-v2.5","https://huggingface.co/spaces/llamameta/llama3.1-405B","https://huggingface.co/spaces/Qwen/Qwen2.5-Coder-demo",
                 "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground","https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo","https://huggingface.co/spaces/webml-community/text-to-speech-webgpu","https://t.me/gpt_lama_bot","https://www.hailuo.ai/","https://v0.dev/","https://www.whatmore.ai/studio","https://huggingface.co/spaces/tencent/Hunyuan3D-2","https://www.dzine.ai/",
-                "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home","https://huggingface.co/spaces/webml-community/kokoro-webgpu"
+                "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home","https://huggingface.co/spaces/webml-community/kokoro-webgpu","https://www.morphic.sh/","https://scira.app/","https://kagi.com/fastgpt","https://shapen.com/"
               ];
                 if (openInNewTab.checked) {
                     window.open(website, '_blank');
@@ -1068,8 +1068,24 @@ document.getElementById('advancedSearchText').style.display="block";
       "https://huggingface.co/spaces/webml-community/kokoro-webgpu":"ИИ для генерации аудио на основе текста или сценария",
       "https://www.squarespace.com/logo/":"Генератор логотипов",
       "https://chat.mathsolver.top/":"Бесплатное решение математических задач, которое предлагает персонализированный опыт репетиторства",
-      "https://chatgptgratis.eu/en/chat.html":"Сервис предоставляет бесплатный доступ к различным LLM"
-  };  
+      "https://chatgptgratis.eu/en/chat.html":"Сервис предоставляет бесплатный доступ к различным LLM",
+      "https://www.webpilot.ai/":"Бесплатная поисковая система с ИИ",
+      "https://isou.chat":"Бесплатная поисковая система с ИИ",
+      "https://www.morphic.sh/":"Бесплатная поисковая система с ИИ",
+      "https://scira.app/":"Бесплатная поисковая система с ИИ",
+      "https://kagi.com/fastgpt":"Бесплатная поисковая система с ИИ",
+      "https://getliner.com/":"Бесплатная поисковая система с ИИ, требуется авторизация",
+      "https://www.xdash.ai/":"Бесплатная поисковая система с ИИ",
+      "https://correkt.ai/":"Бесплатная поисковая система с ИИ",
+      "https://compute.hyper.space/":"Довольно интересный проект, который совмещает различных ИИ агентов с поисковой системой",
+      "https://hika.fyi/":"Бесплатная поисковая система с ИИ",
+      "https://shapen.com/":"Загрузите изображение — ИИ сам соберёт детализированную 3D-модель",
+      "https://www.grok3ai.live/":"Сервис предоставляет доступ к GROK 3 от xAI",
+      "https://app.invesst.ai/login":"ИИ-сервис для ИНВЕСТИЦИОННЫХ исследований — Invesst буквально «DeepResearch для инвестиций», объединяющий в себе мощь поиска с помощью ChatGPT и Perplexity",
+      "https://neonpangolin.github.io/FilePhish/":"Сервис позволяет находить файлы на веб-сайтах по ключевым словам, а также БД и ПО",
+      "https://www.yeschat.ai/features/grok-3":"Сервис предоставляет доступ к GROK 3 от xAI",
+      "https://www.rabbithole.chat/":"Поисковая система с ИИ, в день даётся 3 бесплатных запроса, но внутри них можно разветвлять бесконечно"
+  };    
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
   try {
