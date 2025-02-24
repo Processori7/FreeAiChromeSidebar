@@ -260,6 +260,7 @@
       transform: translateY(-50%); /* Сдвигаем на половину высоты элемента для центрирования */
       z-index: 3;
   }
+
   
   .header-dropdown {
     border: 1px solid #ccc;
@@ -398,7 +399,7 @@
       position: absolute;
       top: 100%;
       right: 0;
-      z-index: 1000;
+      z-index: 1001;
       min-width: 200px;
       margin-top: 5px;
   }
@@ -411,18 +412,9 @@
       margin-left: 5px;
   }
   
-  .menu-list {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      padding: 5px;
-      margin: 0;
-      color: #ffde22;
-  }
   
   .menu-list:hover {
-      opacity: 0.8;
+      opacity: 0.1;
   }
   
   .descriptionText {
@@ -466,11 +458,9 @@
   .theme-dropdown-menu {
       display: none;
       position: absolute;
-      top: 100%;
       right: 0;
       z-index: 1000;
       min-width: 200px;
-      margin-top: 5px;
       background-color: #89CFF0;
       border-radius: 10px;
       padding: 15px;
