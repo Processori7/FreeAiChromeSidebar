@@ -530,7 +530,6 @@ searchInput.addEventListener('input', function() {
       const matchesText = filterWords.some(word => text.includes(word));
       if (matchesText) {
           item.style.display = ""; // Show item if text matches
-          hideBlockedServices();
           return;
       }
 
