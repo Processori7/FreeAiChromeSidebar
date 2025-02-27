@@ -83,12 +83,12 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://huggingface.co/spaces/OzzyGT/diffusers-image-fill","https://app.myshell.ai/explore","https://huggingface.co/spaces/TheEeeeLin/HivisionIDPhotos","https://huggingface.co/spaces/fffiloni/expression-editor","https://komo.ai/","https://pythonspath.ru/gpt4o",
     "https://huggingface.co/spaces/kayfahaarukku/fufufafa-makan-brem","https://gpt-4o.biz/playground","https://gpt4o.so/ru/app","https://rubiks.ai/","https://julius.ai/ai-chatbot","https://chat.eqing.tech/","https://ai.mitup.ru/chatgpt-free","https://magictellers.com/",
     "https://tools.rotato.app/compress","https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt","https://huggingface.co/spaces/AI4Editing/MagicQuill","https://www.askmarcus.app/chat", "https://huggingface.co/spaces/fffiloni/text-guided-image-colorization",
-    "https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt","https://huggingface.co/spaces/AI4Editing/MagicQuill","https://www.askmarcus.app/chat", "https://huggingface.co/spaces/fffiloni/text-guided-image-colorization",
+    "https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt","https://www.askmarcus.app/chat", "https://huggingface.co/spaces/fffiloni/text-guided-image-colorization",
     "https://huggingface.co/spaces/JeffreyXiang/TRELLIS","https://discord.com/invite/domoai","https://aistudio.google.com/live","https://huggingface.co/spaces/OAOA/InvSR","https://huggingface.co/spaces/MoonQiu/FreeScale","https://www.zarla.com/","https://www.hotbot.com/chat","https://suno.com/me",
     "https://huggingface.co/spaces/artificialguybr/video-dubbing", "https://huggingface.co/spaces/lllyasviel/iclight-v2-vary","https://doodad.dev/pattern-generator/","https://sourcegraph.com/cody/chat","https://huggingface.co/spaces/franciszzj/Leffa","https://oo.ai/","https://x-doc.ai/","https://huggingface.co/spaces/osanseviero/gemini-coder",
     "https://huggingface.co/spaces/akhaliq/anychat","https://huggingface.co/spaces/Qwen/QVQ-72B-preview","https://huggingface.co/spaces/stabilityai/stable-diffusion-3.5-large","https://huggingface.co/spaces/eswardivi/phi-4","https://huggingface.co/spaces/playgroundai/playground-v2.5","https://huggingface.co/spaces/llamameta/llama3.1-405B","https://huggingface.co/spaces/Qwen/Qwen2.5-Coder-demo",
     "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground","https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo","https://huggingface.co/spaces/webml-community/text-to-speech-webgpu","https://t.me/gpt_lama_bot","https://www.hailuo.ai/","https://v0.dev/","https://www.whatmore.ai/studio","https://huggingface.co/spaces/tencent/Hunyuan3D-2","https://www.dzine.ai/",
-    "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home","https://huggingface.co/spaces/webml-community/kokoro-webgpu","https://www.morphic.sh/","https://scira.app/","https://kagi.com/fastgpt","https://shapen.com/"
+    "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home","https://huggingface.co/spaces/webml-community/kokoro-webgpu","https://www.morphic.sh/","https://scira.app/","https://kagi.com/fastgpt","https://shapen.com/","https://alice.yandex.ru/chat/01953c1a-be79-4000-9e88-5177131e2739/"
   ];
 
 
@@ -1087,7 +1087,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.whatmore.ai/studio":"Инструмент для создания видео на основе ИИ, предназначенный для брендов электронной коммерции для быстрого создания высококачественных маркетинговых видео, требуется регистрация",
       "https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo":"EXAONE 3.5: Набор инструктивных моделей от LG AI, это ссылка на универсальную 7.8B модель",
       "https://huggingface.co/spaces/webml-community/text-to-speech-webgpu":"Данный сервис позволяет переводить текст в речь",
-      "http://chat.qwenlm.ai/":"Сервис позволяет использовать 8 моделей QwenLM для общения, требуется авторизация",
+      "https://chat.qwenlm.ai/":"Сервис позволяет использовать 8 моделей QwenLM для общения, требуется авторизация",
       "https://t.me/gpt_lama_bot":"Бот в Телеграм, который позволяет общаться с несколькими моделями LLM, включая GPT4o",
       "https://consensus.app/":"Поисковая система на основе искусственного интеллекта, которая помогает вам найти основанные на фактических данных ответы на ваши исследовательские вопросы",
       "https://bexi.ai/":"Сервис предлагает два основных инструмента: AI Humanizer для преобразования текста, созданного ИИ, в естественный, похожий на человека язык, и AI Detector для обнаружения контента, созданного AI, с высокой точностью",
@@ -1128,10 +1128,18 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://app.invesst.ai/login":"ИИ-сервис для ИНВЕСТИЦИОННЫХ исследований — Invesst буквально «DeepResearch для инвестиций», объединяющий в себе мощь поиска с помощью ChatGPT и Perplexity",
       "https://neonpangolin.github.io/FilePhish/":"Сервис позволяет находить файлы на веб-сайтах по ключевым словам, а также БД и ПО",
       "https://www.yeschat.ai/features/grok-3":"Сервис предоставляет доступ к GROK 3 от xAI",
-      "https://www.rabbithole.chat/":"Поисковая система с ИИ, в день даётся 3 бесплатных запроса, но внутри них можно разветвлять бесконечно"
+      "https://www.rabbithole.chat/":"Поисковая система с ИИ, в день даётся 3 бесплатных запроса, но внутри них можно разветвлять бесконечно",
+      "https://wise-cat-groq.vercel.app/chat/ephemeral":"Бесплатный чат с ИИ",
+      "https://www.whatonearth.ai/":"Бесплатная поисковая система с ИИ",
+      "https://medisearch.io/":"Бесплатная поисковая система с ИИ, ориентированная на вопросы связанные со здоровьем",
+      "https://phind-ai.com/":"Бесплатная поисковая система с ИИ",
+      "https://usefind.ai/":"Бесплатная поисковая система с ИИ",
+      "https://alice.yandex.ru/chat/01953c1a-be79-4000-9e88-5177131e2739/":"ИИ чат от с Алисой от команды Яндекса",
+      "https://app.yourchat.ai/#/":"Сервис предоставляет доступ к ChatGPT и поиску с ИИ",
+      "https://chat100.ai/":"Бесплатный чат с различными моделями LLM с ограничением в 50 запросов в неделю"
   };    
 
-function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
+function applyTheme(backgroundColor, textColor, liColor, liTextColor) { 
   try {
     // Применяем основные цвета
     if (document.body) {
@@ -1219,7 +1227,7 @@ function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
 
     // Применяем стили к поисковому полю
     if (searchInput) {
-      searchInput.style.backgroundColor = backgroundColor;
+      searchInput.style.backgroundColor = liColor;
       searchInput.style.color = textColor;
       searchInput.style.borderColor = liColor;
     }
@@ -1353,12 +1361,13 @@ const defaultTheme = {
 
   // Проверяем обновления при загрузке страницы
   checkForUpdates();
-  loadTheme()
+  loadTheme();
   // Навешиваем обработчики
   initializeThemeListeners();
   initializePage();
   initializePopup();
   countElements();
+  hideBlockedServices();
   // Проверяем, существует ли элемент 'translatedDescriptions' в localStorage
   if (!userLang.startsWith('ru'))
     {
