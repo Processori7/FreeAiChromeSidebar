@@ -11,6 +11,8 @@ The following functions are available in this menu:
 - The "Copy link when right-clicking" checkbox - when active, copies the link to the selected item when right-clicking on it.  
 - New Year's Theme checkbox - adds various Christmas elements and decorations when active.  
 - Search - allows you to find the desired item in the list not only by the name of the service, but also by its description.  
+- Checkbox "Hide services that cannot be opened in the sidebar" - allows you to immediately hide services that cannot be opened in the sidebar, while the search works on all elements, regardless of whether they are hidden or not.  
+- The settings menu now shows the total number of free services  
 
 ## Section Menu  
 This menu is located in the center on the right side, and opens when you press the "📑" button.  
@@ -60,6 +62,8 @@ Thank you for your help with the layout and design of [ShikoDay](https://github.
 - Чекбокс "Копировать ссылку при нажатии правой кнопкой мыши" - при активном состоянии копирует ссылку на выбранный элемент при нажатии правой кнопкой мыши по нему.  
 - Чекбокс "Новогодняя тема" - при активном состоянии добавляет различные новогодние элементы и украшения.  
 - Поиск - позволяет находить нужный элемент в списке не только по названию сервиса, но и по его описанию.  
+- Чекбокс "Скрыть сервисы, которые не могут быть открыты в боковой панели" - позволяет сразу скрыть сервисы, которые не могут быть открыты в боковой панели, при этом поиск работает по всем элементам, независимо от того, скрыты они или нет.  
+- Теперь в меню настроек показывается общее количество бесплатных сервисов  
 
 ## Меню разделов  
 Данное меню находиться по центру с правой стороны, и открывается при нажатии на кнопку "📑".  
