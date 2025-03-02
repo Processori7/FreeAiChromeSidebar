@@ -88,7 +88,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://huggingface.co/spaces/artificialguybr/video-dubbing", "https://huggingface.co/spaces/lllyasviel/iclight-v2-vary","https://doodad.dev/pattern-generator/","https://sourcegraph.com/cody/chat","https://huggingface.co/spaces/franciszzj/Leffa","https://oo.ai/","https://x-doc.ai/","https://huggingface.co/spaces/osanseviero/gemini-coder",
     "https://huggingface.co/spaces/akhaliq/anychat","https://huggingface.co/spaces/Qwen/QVQ-72B-preview","https://huggingface.co/spaces/stabilityai/stable-diffusion-3.5-large","https://huggingface.co/spaces/eswardivi/phi-4","https://huggingface.co/spaces/playgroundai/playground-v2.5","https://huggingface.co/spaces/llamameta/llama3.1-405B","https://huggingface.co/spaces/Qwen/Qwen2.5-Coder-demo",
     "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground","https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo","https://huggingface.co/spaces/webml-community/text-to-speech-webgpu","https://t.me/gpt_lama_bot","https://www.hailuo.ai/","https://v0.dev/","https://www.whatmore.ai/studio","https://huggingface.co/spaces/tencent/Hunyuan3D-2","https://www.dzine.ai/",
-    "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home","https://huggingface.co/spaces/webml-community/kokoro-webgpu","https://www.morphic.sh/","https://scira.app/","https://kagi.com/fastgpt","https://shapen.com/","https://alice.yandex.ru/chat/01953c1a-be79-4000-9e88-5177131e2739/"
+    "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home","https://huggingface.co/spaces/webml-community/kokoro-webgpu","https://www.morphic.sh/","https://scira.app/","https://kagi.com/fastgpt","https://shapen.com/","https://alice.yandex.ru/chat/01953c1a-be79-4000-9e88-5177131e2739/",
+    "https://notedly.ai/dashboard","https://playground.ai.cloudflare.com/"
   ];
 
 
@@ -1136,7 +1137,14 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://usefind.ai/":"Бесплатная поисковая система с ИИ",
       "https://alice.yandex.ru/chat/01953c1a-be79-4000-9e88-5177131e2739/":"ИИ чат от с Алисой от команды Яндекса",
       "https://app.yourchat.ai/#/":"Сервис предоставляет доступ к ChatGPT и поиску с ИИ",
-      "https://chat100.ai/":"Бесплатный чат с различными моделями LLM с ограничением в 50 запросов в неделю"
+      "https://chat100.ai/":"Бесплатный чат с различными моделями LLM с ограничением в 50 запросов в неделю",
+      "https://makepix.ai/":"ИИ генератор фото с бесплатным планом",
+      "https://chat.inceptionlabs.ai/":"Первая dLLM-модель называется Mercury Coder от Inception, требуется регистрация",
+      "https://notedly.ai/dashboard":"Бесплатный образовательный ИИ-инструмент, призванный помочь студентам, упростив процесс чтения и конспектирования, доступен поиск с ИИ, есть бесплатные сервисы",
+      "https://freeaichatplayground.com/":"Сервис предоставляет бесплатный доступ к различным LLM",
+      "https://www.chatplayground.ai/":"Сервис предоставляет доступ к множеству LLM, нужна регистрация, есть ограничения на количество запросов",
+      "https://playground.ai.cloudflare.com/":"Сервис предоставляет бесплатный доступ к различным LLM",
+      "https://letmegpt.com/":"Сервис совмещеает ИИ с Google поиском"
   };    
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) { 
