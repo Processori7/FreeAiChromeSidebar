@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground","https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo","https://huggingface.co/spaces/webml-community/text-to-speech-webgpu","https://t.me/gpt_lama_bot","https://www.hailuo.ai/","https://v0.dev/","https://www.whatmore.ai/studio","https://huggingface.co/spaces/tencent/Hunyuan3D-2","https://www.dzine.ai/",
     "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home","https://huggingface.co/spaces/webml-community/kokoro-webgpu","https://www.morphic.sh/","https://scira.app/","https://kagi.com/fastgpt","https://shapen.com/","https://alice.yandex.ru/chat/01953c1a-be79-4000-9e88-5177131e2739/",
     "https://notedly.ai/dashboard","https://playground.ai.cloudflare.com/","https://huggingface.co/spaces/ASLP-lab/DiffRhythm","https://chat.akash.network/","https://www.sesame.com/research/crossing_the_uncanny_valley_of_voice#demo","https://www.imagineanything.ai/","https://huggingface.co/spaces/prs-eth/thera","https://www.openai.fm/","https://huggingface.co/spaces/starvector/starvector-1b-im2svg",
-    "https://huggingface.co/spaces/enzostvs/deepsite","https://huggingface.co/spaces/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/nightfury/Image_Face_Upscale_Restoration-GFPGAN","https://auphonic.com/","https://wordpress.com/ai-website-builder/","https://t.me/askplexbot","https://digma.ai/","https://lightpdf.com/"
+    "https://huggingface.co/spaces/enzostvs/deepsite","https://huggingface.co/spaces/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/nightfury/Image_Face_Upscale_Restoration-GFPGAN","https://auphonic.com/","https://wordpress.com/ai-website-builder/","https://t.me/askplexbot","https://digma.ai/","https://lightpdf.com/","https://dxgpt.app/"
   ];
 
 
@@ -1194,7 +1194,10 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://lightpdf.com/":"Сервис для работы с PDF, позволяет добавлять текст, рисовать и многое другое",
       "https://www.bohrium.com/":"Поисковая система с ИИ",
       "https://ayle.chat/":"Поисковая система с различными LLM, требуется регистрация, есть темная тема оформления",
-      "https://onlook.com/":"Аналог Cursor для ДИЗАЙНЕРОВ, позволяет экономить время"
+      "https://onlook.com/":"Аналог Cursor для ДИЗАЙНЕРОВ, позволяет экономить время",
+      "https://dxgpt.app/":"Microsoft выпустила чат-бота DxGPT для распознавания заболеваний по симптомам, для медосмотра нужно вбить пол, возраст и проблемы, которые вас беспокоят",
+      "https://chat.aitopia.ai/":"Сервис предоставляет доступ к чату с LLM, генерации изображений и не только, ограничение на 10 запросов в день",
+      "https://chat.z.ai/":"Китайская команда представила локальную модель GLM-4-32B, по уровню она спокойно держится рядом с Sonnet 3.5, но полностью автономна"
   };    
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) { 
