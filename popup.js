@@ -90,7 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground","https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo","https://huggingface.co/spaces/webml-community/text-to-speech-webgpu","https://t.me/gpt_lama_bot","https://www.hailuo.ai/","https://v0.dev/","https://www.whatmore.ai/studio","https://huggingface.co/spaces/tencent/Hunyuan3D-2","https://www.dzine.ai/",
     "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home","https://huggingface.co/spaces/webml-community/kokoro-webgpu","https://www.morphic.sh/","https://scira.app/","https://kagi.com/fastgpt","https://shapen.com/","https://alice.yandex.ru/chat/01953c1a-be79-4000-9e88-5177131e2739/",
     "https://notedly.ai/dashboard","https://playground.ai.cloudflare.com/","https://huggingface.co/spaces/ASLP-lab/DiffRhythm","https://chat.akash.network/","https://www.sesame.com/research/crossing_the_uncanny_valley_of_voice#demo","https://www.imagineanything.ai/","https://huggingface.co/spaces/prs-eth/thera","https://www.openai.fm/","https://huggingface.co/spaces/starvector/starvector-1b-im2svg",
-    "https://huggingface.co/spaces/enzostvs/deepsite","https://huggingface.co/spaces/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/nightfury/Image_Face_Upscale_Restoration-GFPGAN","https://auphonic.com/","https://wordpress.com/ai-website-builder/","https://t.me/askplexbot","https://digma.ai/","https://lightpdf.com/","https://dxgpt.app/","https://humanize-ai.click/"
+    "https://huggingface.co/spaces/enzostvs/deepsite","https://huggingface.co/spaces/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/nightfury/Image_Face_Upscale_Restoration-GFPGAN","https://auphonic.com/","https://wordpress.com/ai-website-builder/","https://t.me/askplexbot","https://digma.ai/","https://lightpdf.com/","https://dxgpt.app/","https://humanize-ai.click/",
+    "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool"
   ];
 
 
@@ -1204,7 +1205,14 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.spoonfeed.codes/":"Сервис превращает весь репозиторий или директорию проекта в код Markdown, есть ограничения, требуется авторизация",
       "https://svgartista.net/":"Анимируем свой логотип, иконки и любой другой SVG-файл",
       "https://golex.ai/":"ИИ платформа для создания сайтов, есть ограничения, требуется авторизация",
-      "https://www.queryhub.ai/connections":"Чат-бот Queryhub, генерирует целые базы данных и проводит операции с таблицами и данными, требуется авторизация"
+      "https://www.queryhub.ai/connections":"Чат-бот Queryhub, генерирует целые базы данных и проводит операции с таблицами и данными, требуется авторизация",
+      "https://free-gemini.vercel.app/":"Сервис позволяет общаться с gemeni-2.0-flash",
+      "https://app.youlearn.ai/":"ИИ-РЕПЕТИТОР, позволяет быстрее изучать новое, требуется авторизация",
+      "https://spinbot.com/paraphrasing-tool":"Синонимайзер",
+      "https://www.fluig.cc/home":"Сервис для создания диаграмм и не только из любого документа",
+      "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2":"Модель для распознавания речи от Nvidia",
+      "https://anara.com/":"Сервис для подробного ресёрча по любым задачам",
+      "https://chatsandbox.com/characters":"Сервис предоставляет доступ к различным LLM, есть темная тема оформления"
   };    
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) { 
