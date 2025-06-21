@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home","https://huggingface.co/spaces/webml-community/kokoro-webgpu","https://www.morphic.sh/","https://scira.app/","https://kagi.com/fastgpt","https://shapen.com/","https://alice.yandex.ru/chat/01953c1a-be79-4000-9e88-5177131e2739/",
     "https://notedly.ai/dashboard","https://playground.ai.cloudflare.com/","https://huggingface.co/spaces/ASLP-lab/DiffRhythm","https://chat.akash.network/","https://www.sesame.com/research/crossing_the_uncanny_valley_of_voice#demo","https://www.imagineanything.ai/","https://huggingface.co/spaces/prs-eth/thera","https://www.openai.fm/","https://huggingface.co/spaces/starvector/starvector-1b-im2svg",
     "https://huggingface.co/spaces/enzostvs/deepsite","https://huggingface.co/spaces/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/nightfury/Image_Face_Upscale_Restoration-GFPGAN","https://auphonic.com/","https://wordpress.com/ai-website-builder/","https://t.me/askplexbot","https://digma.ai/","https://lightpdf.com/","https://dxgpt.app/","https://humanize-ai.click/",
-    "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool","https://puter.com/","https://www.eraser.io/ai","https://www.scribbr.com/paraphrasing-tool/","https://www.eraser.io/ai/uml-diagram-generator","https://huggingface.co/spaces/ByteDance/Dolphin"
+    "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool","https://puter.com/","https://www.eraser.io/ai","https://www.scribbr.com/paraphrasing-tool/","https://www.eraser.io/ai/uml-diagram-generator","https://huggingface.co/spaces/ByteDance/Dolphin","https://gptkit.ai/"
   ];
 
 
@@ -1240,7 +1240,14 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.toolsmart.ai/feature-free-undetectable-ai/":"ИИ сервис для очеловечивания ИИ контента",
       "https://lipsync.video/":"Генератор коротких видео",
       "https://database.build/":"Сервис в котором можно запускать и тестировать PostgreSQL прямо в браузере",
-      "https://huggingface.co/spaces/ByteDance/Dolphin":"OCR-модель Dolphin для распознавания любых PDF"
+      "https://huggingface.co/spaces/ByteDance/Dolphin":"OCR-модель Dolphin для распознавания любых PDF",
+      "https://www.rocket.new/":"Генератор приложений и сайтов, требуется авторизация",
+      "https://www.chatwithmono.xyz/":"Система предоставляет бесплатный доступ к различным LLM, поисковой системе с ИИ и генератору изображений",
+      "https://www.alphaxiv.org/assistant":"Поисковая система с ИИ с функцией глубокого поиска, требудется авторизация",
+      "https://gptkit.ai/":"Детектор ИИ контента",
+      "https://www.director.ai/":"Это аналог Operator от OpenAI, который создаёт скрипты веб-автоматизации с помощью простых промтов",
+      "https://www.minimax.io/audio/text-to-speech":"ИИ для клонирования голоса и генерации речи или музыки, требуется авторизация",
+      "https://aicg.wisecleaner.com/":"Сервис предоставляет доступ к множеству LLM, требуется авторизация"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) { 
