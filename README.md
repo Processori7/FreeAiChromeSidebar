@@ -44,7 +44,7 @@ git pull
 Or download the archive and copy the replacement files.
 
 Universal upgrade option: 
-Download the extension update program: https://github.com/Processori7/FreeAiChromeSidebar/releases/download/1.1/update.exe and save it in the same directory with the extension files and just run it.  
+Download the extension update program: https://github.com/Processori7/update/releases and save it in the same directory with the extension files and just run it.  
 
 # Thanks  
 Thank you for your help with the layout and design of [ShikoDay](https://github.com/ShikoDay) :)  
@@ -95,7 +95,7 @@ git pull
 Или скачайте архив и копируйте файлы с заменой.
 
 Универсальный вариант обновления: 
-Скачайте программу обновления расширений: https://github.com/Processori7/FreeAiChromeSidebar/releases/download/1.1/update.exe и сохраните её в одной директории с файлами расширения и просто запустите.  
+Скачайте программу обновления расширений: https://github.com/Processori7/update/releases и сохраните её в одной директории с файлами расширения и просто запустите.  
 
 # Благодарности  
 Благодарю за помощь с вёрсткой и дизайном [ShikoDay](https://github.com/ShikoDay) :)
