@@ -91,7 +91,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home","https://huggingface.co/spaces/webml-community/kokoro-webgpu","https://www.morphic.sh/","https://scira.app/","https://kagi.com/fastgpt","https://shapen.com/","https://alice.yandex.ru/chat/01953c1a-be79-4000-9e88-5177131e2739/",
     "https://notedly.ai/dashboard","https://playground.ai.cloudflare.com/","https://huggingface.co/spaces/ASLP-lab/DiffRhythm","https://chat.akash.network/","https://www.sesame.com/research/crossing_the_uncanny_valley_of_voice#demo","https://www.imagineanything.ai/","https://huggingface.co/spaces/prs-eth/thera","https://www.openai.fm/","https://huggingface.co/spaces/starvector/starvector-1b-im2svg",
     "https://huggingface.co/spaces/enzostvs/deepsite","https://huggingface.co/spaces/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/nightfury/Image_Face_Upscale_Restoration-GFPGAN","https://auphonic.com/","https://wordpress.com/ai-website-builder/","https://t.me/askplexbot","https://digma.ai/","https://lightpdf.com/","https://dxgpt.app/","https://humanize-ai.click/",
-    "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool","https://puter.com/","https://www.eraser.io/ai","https://www.scribbr.com/paraphrasing-tool/","https://www.eraser.io/ai/uml-diagram-generator","https://huggingface.co/spaces/ByteDance/Dolphin","https://gptkit.ai/","https://huggingface.co/spaces/Stable-X/Hi3DGen","https://www.warp.dev/"
+    "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool","https://puter.com/","https://www.eraser.io/ai","https://www.scribbr.com/paraphrasing-tool/","https://www.eraser.io/ai/uml-diagram-generator","https://huggingface.co/spaces/ByteDance/Dolphin","https://gptkit.ai/","https://huggingface.co/spaces/Stable-X/Hi3DGen","https://www.warp.dev/",
+    "https://www.wondera.ai/","https://ayesoul.com"
   ];
 
 
@@ -1255,7 +1256,15 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.warp.dev/":"Приложение со встроенным ИИ агентом, есть бесплатный план, требуется загрузка, установка и авторизация",
       "https://huggingface.co/spaces/Stable-X/Hi3DGen":"Сервис генерирует 3D модель по фото",
       "https://alphaxiv.org/assistant":"Агент ищет релевантные статьи по вашему запросу, анализирует их и помогает в исследованиях, работает с научными архивами, требуется авторизация",
-      "https://www.publishstudio.one/creator-kit":"Различные инструменты для работы с изображениями, включая удаление фона"
+      "https://www.publishstudio.one/creator-kit":"Различные инструменты для работы с изображениями, включая удаление фона",
+      "https://www.wondera.ai/":"Аналог Suno, требуется авторизация",
+      "https://deepguardtech.com/app":"Сервис анализирует каждый пиксель видео, проверяет метаданные и выдаёт подробный отчёт о вероятности GenAI, проверка на генерацию ИИ",
+      "https://pdf2zh.com/":"Сервис для быстрого перевода PDF документов на различные языки",
+      "https://ayesoul.com/":"Поисковая система с ИИ",
+      "https://products.aspose.ai/total/":"Сервис предоставляет множество инструментов для работы с файлами",
+      "https://legacy.lmarena.ai/":"Сервис предоставляет доступ к множеству LLM",
+      "https://godmode.space/":"Godmode — это инструмент для автоматизации повторяющихся задач и работы с данными",
+      "https://examful.ai/app":"Сервис для помощи с задачами для школьников и студентов"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) { 
