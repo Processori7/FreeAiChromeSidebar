@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://notedly.ai/dashboard","https://playground.ai.cloudflare.com/","https://huggingface.co/spaces/ASLP-lab/DiffRhythm","https://chat.akash.network/","https://www.sesame.com/research/crossing_the_uncanny_valley_of_voice#demo","https://www.imagineanything.ai/","https://huggingface.co/spaces/prs-eth/thera","https://www.openai.fm/","https://huggingface.co/spaces/starvector/starvector-1b-im2svg",
     "https://huggingface.co/spaces/enzostvs/deepsite","https://huggingface.co/spaces/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/nightfury/Image_Face_Upscale_Restoration-GFPGAN","https://auphonic.com/","https://wordpress.com/ai-website-builder/","https://t.me/askplexbot","https://digma.ai/","https://lightpdf.com/","https://dxgpt.app/","https://humanize-ai.click/",
     "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool","https://puter.com/","https://www.eraser.io/ai","https://www.scribbr.com/paraphrasing-tool/","https://www.eraser.io/ai/uml-diagram-generator","https://huggingface.co/spaces/ByteDance/Dolphin","https://gptkit.ai/","https://huggingface.co/spaces/Stable-X/Hi3DGen","https://www.warp.dev/",
-    "https://www.wondera.ai/","https://ayesoul.com","https://scispace.com/"
+    "https://www.wondera.ai/","https://ayesoul.com","https://scispace.com/","https://huggingface.co/spaces/llamameta/Grok-4-heavy-free","https://noiz.io/free-ai-tools/"
   ];
 
 
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
      // Находим элемент, куда будем выводить результат
      const liCountContainer = document.getElementById("liCount");
      // Выводим результат
-     liCountContainer.textContent =  translateText("Количество бесплатных сервисов: ", userLang) + " " + count;
+     liCountContainer.textContent =  translateText("Количество бесплатных сервисов: ", "ru") + " " + count;
   }
 
   // Функция для обновления состояния advancedSearch в localStorage
@@ -1269,7 +1269,10 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.superfile.ai/":"Множество полезных сервисов для работы с файлами",
       "https://www.orchids.app/":"Генератор сайтов и приложений, требуется авторизация",
       "https://transcribetext.com/":"Сервис, который превращает любое аудио или видео в текст, даже если там помехи",
-      "https://app.twaingpt.com/":"Сервис для очеловечивания ИИ контента"
+      "https://app.twaingpt.com/":"Сервис для очеловечивания ИИ контента",
+      "https://noiz.io/free-ai-tools/":"Сервис предоставляет множество полезных инструментов, ключая чат с файлами и тд",
+      "https://huggingface.co/spaces/llamameta/Grok-4-heavy-free":"Сервис предоставляет доступ к LLM Grok-4 Heavy",
+      "https://www.promptcannon.com/":"Сервис предоставляет жоступ к множеству LLM и позволяет получать ответ сразу от нескольких LLM, требуется регистрация"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) { 
