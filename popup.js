@@ -1279,7 +1279,9 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://deep-seek-ai.ru/free-deepseek-chat/":"Сервис предоставляет доступ к различным LLM",
       "https://gpt-chatbot.ru/openai-o3-mini":"Сервис предоставляет доступ к различным LLM",
       "https://webos.live/":"Достаточно интересный проект операциионной системы с внедренным ИИ агентом, проект еще разрабатывается, некоторые функции могут не работать",
-      "https://huggingface.co/spaces/Qwen/Qwen3-MT-Demo":"Переводчик от Qwen"
+      "https://huggingface.co/spaces/Qwen/Qwen3-MT-Demo":"Переводчик от Qwen",
+      "https://pollinations.ai/":"Бесплатный сервис, который предоставляет доступ к различным LLM, доступ к генерации фото и чату можно получить сразу на главной странице",
+      "https://writify.ai/tool/":"Множество бесплатных инструментов с ИИ"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) { 
