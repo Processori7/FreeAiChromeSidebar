@@ -554,6 +554,10 @@ function generateSuggestions(query) {
     }
   });
 
+  // Умные подсказки на основе контекста
+  const contextualSuggestions = generateContextualSuggestions(queryLower, descriptions);
+  contextualSuggestions.forEach(suggestion => suggestions.add(suggestion));
+
   // Общие ключевые слова для подсказок
   const keywordSuggestions = {
     'чат': ['бесплатный чат', 'gpt чат', 'чат с ии'],
@@ -586,6 +590,94 @@ function generateSuggestions(query) {
   });
 
   return Array.from(suggestions).slice(0, 8); // Ограничиваем количество подсказок
+}
+
+// Новая функция для генерации контекстных подсказок
+function generateContextualSuggestions(query, descriptions) {
+  const suggestions = [];
+  const queryWords = query.split(/\s+/).filter(word => word.length > 1);
+  
+  // Умные контекстные подсказки
+  const contextMap = {
+    // Описательные фразы на русском
+    'убрать фон': ['удаление фона', 'убрать фон с фото'],
+    'улучшить фото': ['улучшение качества', 'повышение разрешения'],
+    'генерировать код': ['создание кода', 'программирование'],
+    'перевести': ['переводчик', 'перевод текста'],
+    'математика': ['решение задач', 'математические примеры'],
+    'музыка': ['создание музыки', 'генератор музыки'],
+    'логотип': ['создание логотипа', 'генератор логотипов'],
+    'презентация': ['создание презентаций', 'слайды'],
+    
+    // Описательные фразы на английском
+    'remove background': ['background removal', 'remove bg'],
+    'enhance photo': ['photo enhancement', 'upscale image'],
+    'generate code': ['code generation', 'programming'],
+    'translate': ['translator', 'text translation'],
+    'math': ['solve math', 'mathematics'],
+    'music': ['create music', 'music generator'],
+    'logo': ['logo creation', 'logo generator'],
+    'presentation': ['create presentations', 'slides'],
+    
+    // Функциональные фразы
+    'бесплатно': ['free service', 'no registration'],
+    'без регистрации': ['no login required', 'instant access'],
+    'быстро': ['fast generation', 'quick results'],
+    'качественно': ['high quality', 'professional'],
+    'free': ['бесплатно', 'no cost'],
+    'no registration': ['без регистрации', 'instant'],
+    'fast': ['быстро', 'quick'],
+    'quality': ['качественно', 'professional']
+  };
+  
+  // Ищем контекстные совпадения
+  Object.keys(contextMap).forEach(contextKey => {
+    if (query.includes(contextKey)) {
+      contextMap[contextKey].forEach(suggestion => {
+        suggestions.push(suggestion);
+      });
+    }
+  });
+  
+  // Анализ описаний для поиска релевантных сервисов
+  const scoredServices = [];
+  
+  Object.keys(descriptions).forEach(website => {
+    const description = descriptions[website];
+    if (description && typeof description === 'string') {
+      let score = 0;
+      const descLower = description.toLowerCase();
+      
+      // Подсчитываем релевантность
+      queryWords.forEach(word => {
+        const wordRegex = new RegExp(`\\b${word}\\b`, 'gi');
+        const matches = (descLower.match(wordRegex) || []).length;
+        score += matches * 2; // Точные совпадения слов весят больше
+        
+        if (descLower.includes(word)) {
+          score += 1; // Частичные совпадения
+        }
+      });
+      
+      if (score > 0) {
+        const item = document.querySelector(`[data-website="${website}"]`);
+        if (item) {
+          const serviceName = (item.textContent || item.innerText).trim();
+          scoredServices.push({ name: serviceName, score, description });
+        }
+      }
+    }
+  });
+  
+  // Сортируем по релевантности и добавляем лучшие совпадения
+  scoredServices
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .forEach(service => {
+      suggestions.push(service.name);
+    });
+  
+  return suggestions;
 }
 
 // Функция для получения переведённых описаний
@@ -674,10 +766,14 @@ function performSearch(query, exactMatch = false) {
     // Если поиск пустой, показываем все элементы
     items.forEach(item => {
       item.style.display = "";
+      item.style.order = "";
     });
     hideBlockedServices();
     return;
   }
+
+  const descriptions = userLang.startsWith("ru") ? websiteDescriptionsRu : getTranslatedDescriptions();
+  const scoredItems = [];
 
   items.forEach(item => {
     const text = (item.textContent || item.innerText).toLowerCase();
@@ -685,38 +781,106 @@ function performSearch(query, exactMatch = false) {
     let descriptionText = "";
     
     // Получаем описание в зависимости от языка
-    if (userLang.startsWith("ru")) {
-      descriptionText = websiteDescriptionsRu[website] || "";
-    } else {
-      let userDesc = localStorage.getItem('translatedDescriptions');
-      if (userDesc) {
-        userDesc = JSON.parse(userDesc);
-        const description = userDesc.find(desc => desc.url === website);
-        if (description) {
-          descriptionText = description.translatedText;
-        }
-      }
+    if (descriptions[website]) {
+      descriptionText = descriptions[website].toLowerCase();
     }
-    descriptionText = descriptionText.toLowerCase();
 
     // Если это точное совпадение (выбор из подсказок), ищем точное совпадение названия
     if (exactMatch) {
       const matches = text.trim() === filter;
       item.style.display = matches ? "" : "none";
+      item.style.order = "";
       return;
     }
 
-    // Сначала проверяем совпадение с текстом элемента
-    const matchesText = filterWords.some(word => text.includes(word));
-    if (matchesText) {
-      item.style.display = "";
-      return;
+    // Вычисляем релевантность
+    let relevanceScore = 0;
+
+    // Проверка названия сервиса
+    filterWords.forEach(word => {
+      // Точное совпадение слова в названии
+      const exactWordMatch = new RegExp(`\\b${word}\\b`, 'gi');
+      const titleMatches = (text.match(exactWordMatch) || []).length;
+      relevanceScore += titleMatches * 100; // Максимальный приоритет для названий
+      
+      // Начало названия
+      if (text.startsWith(word)) {
+        relevanceScore += 50;
+      }
+      
+      // Простое вхождение в название
+      if (text.includes(word)) {
+        relevanceScore += 20;
+      }
+    });
+
+    // Проверка описания
+    if (descriptionText) {
+      filterWords.forEach(word => {
+        // Точное совпадение слова в описании
+        const exactWordMatch = new RegExp(`\\b${word}\\b`, 'gi');
+        const descMatches = (descriptionText.match(exactWordMatch) || []).length;
+        relevanceScore += descMatches * 10; // Средний приоритет для описаний
+        
+        // Простое вхождение в описание
+        if (descriptionText.includes(word)) {
+          relevanceScore += 5;
+        }
+      });
     }
 
-    // Если текст не совпадает, проверяем описание
-    const matchesDescription = filterWords.some(word => descriptionText.includes(word));
-    item.style.display = matchesDescription ? "" : "none";
+    // Бонус за близость слов в описании
+    if (filterWords.length > 1 && descriptionText) {
+      const proximityBonus = calculateProximityBonus(filterWords, descriptionText);
+      relevanceScore += proximityBonus;
+    }
+
+    if (relevanceScore > 0) {
+      scoredItems.push({ item, score: relevanceScore });
+    }
   });
+
+  // Сортируем по релевантности и отображаем
+  const sortedItems = scoredItems.sort((a, b) => b.score - a.score);
+  
+  items.forEach(item => {
+    const scoredItem = sortedItems.find(si => si.item === item);
+    if (scoredItem) {
+      item.style.display = "";
+      item.style.order = -scoredItem.score; // Используем отрицательные значения для сортировки
+    } else {
+      item.style.display = "none";
+      item.style.order = "";
+    }
+  });
+}
+
+// Вспомогательная функция для вычисления бонуса за близость слов
+function calculateProximityBonus(words, text) {
+  let bonus = 0;
+  const positions = [];
+  
+  // Находим позиции всех слов
+  words.forEach(word => {
+    let index = text.indexOf(word);
+    while (index !== -1) {
+      positions.push(index);
+      index = text.indexOf(word, index + 1);
+    }
+  });
+  
+  // Вычисляем бонус за близость
+  if (positions.length > 1) {
+    positions.sort((a, b) => a - b);
+    for (let i = 0; i < positions.length - 1; i++) {
+      const distance = positions[i + 1] - positions[i];
+      if (distance < 50) { // Бонус за слова, находящиеся рядом
+        bonus += Math.max(0, 25 - distance);
+      }
+    }
+  }
+  
+  return bonus;
 }
 
 searchInput.addEventListener('input', function() {
@@ -1230,7 +1394,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://melody.ml/":"Сервис позволяет легко разделить аудиодорожки с помощью машинного обучения бесплатно, при этом автоматически изолируйте вокал и генерируйте стебы для ремиксов песен",
       "https://venice.ai/chat":"Сервис с бесплатный планом, который позволяет общаться с раличными LLM на любые темы",
       "https://deepai.org/chat":"Сервис с бесплатный планом, который позволяет общаться с раличными LLM на любые темы",
-      "https://lmarena.ai/":"Сервис бесплатно позволяет общаться с раличными LLM на любые темы и оценивать их эффективность",
+      "https://lmarena.ai/":"LLM арена, сервис позволяет общаться с раличными LLM на любые темы и оценивать их эффективность",
       "https://studyable.app/":"Сервис с бесплатным планом, который поможет справиться с любым домашним заданием",
       "https://huggingface.co/chat/":"Сервис позволяет общаться с различными LLM",
       "https://app.giz.ai/assistant?mode=chat":"Сервис позволяет общаться с различными LLM",
@@ -1326,7 +1490,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.whatmore.ai/studio":"Инструмент для создания видео на основе ИИ, предназначенный для брендов электронной коммерции для быстрого создания высококачественных маркетинговых видео, требуется регистрация",
       "https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo":"EXAONE 3.5: Набор инструктивных моделей от LG AI, это ссылка на универсальную 7.8B модель",
       "https://huggingface.co/spaces/webml-community/text-to-speech-webgpu":"Данный сервис позволяет переводить текст в речь",
-      "https://chat.qwenlm.ai/":"Сервис позволяет использовать 8 моделей QwenLM для общения, требуется авторизация",
+      "https://chat.qwenlm.ai/":"Сервис позволяет использовать различные модели QwenLM, требуется авторизация",
       "https://t.me/gpt_lama_bot":"Бот в Телеграм, который позволяет общаться с несколькими моделями LLM, включая GPT4o",
       "https://consensus.app/":"Поисковая система на основе искусственного интеллекта, которая помогает вам найти основанные на фактических данных ответы на ваши исследовательские вопросы",
       "https://bexi.ai/":"Сервис предлагает два основных инструмента: AI Humanizer для преобразования текста, созданного ИИ, в естественный, похожий на человека язык, и AI Detector для обнаружения контента, созданного AI, с высокой точностью",
@@ -1449,7 +1613,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2":"Модель для распознавания речи от Nvidia",
       "https://anara.com/":"Сервис для подробного ресёрча по любым задачам",
       "https://chatsandbox.com/characters":"Сервис предоставляет доступ к различным LLM, есть тёмная тема оформления",
-      "https://beta.lmarena.ai/?mode=direct":"Сервис предоставляет доступ к различным LLM",
+      "https://beta.lmarena.ai/?mode=direct":"LLM арена, сервис предоставляет доступ к различным LLM",
       "https://puter.com/":"Виртуальный ПК",
       "https://lambda.chat/":"Сервис предоставляет доступ к множеству LLM",
       "https://www.eraser.io/ai":"Второй пилот технического проектирования, который способен оптимизировать рабочие процессы технического проектирования для разработчиков и инженерных команд",
@@ -1497,7 +1661,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://pdf2zh.com/":"Сервис для быстрого перевода PDF документов на различные языки",
       "https://ayesoul.com/":"Поисковая система с ИИ",
       "https://products.aspose.ai/total/":"Сервис предоставляет множество инструментов для работы с файлами",
-      "https://legacy.lmarena.ai/":"Сервис предоставляет доступ к множеству LLM",
+      "https://legacy.lmarena.ai/":"LLM арена, сервис предоставляет доступ к множеству LLM",
       "https://godmode.space/":"Godmode — это инструмент для автоматизации повторяющихся задач и работы с данными",
       "https://examful.ai/app":"Сервис для помощи с задачами для школьников и студентов",
       "https://scispace.com/":"Поисковик с ИИ для учёных, находит статьи на разные темы",
