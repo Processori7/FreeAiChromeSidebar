@@ -34,6 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const themeMenuToggle = document.getElementById("theme-menu-toggle");
   const themeDropdownMenu = document.getElementById("theme-dropdown-menu");
   const canOpen = document.getElementById("canOpen");
+  const searchSuggestions = document.getElementById("searchSuggestions"); // Используется для подсказок во время поиска
+
+  // Переменные для подсказок
+  let currentSuggestionIndex = -1;
+  let suggestionsList = [];
 
   // Флаг для отслеживания, добавлены ли чекбоксы
   let checkboxesAdded = false;
@@ -93,7 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://huggingface.co/spaces/enzostvs/deepsite","https://huggingface.co/spaces/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/nightfury/Image_Face_Upscale_Restoration-GFPGAN","https://auphonic.com/","https://wordpress.com/ai-website-builder/","https://t.me/askplexbot","https://digma.ai/","https://lightpdf.com/","https://dxgpt.app/","https://humanize-ai.click/",
     "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool","https://puter.com/","https://www.eraser.io/ai","https://www.scribbr.com/paraphrasing-tool/","https://www.eraser.io/ai/uml-diagram-generator","https://huggingface.co/spaces/ByteDance/Dolphin","https://gptkit.ai/","https://huggingface.co/spaces/Stable-X/Hi3DGen","https://www.warp.dev/",
     "https://www.wondera.ai/","https://ayesoul.com","https://scispace.com/","https://huggingface.co/spaces/llamameta/Grok-4-heavy-free","https://noiz.io/free-ai-tools/","https://huggingface.co/spaces/Qwen/Qwen3-MT-Demo","https://deep-seek-ai.ru/free-deepseek-chat/","https://gpt-chatbot.ru/openai-o3-mini","https://www.waveterm.dev/","https://cline.bot/","https://addons.mozilla.org/en-US/firefox/addon/polination-ai-chat/",
-    "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai"
+    "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
+    "https://processor.alwaysdata.net/"
   ];
 
 
@@ -497,51 +503,270 @@ favoriteCheckbox.addEventListener('click', function() {
     }
 });
 
-//Поиск
-searchInput.addEventListener('input', function() {
-  const filter = searchInput.value.toLowerCase().trim();
-  const filterWords = filter.split(/\s+/).filter(word => word.length > 0); // Split by spaces and remove empty strings
+//Поиск с подсказками
+
+// Функция для создания подсказок
+function generateSuggestions(query) {
+  if (!query || query.length < 2) {
+    return [];
+  }
+
+  const suggestions = new Set();
+  const queryLower = query.toLowerCase();
+  const queryWords = queryLower.split(/\s+/).filter(word => word.length > 1);
+
+  // Поиск по названиям сервисов
+  items.forEach(item => {
+    const text = (item.textContent || item.innerText).toLowerCase();
+    const website = item.getAttribute('data-website');
+    
+    // Проверяем совпадение с началом названия
+    if (text.startsWith(queryLower)) {
+      suggestions.add(text.trim());
+    }
+    
+    // Поиск по частичному совпадению
+    queryWords.forEach(word => {
+      if (text.includes(word)) {
+        suggestions.add(text.trim());
+      }
+    });
+  });
+
+  // Поиск по описаниям
+  const descriptions = userLang.startsWith("ru") ? websiteDescriptionsRu : getTranslatedDescriptions();
+  
+  Object.keys(descriptions).forEach(website => {
+    const description = descriptions[website];
+    if (description && typeof description === 'string') {
+      const descLower = description.toLowerCase();
+      
+      queryWords.forEach(word => {
+        if (descLower.includes(word)) {
+          // Находим соответствующий элемент
+          const item = document.querySelector(`[data-website="${website}"]`);
+          if (item) {
+            const text = (item.textContent || item.innerText).trim();
+            suggestions.add(text);
+          }
+        }
+      });
+    }
+  });
+
+  // Общие ключевые слова для подсказок
+  const keywordSuggestions = {
+    'чат': ['бесплатный чат', 'gpt чат', 'чат с ии'],
+    'gpt': ['chatgpt', 'gpt-4', 'gpt-3.5'],
+    'картинки': ['генератор картинок', 'создание изображений'],
+    'видео': ['генератор видео', 'создание видео'],
+    'поиск': ['поисковая система', 'поиск с ии'],
+    'chat': ['free chat', 'ai chat', 'chatgpt'],
+    'image': ['image generator', 'create images', 'ai images'],
+    'video': ['video generator', 'create video', 'ai video'],
+    'search': ['search engine', 'ai search'],
+    'code': ['coding ai', 'programming', 'code generator'],
+    'текст': ['генератор текста', 'написание текста'],
+    'text': ['text generator', 'writing assistant'],
+    'музыка': ['генератор музыки', 'создание музыки'],
+    'music': ['music generator', 'create music'],
+    'презентация': ['создание презентаций', 'слайды'],
+    'presentation': ['create presentations', 'slides']
+  };
+
+  // Добавляем ключевые подсказки
+  Object.keys(keywordSuggestions).forEach(keyword => {
+    if (queryLower.includes(keyword)) {
+      keywordSuggestions[keyword].forEach(suggestion => {
+        if (suggestion.toLowerCase().includes(queryLower)) {
+          suggestions.add(suggestion);
+        }
+      });
+    }
+  });
+
+  return Array.from(suggestions).slice(0, 8); // Ограничиваем количество подсказок
+}
+
+// Функция для получения переведённых описаний
+function getTranslatedDescriptions() {
+  const stored = localStorage.getItem('translatedDescriptions');
+  if (stored) {
+    const parsed = JSON.parse(stored);
+    const descriptions = {};
+    parsed.forEach(item => {
+      descriptions[item.url] = item.translatedText;
+    });
+    return descriptions;
+  }
+  return {};
+}
+
+// Функция для отображения подсказок
+function showSuggestions(suggestions) {
+  if (!suggestions || suggestions.length === 0) {
+    searchSuggestions.style.display = 'none';
+    return;
+  }
+
+  searchSuggestions.innerHTML = '';
+  suggestionsList = suggestions;
+  currentSuggestionIndex = -1;
+
+  suggestions.forEach((suggestion, index) => {
+    const suggestionElement = document.createElement('div');
+    suggestionElement.className = 'suggestion-item';
+    suggestionElement.textContent = suggestion;
+    suggestionElement.dataset.index = index;
+
+    suggestionElement.addEventListener('click', () => {
+      searchInput.value = suggestion;
+      searchSuggestions.style.display = 'none';
+      performSearch(suggestion, true); // Используем точное совпадение
+    });
+
+    suggestionElement.addEventListener('mouseenter', () => {
+      // Убираем выделение с всех элементов
+      document.querySelectorAll('.suggestion-item').forEach(item => {
+        item.classList.remove('selected');
+      });
+      suggestionElement.classList.add('selected');
+      currentSuggestionIndex = index;
+    });
+
+    searchSuggestions.appendChild(suggestionElement);
+  });
+
+  searchSuggestions.style.display = 'block';
+}
+
+// Функция для навигации по подсказкам с клавиатуры
+function navigateSuggestions(direction) {
+  const suggestions = document.querySelectorAll('.suggestion-item');
+  if (suggestions.length === 0) return;
+
+  // Убираем выделение с текущего элемента
+  if (currentSuggestionIndex >= 0 && currentSuggestionIndex < suggestions.length) {
+    suggestions[currentSuggestionIndex].classList.remove('selected');
+  }
+
+  // Обновляем индекс
+  if (direction === 'down') {
+    currentSuggestionIndex = Math.min(currentSuggestionIndex + 1, suggestions.length - 1);
+  } else if (direction === 'up') {
+    currentSuggestionIndex = Math.max(currentSuggestionIndex - 1, -1);
+  }
+
+  // Применяем выделение к новому элементу
+  if (currentSuggestionIndex >= 0 && currentSuggestionIndex < suggestions.length) {
+    suggestions[currentSuggestionIndex].classList.add('selected');
+    // Обновляем значение в поле ввода
+    searchInput.value = suggestionsList[currentSuggestionIndex];
+  }
+}
+
+// Функция для выполнения поиска
+function performSearch(query, exactMatch = false) {
+  const filter = query.toLowerCase().trim();
+  const filterWords = filter.split(/\s+/).filter(word => word.length > 0);
   
   if (!filter) {
-      // If search is empty, show all items
-      items.forEach(item => {
-          item.style.display = "";
-      });
-      hideBlockedServices();
-      return;
+    // Если поиск пустой, показываем все элементы
+    items.forEach(item => {
+      item.style.display = "";
+    });
+    hideBlockedServices();
+    return;
   }
 
   items.forEach(item => {
-      const text = (item.textContent || item.innerText).toLowerCase();
-      const website = item.getAttribute('data-website');
-      let descriptionText = "";
-      
-      // Get description based on language
-      if (userLang.startsWith("ru")) {
-          descriptionText = websiteDescriptionsRu[website] || "";
-      } else {
-          let userDesc = localStorage.getItem('translatedDescriptions');
-          if (userDesc) {
-              userDesc = JSON.parse(userDesc);
-              const description = userDesc.find(desc => desc.url === website);
-              if (description) {
-                  descriptionText = description.translatedText;
-              }
-          }
+    const text = (item.textContent || item.innerText).toLowerCase();
+    const website = item.getAttribute('data-website');
+    let descriptionText = "";
+    
+    // Получаем описание в зависимости от языка
+    if (userLang.startsWith("ru")) {
+      descriptionText = websiteDescriptionsRu[website] || "";
+    } else {
+      let userDesc = localStorage.getItem('translatedDescriptions');
+      if (userDesc) {
+        userDesc = JSON.parse(userDesc);
+        const description = userDesc.find(desc => desc.url === website);
+        if (description) {
+          descriptionText = description.translatedText;
+        }
       }
-      descriptionText = descriptionText.toLowerCase();
+    }
+    descriptionText = descriptionText.toLowerCase();
 
-      // First check if any word matches the element text
-      const matchesText = filterWords.some(word => text.includes(word));
-      if (matchesText) {
-          item.style.display = ""; // Show item if text matches
-          return;
-      }
+    // Если это точное совпадение (выбор из подсказок), ищем точное совпадение названия
+    if (exactMatch) {
+      const matches = text.trim() === filter;
+      item.style.display = matches ? "" : "none";
+      return;
+    }
 
-      // If text doesn't match, check description
-      const matchesDescription = filterWords.some(word => descriptionText.includes(word));
-      item.style.display = matchesDescription ? "" : "none";
+    // Сначала проверяем совпадение с текстом элемента
+    const matchesText = filterWords.some(word => text.includes(word));
+    if (matchesText) {
+      item.style.display = "";
+      return;
+    }
+
+    // Если текст не совпадает, проверяем описание
+    const matchesDescription = filterWords.some(word => descriptionText.includes(word));
+    item.style.display = matchesDescription ? "" : "none";
   });
+}
+
+searchInput.addEventListener('input', function() {
+  const query = searchInput.value.trim();
+  
+  if (query.length >= 2) {
+    const suggestions = generateSuggestions(query);
+    showSuggestions(suggestions);
+  } else {
+    searchSuggestions.style.display = 'none';
+  }
+  
+  // Выполняем поиск
+  performSearch(query);
+});
+
+// Обработка навигации с клавиатуры
+searchInput.addEventListener('keydown', function(e) {
+  if (searchSuggestions.style.display === 'none') return;
+  
+  switch(e.key) {
+    case 'ArrowDown':
+      e.preventDefault();
+      navigateSuggestions('down');
+      break;
+    case 'ArrowUp':
+      e.preventDefault();
+      navigateSuggestions('up');
+      break;
+    case 'Enter':
+      e.preventDefault();
+      if (currentSuggestionIndex >= 0 && currentSuggestionIndex < suggestionsList.length) {
+        searchInput.value = suggestionsList[currentSuggestionIndex];
+        searchSuggestions.style.display = 'none';
+        performSearch(suggestionsList[currentSuggestionIndex], true); // Используем точное совпадение
+      }
+      break;
+    case 'Escape':
+      searchSuggestions.style.display = 'none';
+      currentSuggestionIndex = -1;
+      break;
+  }
+});
+
+// Скрываем подсказки при клике вне области поиска
+document.addEventListener('click', function(e) {
+  if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+    searchSuggestions.style.display = 'none';
+    currentSuggestionIndex = -1;
+  }
 });
 
 
@@ -1303,7 +1528,8 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://ebank.nz/aiartgenerator":"Бесплатный сервис для генерации изображений, поддерживает различные стили",
       "https://www.texttospeechpro.com/tts":"Сервис для озвучивания текста",
       "https://x-minus.pro/ai":"Сервис предлагает набор аудиоинструментов с ИИ",
-      "https://postspark.app/screenshot":"Сервис в котором можно быстро собрать красивый дизайн, макет или скриншот проекта"
+      "https://postspark.app/screenshot":"Сервис в котором можно быстро собрать красивый дизайн, макет или скриншот проекта",
+      "https://processor.alwaysdata.net/":"Сайт с бесплатными сервисами с ИИ, теперь расширение будет с Вами всегда"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor) { 
@@ -1398,6 +1624,20 @@ function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
       searchInput.style.color = textColor;
       searchInput.style.borderColor = liColor;
     }
+
+    // Применяем стили к подсказкам
+    const searchSuggestions = document.getElementById('searchSuggestions');
+    if (searchSuggestions) {
+      searchSuggestions.style.backgroundColor = backgroundColor;
+      searchSuggestions.style.borderColor = liColor;
+    }
+
+    const suggestionItems = document.querySelectorAll('.suggestion-item');
+    suggestionItems.forEach(item => {
+      if (item) {
+        item.style.color = textColor;
+      }
+    });
 
     // Сохраняем текущую тему
     const currentTheme = {

@@ -170,7 +170,10 @@
 		<label for="menu-toggle" class="menu-label">⚙️</label>
 		<input type="checkbox" id="menu-toggle" class="menu-toggle" />
         <div class="dropdown" id="dropdown-menu">
-            <input id="searchInput" type="text" class="search-input" placeholder="Search...">
+            <div class="search-container">
+                <input id="searchInput" type="text" class="search-input" placeholder="Search...">
+                <div id="searchSuggestions" class="search-suggestions"></div>
+            </div>
             <div class="dropdown-item">
 				<input type="checkbox" id="openInNewTab" class="popup-chackbox"><label class="dropdown-label">Open in a new tab.</label>
 			</div>
@@ -679,6 +682,7 @@
   </ul>
   <h1 id="aiOther">Other AI Services</h1>
   <ul class="aiMenu">
+	<li data-website="https://processor.alwaysdata.net/">Free AI Services Site</li>
     <li data-website="https://www.fontspace.com/">Fontspace</li>
 	<li data-website="https://www.gling.ai/">Gling</li>
 	<li data-website="https://copilot2trip.com/">Copilot2trip</li>
