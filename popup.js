@@ -801,6 +801,11 @@ if (userLang.startsWith('ru')) {
   document.querySelector('#text-color-headings .translate-text').textContent = 'Цвет заголовков:';
   document.querySelector('#li-back-color .translate-text').textContent = 'Цвет фона элементов:';
   document.querySelector('#li-text-color .translate-text').textContent = 'Цвет текста элементов:';
+  document.querySelector('#tooltip-background-color .translate-text').textContent = 'Цвет фона подсказок:';
+  document.querySelector('#font-family-settings .translate-text').textContent = 'Семейство шрифтов:';
+  document.querySelector('#heading-font-size .translate-text').textContent = 'Размер шрифта заголовков:';
+  document.querySelector('#item-font-size .translate-text').textContent = 'Размер шрифта элементов:';
+  document.querySelector('#tooltip-font-size .translate-text').textContent = 'Размер шрифта подсказок:';
   document.querySelector('#resetTheme .translate-text').textContent = 'Сбросить тему';
   advancedSearch.style.display = "none";
   document.getElementById('advancedSearchText').style.display="none";
@@ -841,6 +846,11 @@ document.querySelector('#background-color .translate-text').textContent = transl
 document.querySelector('#text-color-headings .translate-text').textContent = translateText('Цвет заголовков:', "ru");
 document.querySelector('#li-back-color .translate-text').textContent = translateText('Цвет фона элементов:', "ru");
 document.querySelector('#li-text-color .translate-text').textContent = translateText('Цвет текста элементов:', "ru");
+document.querySelector('#tooltip-background-color .translate-text').textContent = translateText('Цвет фона подсказок:', "ru");
+document.querySelector('#font-family-settings .translate-text').textContent = translateText('Семейство шрифтов:', "ru");
+document.querySelector('#heading-font-size .translate-text').textContent = translateText('Размер шрифта заголовков:', "ru");
+document.querySelector('#item-font-size .translate-text').textContent = translateText('Размер шрифта элементов:', "ru");
+document.querySelector('#tooltip-font-size .translate-text').textContent = translateText('Размер шрифта подсказок:', "ru");
 document.querySelector('#resetTheme .translate-text').textContent = translateText('Сбросить тему', "ru");
 advancedSearch.nextSibling.textContent = translateText("Enable contextual search (Attention! Initialization can take up to 20 seconds on first startup)", "en");
 document.getElementById('advancedSearchText').style.display="block";
@@ -1529,43 +1539,61 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.texttospeechpro.com/tts":"Сервис для озвучивания текста",
       "https://x-minus.pro/ai":"Сервис предлагает набор аудиоинструментов с ИИ",
       "https://postspark.app/screenshot":"Сервис в котором можно быстро собрать красивый дизайн, макет или скриншот проекта",
-      "https://processor.alwaysdata.net/":"Сайт с бесплатными сервисами с ИИ, теперь расширение будет с Вами всегда"
+      "https://processor.alwaysdata.net/":"Сайт с бесплатными сервисами с ИИ, теперь расширение будет с Вами всегда",
+      "https://www.zeroregai.com/":"Сервис предоставляет доступ к нескольким LLM"
   };   
 
-function applyTheme(backgroundColor, textColor, liColor, liTextColor) { 
+function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
   try {
     // Применяем основные цвета
     if (document.body) {
       document.body.style.backgroundColor = backgroundColor;
+      document.body.style.fontFamily = fontFamily || "'Droid serif', serif";
     }
     
-    const h1Element = document.querySelector('h1');
-    if (h1Element) {
-      h1Element.style.color = textColor;
-    }
+    const h1Elements = document.querySelectorAll('h1');
+    h1Elements.forEach(h1 => {
+      if (h1) {
+        h1.style.color = textColor;
+        h1.style.fontFamily = fontFamily || "'Droid serif', serif";
+        h1.style.fontSize = (headingFontSize || 32) + 'px';
+      }
+    });
 
     // Цвета элементов списка
     const listItems = document.querySelectorAll('.aiMenu li');
     listItems.forEach(li => {
       if (li) {
         li.style.backgroundColor = liColor;
-        li.style.color = liTextColor; // Используем liTextColor если задан, иначе textColor
+        li.style.color = liTextColor;
+        li.style.fontFamily = fontFamily || "'Droid serif', serif";
+        li.style.fontSize = (itemFontSize || 16) + 'px';
       }
     });
 
     // Обновляем фон для theme-settings и header-dropdown-item
     const themeSettings = document.querySelector('.theme-settings');
+    const themeSettingsTitle = document.getElementById('theme-settings-title');
     const headerDropdownItems = document.querySelectorAll('.header-dropdown-item');
     
     if (themeSettings) {
       themeSettings.style.backgroundColor = liColor;
       themeSettings.style.color = textColor;
+      themeSettings.style.fontFamily = fontFamily || "'Droid serif', serif";
+    }
+    
+    if (themeSettingsTitle) {
+      themeSettingsTitle.style.color = textColor;
+      themeSettingsTitle.style.fontFamily = fontFamily || "'Droid serif', serif";
+      themeSettingsTitle.style.fontSize = (headingFontSize || 32) + 'px';
     }
     
     headerDropdownItems.forEach(item => {
       if (item) {
         item.style.backgroundColor = liColor;
         item.style.color = textColor;
+        item.style.fontFamily = fontFamily || "'Droid serif', serif";
+        item.style.fontSize = (itemFontSize || 16) + 'px';
       }
     });
 
@@ -1583,6 +1611,7 @@ function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
     if (dropdownMenu) {
       dropdownMenu.style.backgroundColor = backgroundColor;
       dropdownMenu.style.color = textColor;
+      dropdownMenu.style.fontFamily = fontFamily || "'Droid serif', serif";
     }
 
     // Применяем стили к элементам выпадающего меню
@@ -1590,6 +1619,8 @@ function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
       if (item) {
         item.style.backgroundColor = liColor;
         item.style.color = textColor;
+        item.style.fontFamily = fontFamily || "'Droid serif', serif";
+        item.style.fontSize = (itemFontSize || 16) + 'px';
       }
     });
 
@@ -1597,25 +1628,30 @@ function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
     if (menuLabel) {
       menuLabel.style.backgroundColor = liColor;
       menuLabel.style.color = textColor;
+      menuLabel.style.fontFamily = fontFamily || "'Droid serif', serif";
     }
 
     if (headerMenuToggle) {
       headerMenuToggle.style.backgroundColor = liColor;
       headerMenuToggle.style.color = textColor;
+      headerMenuToggle.style.fontFamily = fontFamily || "'Droid serif', serif";
     }
     if (themeMenuToggle) {
       themeMenuToggle.style.backgroundColor = liColor;
       themeMenuToggle.style.color = textColor;
+      themeMenuToggle.style.fontFamily = fontFamily || "'Droid serif', serif";
     }
     
     if (headerDropdownMenu) {
       headerDropdownMenu.style.backgroundColor = backgroundColor;
       headerDropdownMenu.style.color = textColor;
+      headerDropdownMenu.style.fontFamily = fontFamily || "'Droid serif', serif";
     }
     
     if (themeDropdownMenu) {
       themeDropdownMenu.style.backgroundColor = backgroundColor;
       themeDropdownMenu.style.color = textColor;
+      themeDropdownMenu.style.fontFamily = fontFamily || "'Droid serif', serif";
     }
 
     // Применяем стили к поисковому полю
@@ -1623,6 +1659,8 @@ function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
       searchInput.style.backgroundColor = liColor;
       searchInput.style.color = textColor;
       searchInput.style.borderColor = liColor;
+      searchInput.style.fontFamily = fontFamily || "'Droid serif', serif";
+      searchInput.style.fontSize = (itemFontSize || 16) + 'px';
     }
 
     // Применяем стили к подсказкам
@@ -1630,21 +1668,64 @@ function applyTheme(backgroundColor, textColor, liColor, liTextColor) {
     if (searchSuggestions) {
       searchSuggestions.style.backgroundColor = backgroundColor;
       searchSuggestions.style.borderColor = liColor;
+      searchSuggestions.style.fontFamily = fontFamily || "'Droid serif', serif";
     }
 
     const suggestionItems = document.querySelectorAll('.suggestion-item');
     suggestionItems.forEach(item => {
       if (item) {
         item.style.color = textColor;
+        item.style.fontFamily = fontFamily || "'Droid serif', serif";
+        item.style.fontSize = (itemFontSize || 16) + 'px';
       }
     });
+
+    // Применяем стили к всплывающим подсказкам (tooltips)
+    const popup = document.querySelector('.popup');
+    if (popup) {
+      popup.style.backgroundColor = tooltipBgColor || '#333';
+      popup.style.fontFamily = fontFamily || "'Droid serif', serif";
+      popup.style.fontSize = (tooltipFontSize || 14) + 'px';
+    }
+
+    // Применяем стили к лейблам в настройках темы
+    const themeLabels = document.querySelectorAll('.theme-settings label, .theme-settings .translate-text');
+    themeLabels.forEach(label => {
+      if (label) {
+        label.style.fontFamily = fontFamily || "'Droid serif', serif";
+        label.style.fontSize = (itemFontSize || 16) + 'px';
+        label.style.color = textColor;
+      }
+    });
+
+    // Применяем стили к значениям размеров шрифтов
+    const fontSizeValues = document.querySelectorAll('#headingFontSizeValue, #itemFontSizeValue, #tooltipFontSizeValue');
+    fontSizeValues.forEach(value => {
+      if (value) {
+        value.style.fontFamily = fontFamily || "'Droid serif', serif";
+        value.style.fontSize = (itemFontSize || 16) + 'px';
+        value.style.color = textColor;
+      }
+    });
+
+    // Применяем стили к кнопке сброса
+    const resetButton = document.getElementById('resetTheme');
+    if (resetButton) {
+      resetButton.style.fontFamily = fontFamily || "'Droid serif', serif";
+      resetButton.style.fontSize = (itemFontSize || 16) + 'px';
+    }
 
     // Сохраняем текущую тему
     const currentTheme = {
       backgroundColor,
       textColor,
       liColor,
-      liTextColor
+      liTextColor,
+      tooltipBgColor: tooltipBgColor || '#333',
+      fontFamily: fontFamily || "'Droid serif', serif",
+      headingFontSize: headingFontSize || 32,
+      itemFontSize: itemFontSize || 16,
+      tooltipFontSize: tooltipFontSize || 14
     };
     saveTheme(currentTheme);
 
@@ -1673,19 +1754,46 @@ function loadTheme() {
       savedTheme.backgroundColor, 
       savedTheme.textColor, 
       savedTheme.liColor,
-      savedTheme.liTextColor
+      savedTheme.liTextColor,
+      savedTheme.tooltipBgColor,
+      savedTheme.fontFamily,
+      savedTheme.headingFontSize,
+      savedTheme.itemFontSize,
+      savedTheme.tooltipFontSize
     );
 
-    // Обновляем значения color picker
+    // Обновляем значения color picker и других элементов
     const bgColorPicker = document.getElementById('bgColorPicker');
     const textColorPicker = document.getElementById('textColorPicker');
     const liColorPicker = document.getElementById('liColorPicker');
     const liTextColorPicker = document.getElementById('liTextColorPicker');
+    const tooltipBgColorPicker = document.getElementById('tooltipBgColorPicker');
+    const fontFamilySelect = document.getElementById('fontFamilySelect');
+    const headingFontSize = document.getElementById('headingFontSize');
+    const itemFontSize = document.getElementById('itemFontSize');
+    const tooltipFontSize = document.getElementById('tooltipFontSize');
+    const headingFontSizeValue = document.getElementById('headingFontSizeValue');
+    const itemFontSizeValue = document.getElementById('itemFontSizeValue');
+    const tooltipFontSizeValue = document.getElementById('tooltipFontSizeValue');
 
     if (bgColorPicker) bgColorPicker.value = savedTheme.backgroundColor;
     if (textColorPicker) textColorPicker.value = savedTheme.textColor;
     if (liColorPicker) liColorPicker.value = savedTheme.liColor;
     if (liTextColorPicker) liTextColorPicker.value = savedTheme.liTextColor;
+    if (tooltipBgColorPicker) tooltipBgColorPicker.value = savedTheme.tooltipBgColor || '#333';
+    if (fontFamilySelect) fontFamilySelect.value = savedTheme.fontFamily || "'Droid serif', serif";
+    if (headingFontSize) {
+      headingFontSize.value = savedTheme.headingFontSize || 32;
+      if (headingFontSizeValue) headingFontSizeValue.textContent = (savedTheme.headingFontSize || 32) + 'px';
+    }
+    if (itemFontSize) {
+      itemFontSize.value = savedTheme.itemFontSize || 16;
+      if (itemFontSizeValue) itemFontSizeValue.textContent = (savedTheme.itemFontSize || 16) + 'px';
+    }
+    if (tooltipFontSize) {
+      tooltipFontSize.value = savedTheme.tooltipFontSize || 14;
+      if (tooltipFontSizeValue) tooltipFontSizeValue.textContent = (savedTheme.tooltipFontSize || 14) + 'px';
+    }
 
     return savedTheme;
   } catch (error) {
@@ -1700,49 +1808,72 @@ function initializeThemeListeners() {
   const textColorPicker = document.getElementById('textColorPicker');
   const liColorPicker = document.getElementById('liColorPicker');
   const liTextColorPicker = document.getElementById('liTextColorPicker');
+  const tooltipBgColorPicker = document.getElementById('tooltipBgColorPicker');
+  const fontFamilySelect = document.getElementById('fontFamilySelect');
+  const headingFontSize = document.getElementById('headingFontSize');
+  const itemFontSize = document.getElementById('itemFontSize');
+  const tooltipFontSize = document.getElementById('tooltipFontSize');
+  const headingFontSizeValue = document.getElementById('headingFontSizeValue');
+  const itemFontSizeValue = document.getElementById('itemFontSizeValue');
+  const tooltipFontSizeValue = document.getElementById('tooltipFontSizeValue');
   const resetThemeBtn = document.getElementById('resetTheme');
 
+  function updateTheme() {
+    applyTheme(
+      bgColorPicker ? bgColorPicker.value : defaultTheme.backgroundColor,
+      textColorPicker ? textColorPicker.value : defaultTheme.textColor,
+      liColorPicker ? liColorPicker.value : defaultTheme.liColor,
+      liTextColorPicker ? liTextColorPicker.value : defaultTheme.liTextColor,
+      tooltipBgColorPicker ? tooltipBgColorPicker.value : defaultTheme.tooltipBgColor,
+      fontFamilySelect ? fontFamilySelect.value : defaultTheme.fontFamily,
+      headingFontSize ? headingFontSize.value : defaultTheme.headingFontSize,
+      itemFontSize ? itemFontSize.value : defaultTheme.itemFontSize,
+      tooltipFontSize ? tooltipFontSize.value : defaultTheme.tooltipFontSize
+    );
+  }
+
   if (bgColorPicker) {
-    bgColorPicker.addEventListener('change', (e) => {
-      applyTheme(
-        e.target.value, 
-        textColorPicker.value, 
-        liColorPicker.value,
-        liTextColorPicker.value
-      );
-    });
+    bgColorPicker.addEventListener('change', updateTheme);
   }
 
   if (textColorPicker) {
-    textColorPicker.addEventListener('change', (e) => {
-      applyTheme(
-        bgColorPicker.value, 
-        e.target.value, 
-        liColorPicker.value,
-        liTextColorPicker.value
-      );
-    });
+    textColorPicker.addEventListener('change', updateTheme);
   }
 
   if (liColorPicker) {
-    liColorPicker.addEventListener('change', (e) => {
-      applyTheme(
-        bgColorPicker.value, 
-        textColorPicker.value, 
-        e.target.value,
-        liTextColorPicker.value
-      );
-    });
+    liColorPicker.addEventListener('change', updateTheme);
   }
 
   if (liTextColorPicker) {
-    liTextColorPicker.addEventListener('change', (e) => {
-      applyTheme(
-        bgColorPicker.value, 
-        textColorPicker.value, 
-        liColorPicker.value,
-        e.target.value
-      );
+    liTextColorPicker.addEventListener('change', updateTheme);
+  }
+
+  if (tooltipBgColorPicker) {
+    tooltipBgColorPicker.addEventListener('change', updateTheme);
+  }
+
+  if (fontFamilySelect) {
+    fontFamilySelect.addEventListener('change', updateTheme);
+  }
+
+  if (headingFontSize) {
+    headingFontSize.addEventListener('input', (e) => {
+      if (headingFontSizeValue) headingFontSizeValue.textContent = e.target.value + 'px';
+      updateTheme();
+    });
+  }
+
+  if (itemFontSize) {
+    itemFontSize.addEventListener('input', (e) => {
+      if (itemFontSizeValue) itemFontSizeValue.textContent = e.target.value + 'px';
+      updateTheme();
+    });
+  }
+
+  if (tooltipFontSize) {
+    tooltipFontSize.addEventListener('input', (e) => {
+      if (tooltipFontSizeValue) tooltipFontSizeValue.textContent = e.target.value + 'px';
+      updateTheme();
     });
   }
 
@@ -1753,8 +1884,32 @@ function initializeThemeListeners() {
         defaultTheme.backgroundColor, 
         defaultTheme.textColor, 
         defaultTheme.liColor,
-        defaultTheme.liTextColor
+        defaultTheme.liTextColor,
+        defaultTheme.tooltipBgColor,
+        defaultTheme.fontFamily,
+        defaultTheme.headingFontSize,
+        defaultTheme.itemFontSize,
+        defaultTheme.tooltipFontSize
       );
+      // Обновляем значения контролов
+      if (bgColorPicker) bgColorPicker.value = defaultTheme.backgroundColor;
+      if (textColorPicker) textColorPicker.value = defaultTheme.textColor;
+      if (liColorPicker) liColorPicker.value = defaultTheme.liColor;
+      if (liTextColorPicker) liTextColorPicker.value = defaultTheme.liTextColor;
+      if (tooltipBgColorPicker) tooltipBgColorPicker.value = defaultTheme.tooltipBgColor;
+      if (fontFamilySelect) fontFamilySelect.value = defaultTheme.fontFamily;
+      if (headingFontSize) {
+        headingFontSize.value = defaultTheme.headingFontSize;
+        if (headingFontSizeValue) headingFontSizeValue.textContent = defaultTheme.headingFontSize + 'px';
+      }
+      if (itemFontSize) {
+        itemFontSize.value = defaultTheme.itemFontSize;
+        if (itemFontSizeValue) itemFontSizeValue.textContent = defaultTheme.itemFontSize + 'px';
+      }
+      if (tooltipFontSize) {
+        tooltipFontSize.value = defaultTheme.tooltipFontSize;
+        if (tooltipFontSizeValue) tooltipFontSizeValue.textContent = defaultTheme.tooltipFontSize + 'px';
+      }
     });
   }
 }
@@ -1763,7 +1918,12 @@ const defaultTheme = {
   backgroundColor: '#a1a1a1',
   textColor: '#ffde22',
   liColor: '#70040e',
-  liTextColor: '#ffffff'
+  liTextColor: '#ffffff',
+  tooltipBgColor: '#333333',
+  fontFamily: "'Droid serif', serif",
+  headingFontSize: 32,
+  itemFontSize: 16,
+  tooltipFontSize: 14
 };
 
   // Проверяем обновления при загрузке страницы

@@ -235,6 +235,50 @@
 						<input type="color" id="liTextColorPicker" value="#000000">
 					</label>
 				</div>
+				<div class="color-picker-group">
+					<label id="tooltip-background-color">
+						<span class="translate-text">Tooltip background color:</span>
+						<input type="color" id="tooltipBgColorPicker" value="#333333">
+					</label>
+				</div>
+				<div class="font-settings-group">
+					<label id="font-family-settings">
+						<span class="translate-text">Font family:</span>
+						<select id="fontFamilySelect">
+							<option value="'Droid serif', serif">Droid Serif</option>
+							<option value="Arial, sans-serif">Arial</option>
+							<option value="'Times New Roman', serif">Times New Roman</option>
+							<option value="'Courier New', monospace">Courier New</option>
+							<option value="'Georgia', serif">Georgia</option>
+							<option value="'Verdana', sans-serif">Verdana</option>
+							<option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+							<option value="'Impact', fantasy">Impact</option>
+							<option value="'Roboto', fantasy">Roboto</option>
+							<option value="'Consolas', monospace">Consolas</option>
+						</select>
+					</label>
+				</div>
+				<div class="size-settings-group">
+					<label id="heading-font-size">
+						<span class="translate-text">Heading font size:</span>
+						<input type="range" id="headingFontSize" min="20" max="50" value="32">
+						<span id="headingFontSizeValue">32px</span>
+					</label>
+				</div>
+				<div class="size-settings-group">
+					<label id="item-font-size">
+						<span class="translate-text">Item font size:</span>
+						<input type="range" id="itemFontSize" min="10" max="32" value="16">
+						<span id="itemFontSizeValue">16px</span>
+					</label>
+				</div>
+				<div class="size-settings-group">
+					<label id="tooltip-font-size">
+						<span class="translate-text">Tooltip font size:</span>
+						<input type="range" id="tooltipFontSize" min="10" max="32" value="14">
+						<span id="tooltipFontSizeValue">14px</span>
+					</label>
+				</div>
 				<button id="resetTheme"><span class="translate-text">Reset theme</span></button>
 			</div>
 		</div>

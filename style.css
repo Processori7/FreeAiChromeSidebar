@@ -398,10 +398,12 @@
       padding: 5px;
       border-radius: 4px;
       border: 1px solid #ccc;
+      background-color: white;
+      color: #333;
   }
   
   input[type="range"] {
-      width: 150px;
+      width: 100px;
       margin: 0 10px;
   }
   
@@ -436,9 +438,14 @@
   #fontSizeValue,
   #itemWidthValue,
   #itemHeightValue,
-  #borderWidthValue {
+  #borderWidthValue,
+  #headingFontSizeValue,
+  #itemFontSizeValue,
+  #tooltipFontSizeValue {
       min-width: 45px;
       text-align: right;
+      font-weight: bold;
+      color: #ffde22;
   }
   
   /* Theme Menu Styles */
