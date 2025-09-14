@@ -256,8 +256,11 @@
     }
     
     .suggestion-item:hover {
-        color: white;
-        background-color: #310d75;
+        background-color: #70040e;
+        color: #ffde22;
+        font-weight: bold;
+        border-left: 4px solid #ffde22;
+        box-shadow: 0 0 5px rgba(255, 222, 34, 0.5);
     }
     
     .suggestion-item:last-child {
