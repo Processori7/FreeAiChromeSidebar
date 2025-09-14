@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool","https://puter.com/","https://www.eraser.io/ai","https://www.scribbr.com/paraphrasing-tool/","https://www.eraser.io/ai/uml-diagram-generator","https://huggingface.co/spaces/ByteDance/Dolphin","https://gptkit.ai/","https://huggingface.co/spaces/Stable-X/Hi3DGen","https://www.warp.dev/",
     "https://www.wondera.ai/","https://ayesoul.com","https://scispace.com/","https://huggingface.co/spaces/llamameta/Grok-4-heavy-free","https://noiz.io/free-ai-tools/","https://huggingface.co/spaces/Qwen/Qwen3-MT-Demo","https://deep-seek-ai.ru/free-deepseek-chat/","https://gpt-chatbot.ru/openai-o3-mini","https://www.waveterm.dev/","https://cline.bot/","https://addons.mozilla.org/en-US/firefox/addon/polination-ai-chat/",
     "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
-    "https://processor.alwaysdata.net/"
+    "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech"
   ];
 
 
@@ -518,17 +518,18 @@ function generateSuggestions(query) {
   // Поиск по названиям сервисов
   items.forEach(item => {
     const text = (item.textContent || item.innerText).toLowerCase();
+    const originalText = (item.textContent || item.innerText).trim(); // Сохраняем оригинальный регистр
     const website = item.getAttribute('data-website');
     
     // Проверяем совпадение с началом названия
     if (text.startsWith(queryLower)) {
-      suggestions.add(text.trim());
+      suggestions.add(originalText); // Используем оригинальный регистр
     }
     
     // Поиск по частичному совпадению
     queryWords.forEach(word => {
       if (text.includes(word)) {
-        suggestions.add(text.trim());
+        suggestions.add(originalText); // Используем оригинальный регистр
       }
     });
   });
@@ -546,8 +547,8 @@ function generateSuggestions(query) {
           // Находим соответствующий элемент
           const item = document.querySelector(`[data-website="${website}"]`);
           if (item) {
-            const text = (item.textContent || item.innerText).trim();
-            suggestions.add(text);
+            const originalText = (item.textContent || item.innerText).trim(); // Сохраняем оригинальный регистр
+            suggestions.add(originalText);
           }
         }
       });
@@ -772,6 +773,23 @@ function performSearch(query, exactMatch = false) {
     return;
   }
 
+  // Если это точное совпадение (выбор из подсказок), обрабатываем отдельно
+  if (exactMatch) {
+    items.forEach(item => {
+      const originalText = (item.textContent || item.innerText).trim();
+      const matches = originalText.toLowerCase() === filter;
+      
+      // if (matches) {
+      //   console.log(`Exact match found: "${originalText}" matches "${query}"`);
+      // }
+      
+      item.style.display = matches ? "" : "none";
+      item.style.order = "";
+    });
+    return; 
+  }
+
+  // Обычный поиск по релевантности
   const descriptions = userLang.startsWith("ru") ? websiteDescriptionsRu : getTranslatedDescriptions();
   const scoredItems = [];
 
@@ -783,14 +801,6 @@ function performSearch(query, exactMatch = false) {
     // Получаем описание в зависимости от языка
     if (descriptions[website]) {
       descriptionText = descriptions[website].toLowerCase();
-    }
-
-    // Если это точное совпадение (выбор из подсказок), ищем точное совпадение названия
-    if (exactMatch) {
-      const matches = text.trim() === filter;
-      item.style.display = matches ? "" : "none";
-      item.style.order = "";
-      return;
     }
 
     // Вычисляем релевантность
@@ -835,7 +845,10 @@ function performSearch(query, exactMatch = false) {
       relevanceScore += proximityBonus;
     }
 
-    if (relevanceScore > 0) {
+    // Добавляем элемент в список только если есть значимая релевантность
+    // Устанавливаем минимальный порог релевантности для фильтрации
+    const minRelevanceThreshold = filterWords.length > 1 ? 15 : 10; // Более высокий порог для фразовых запросов
+    if (relevanceScore >= minRelevanceThreshold) {
       scoredItems.push({ item, score: relevanceScore });
     }
   });
@@ -846,13 +859,15 @@ function performSearch(query, exactMatch = false) {
   items.forEach(item => {
     const scoredItem = sortedItems.find(si => si.item === item);
     if (scoredItem) {
-      item.style.display = "";
+      item.style.display = ""; // Показываем найденные элементы независимо от фильтров
       item.style.order = -scoredItem.score; // Используем отрицательные значения для сортировки
     } else {
       item.style.display = "none";
       item.style.order = "";
     }
   });
+  
+  // НЕ вызываем hideBlockedServices() во время поиска, чтобы показать все найденные результаты
 }
 
 // Вспомогательная функция для вычисления бонуса за близость слов
