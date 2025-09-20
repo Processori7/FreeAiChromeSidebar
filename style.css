@@ -238,7 +238,7 @@
         left: 0;
         right: 0;
         color:yellow;
-        /* background-color: #00000000; */
+        background-color: #333333;
         border: 1px solid #ccc;
         border-radius: 4px;
         max-height: 200px;

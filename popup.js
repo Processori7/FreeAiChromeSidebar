@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool","https://puter.com/","https://www.eraser.io/ai","https://www.scribbr.com/paraphrasing-tool/","https://www.eraser.io/ai/uml-diagram-generator","https://huggingface.co/spaces/ByteDance/Dolphin","https://gptkit.ai/","https://huggingface.co/spaces/Stable-X/Hi3DGen","https://www.warp.dev/",
     "https://www.wondera.ai/","https://ayesoul.com","https://scispace.com/","https://huggingface.co/spaces/llamameta/Grok-4-heavy-free","https://noiz.io/free-ai-tools/","https://huggingface.co/spaces/Qwen/Qwen3-MT-Demo","https://deep-seek-ai.ru/free-deepseek-chat/","https://gpt-chatbot.ru/openai-o3-mini","https://www.waveterm.dev/","https://cline.bot/","https://addons.mozilla.org/en-US/firefox/addon/polination-ai-chat/",
     "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
-    "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech"
+    "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/"
   ];
 
 
@@ -651,9 +651,16 @@ function generateContextualSuggestions(query, descriptions) {
       
       // Подсчитываем релевантность
       queryWords.forEach(word => {
-        const wordRegex = new RegExp(`\\b${word}\\b`, 'gi');
-        const matches = (descLower.match(wordRegex) || []).length;
-        score += matches * 2; // Точные совпадения слов весят больше
+        // Экранируем специальные символы для безопасного использования в regex
+        const escapedWord = escapeRegExp(word);
+        try {
+          const wordRegex = new RegExp(`\\b${escapedWord}\\b`, 'gi');
+          const matches = (descLower.match(wordRegex) || []).length;
+          score += matches * 2; // Точные совпадения слов весят больше
+        } catch (e) {
+          // Если возникла ошибка с regex, используем простое включение
+          console.warn('Regex error for contextual word:', word, e);
+        }
         
         if (descLower.includes(word)) {
           score += 1; // Частичные совпадения
@@ -743,19 +750,56 @@ function navigateSuggestions(direction) {
     suggestions[currentSuggestionIndex].classList.remove('selected');
   }
 
-  // Обновляем индекс
+  // Обновляем индекс с циклической навигацией
   if (direction === 'down') {
-    currentSuggestionIndex = Math.min(currentSuggestionIndex + 1, suggestions.length - 1);
+    currentSuggestionIndex = currentSuggestionIndex < suggestions.length - 1 
+      ? currentSuggestionIndex + 1 
+      : 0; // Переходим к первому элементу
   } else if (direction === 'up') {
-    currentSuggestionIndex = Math.max(currentSuggestionIndex - 1, -1);
+    currentSuggestionIndex = currentSuggestionIndex > 0 
+      ? currentSuggestionIndex - 1 
+      : suggestions.length - 1; // Переходим к последнему элементу
   }
 
   // Применяем выделение к новому элементу
   if (currentSuggestionIndex >= 0 && currentSuggestionIndex < suggestions.length) {
-    suggestions[currentSuggestionIndex].classList.add('selected');
+    const selectedItem = suggestions[currentSuggestionIndex];
+    selectedItem.classList.add('selected');
+    
+    // Прокручиваем контейнер к выбранному элементу
+    scrollToSelectedSuggestion(selectedItem);
+    
     // Обновляем значение в поле ввода
     searchInput.value = suggestionsList[currentSuggestionIndex];
   }
+}
+
+// Функция для прокрутки к выбранному элементу подсказки
+function scrollToSelectedSuggestion(selectedItem) {
+  if (!selectedItem || !searchSuggestions) return;
+  
+  const container = searchSuggestions;
+  const itemOffsetTop = selectedItem.offsetTop;
+  const itemHeight = selectedItem.offsetHeight;
+  const containerScrollTop = container.scrollTop;
+  const containerHeight = container.clientHeight;
+  
+  // Проверяем, находится ли элемент в видимой области
+  const itemBottom = itemOffsetTop + itemHeight;
+  const containerBottom = containerScrollTop + containerHeight;
+  
+  if (itemBottom > containerBottom) {
+    // Элемент ниже видимой области - прокручиваем вниз
+    container.scrollTop = itemOffsetTop + itemHeight - containerHeight + 5;
+  } else if (itemOffsetTop < containerScrollTop) {
+    // Элемент выше видимой области - прокручиваем вверх
+    container.scrollTop = itemOffsetTop - 5;
+  }
+}
+
+// Функция для экранирования специальных символов в регулярных выражениях
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 // Функция для выполнения поиска
@@ -808,10 +852,17 @@ function performSearch(query, exactMatch = false) {
 
     // Проверка названия сервиса
     filterWords.forEach(word => {
+      // Экранируем специальные символы для безопасного использования в regex
+      const escapedWord = escapeRegExp(word);
       // Точное совпадение слова в названии
-      const exactWordMatch = new RegExp(`\\b${word}\\b`, 'gi');
-      const titleMatches = (text.match(exactWordMatch) || []).length;
-      relevanceScore += titleMatches * 100; // Максимальный приоритет для названий
+      try {
+        const exactWordMatch = new RegExp(`\\b${escapedWord}\\b`, 'gi');
+        const titleMatches = (text.match(exactWordMatch) || []).length;
+        relevanceScore += titleMatches * 100; // Максимальный приоритет для названий
+      } catch (e) {
+        // Если возникла ошибка с regex, используем простое включение
+        console.warn('Regex error for word:', word, e);
+      }
       
       // Начало названия
       if (text.startsWith(word)) {
@@ -827,10 +878,17 @@ function performSearch(query, exactMatch = false) {
     // Проверка описания
     if (descriptionText) {
       filterWords.forEach(word => {
+        // Экранируем специальные символы для безопасного использования в regex
+        const escapedWord = escapeRegExp(word);
         // Точное совпадение слова в описании
-        const exactWordMatch = new RegExp(`\\b${word}\\b`, 'gi');
-        const descMatches = (descriptionText.match(exactWordMatch) || []).length;
-        relevanceScore += descMatches * 10; // Средний приоритет для описаний
+        try {
+          const exactWordMatch = new RegExp(`\\b${escapedWord}\\b`, 'gi');
+          const descMatches = (descriptionText.match(exactWordMatch) || []).length;
+          relevanceScore += descMatches * 10; // Средний приоритет для описаний
+        } catch (e) {
+          // Если возникла ошибка с regex, используем простое включение
+          console.warn('Regex error for word in description:', word, e);
+        }
         
         // Простое вхождение в описание
         if (descriptionText.includes(word)) {
@@ -845,10 +903,9 @@ function performSearch(query, exactMatch = false) {
       relevanceScore += proximityBonus;
     }
 
-    // Добавляем элемент в список только если есть значимая релевантность
-    // Устанавливаем минимальный порог релевантности для фильтрации
-    const minRelevanceThreshold = filterWords.length > 1 ? 15 : 10; // Более высокий порог для фразовых запросов
-    if (relevanceScore >= minRelevanceThreshold) {
+    // Добавляем элемент в список только если есть хоть какие-то совпадения
+    // Показываем все элементы с любой релевантностью, скрываем только те, у которых совпадений совсем нет
+    if (relevanceScore > 0) {
       scoredItems.push({ item, score: relevanceScore });
     }
   });
@@ -947,7 +1004,6 @@ document.addEventListener('click', function(e) {
     currentSuggestionIndex = -1;
   }
 });
-
 
 // Функция для перевода текста
 function translateText(text, lang) {
@@ -1719,7 +1775,14 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://x-minus.pro/ai":"Сервис предлагает набор аудиоинструментов с ИИ",
       "https://postspark.app/screenshot":"Сервис в котором можно быстро собрать красивый дизайн, макет или скриншот проекта",
       "https://processor.alwaysdata.net/":"Сайт с бесплатными сервисами с ИИ, теперь расширение будет с Вами всегда",
-      "https://www.zeroregai.com/":"Сервис предоставляет доступ к нескольким LLM"
+      "https://www.zeroregai.com/":"Сервис предоставляет доступ к нескольким LLM",
+      "https://www.anysummary.app/":"Помощник в работе с документами любого формата, позволяет быстро получать нужную информацию",
+      "https://www.meshy.ai/":"Сервис для генерации 3D-моделей, требуется авторизация",
+      "https://app.reve.com/home":"Фотошоп с ИИ, требуется авторизация",
+      "https://www.naturalreaders.com/online/":"Сервис для озвучивания текста натуральными голосами",
+      "https://lovevoice.ai/":"Сервис для озвучивания текста",
+      "https://speechma.com/":"Сервис для озвучивания текста, есть множество голосов",
+      "https://platform.decart.ai/":"ИИ-фотошоп для видео с бесплатным планом, требуется авторизация"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
@@ -1917,7 +1980,7 @@ function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgC
 function saveTheme(theme) {
   try {
     localStorage.setItem('customTheme', JSON.stringify(theme));
-    console.log('Тема сохранена:', theme);
+    // console.log('Тема сохранена:', theme);
   } catch (error) {
     console.error('Ошибка сохранения темы:', error);
   }
