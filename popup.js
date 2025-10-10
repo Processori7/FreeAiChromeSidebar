@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool","https://puter.com/","https://www.eraser.io/ai","https://www.scribbr.com/paraphrasing-tool/","https://www.eraser.io/ai/uml-diagram-generator","https://huggingface.co/spaces/ByteDance/Dolphin","https://gptkit.ai/","https://huggingface.co/spaces/Stable-X/Hi3DGen","https://www.warp.dev/",
     "https://www.wondera.ai/","https://ayesoul.com","https://scispace.com/","https://huggingface.co/spaces/llamameta/Grok-4-heavy-free","https://noiz.io/free-ai-tools/","https://huggingface.co/spaces/Qwen/Qwen3-MT-Demo","https://deep-seek-ai.ru/free-deepseek-chat/","https://gpt-chatbot.ru/openai-o3-mini","https://www.waveterm.dev/","https://cline.bot/","https://addons.mozilla.org/en-US/firefox/addon/polination-ai-chat/",
     "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
-    "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/"
+    "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/","https://huggingface.co/spaces/spectral-labs/SGS-1","https://higgsfield.ai/create/video","https://ibrief.co/"
   ];
 
 
@@ -1782,7 +1782,11 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.naturalreaders.com/online/":"Сервис для озвучивания текста натуральными голосами",
       "https://lovevoice.ai/":"Сервис для озвучивания текста",
       "https://speechma.com/":"Сервис для озвучивания текста, есть множество голосов",
-      "https://platform.decart.ai/":"ИИ-фотошоп для видео с бесплатным планом, требуется авторизация"
+      "https://platform.decart.ai/":"ИИ-фотошоп для видео с бесплатным планом, требуется авторизация",
+      "https://www.voxdeck.ai/":"Сервис для генерации презентаций, в бесплатном тарифе доступно 8 слайдов, есть возможность экспорта в PDF",
+      "https://huggingface.co/spaces/spectral-labs/SGS-1":"ИИ-модель, которая превращает обычный чертёж в полноценную 3D-деталь",
+      "https://ibrief.co/":"Сервис позволяет быстро выделить самое главное в статье",
+      "https://higgsfield.ai/create/video":"Сервис для генерации видео, требуется авторизация"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
