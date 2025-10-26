@@ -99,7 +99,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool","https://puter.com/","https://www.eraser.io/ai","https://www.scribbr.com/paraphrasing-tool/","https://www.eraser.io/ai/uml-diagram-generator","https://huggingface.co/spaces/ByteDance/Dolphin","https://gptkit.ai/","https://huggingface.co/spaces/Stable-X/Hi3DGen","https://www.warp.dev/",
     "https://www.wondera.ai/","https://ayesoul.com","https://scispace.com/","https://huggingface.co/spaces/llamameta/Grok-4-heavy-free","https://noiz.io/free-ai-tools/","https://huggingface.co/spaces/Qwen/Qwen3-MT-Demo","https://deep-seek-ai.ru/free-deepseek-chat/","https://gpt-chatbot.ru/openai-o3-mini","https://www.waveterm.dev/","https://cline.bot/","https://addons.mozilla.org/en-US/firefox/addon/polination-ai-chat/",
     "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
-    "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/","https://huggingface.co/spaces/spectral-labs/SGS-1","https://higgsfield.ai/create/video","https://ibrief.co/"
+    "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/","https://huggingface.co/spaces/spectral-labs/SGS-1","https://higgsfield.ai/create/video","https://ibrief.co/","https://chat.qwenlm.ai/","https://flowith.io/","https://deepai.org/chat","https://pi.ai/onboarding",
+    "https://grok.com/","https://llmarena.ru/","https://lmarena.ai/","https://stackoverflow.ai/","https://slea.ai/ru/app","https://notebooklm.google/","https://stitch.withgoogle.com/","https://aistudio.google.com/welcome","https://perchance.org/humanize-ai-text"
   ];
 
 
@@ -1290,7 +1291,6 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.popai.pro/": "Бесплатно: GPT и другие инструменты ИИ, но требуется вход в систему и у этого сервиса есть ограничения.",
       "https://useadrenaline.com/": "Бесплатный ИИ для программистов, позволяет анализировать репозитории на GitHub.",
       "https://gpt.h2o.ai/": "Бесплатные LLM.",
-      "https://chat.lmsys.org/": "Большая платформа для тестирования различных ИИ, но некоторые имеют ограничения, на сайте есть тёмная тема, а также возможно использовать несколько LLM одновременно.",
       "https://chat.deepseek.com/": "ИИ для программистов, отлично справляется с написанием кода, но требуется регистрация.",
       "https://chatgate.ai/gpt4/": "Бесплатно: ChatGPT-4 и другие инструменты, но с ограничениями.",
       "https://agentgpt.reworkd.ai/ru": "Это сервис, который может находить решения ваших проблем, для этого нужно напишисать, что вам нужно, и он предложит варианты, однако функционал доступен только после регистрация, а также на сайте есть тёмная тема.",
@@ -1598,7 +1598,6 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://compute.hyper.space/":"Довольно интересный проект, который совмещает различных ИИ агентов с поисковой системой",
       "https://hika.fyi/":"Бесплатная поисковая система с ИИ",
       "https://shapen.com/":"Загрузите изображение — ИИ сам соберёт детализированную 3D-модель",
-      "https://www.grok3ai.live/":"Сервис предоставляет доступ к GROK 3 от xAI",
       "https://app.invesst.ai/login":"ИИ-сервис для ИНВЕСТИЦИОННЫХ исследований — Invesst буквально «DeepResearch для инвестиций», объединяющий в себе мощь поиска с помощью ChatGPT и Perplexity",
       "https://neonpangolin.github.io/FilePhish/":"Сервис позволяет находить файлы на веб-сайтах по ключевым словам, а также БД и ПО",
       "https://www.yeschat.ai/features/grok-3":"Сервис предоставляет доступ к GROK 3 от xAI",
@@ -1732,7 +1731,6 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://pdf2zh.com/":"Сервис для быстрого перевода PDF документов на различные языки",
       "https://ayesoul.com/":"Поисковая система с ИИ",
       "https://products.aspose.ai/total/":"Сервис предоставляет множество инструментов для работы с файлами",
-      "https://legacy.lmarena.ai/":"LLM арена, сервис предоставляет доступ к множеству LLM",
       "https://godmode.space/":"Godmode — это инструмент для автоматизации повторяющихся задач и работы с данными",
       "https://examful.ai/app":"Сервис для помощи с задачами для школьников и студентов",
       "https://scispace.com/":"Поисковик с ИИ для учёных, находит статьи на разные темы",
@@ -1786,7 +1784,14 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.voxdeck.ai/":"Сервис для генерации презентаций, в бесплатном тарифе доступно 8 слайдов, есть возможность экспорта в PDF",
       "https://huggingface.co/spaces/spectral-labs/SGS-1":"ИИ-модель, которая превращает обычный чертёж в полноценную 3D-деталь",
       "https://ibrief.co/":"Сервис позволяет быстро выделить самое главное в статье",
-      "https://higgsfield.ai/create/video":"Сервис для генерации видео, требуется авторизация"
+      "https://higgsfield.ai/create/video":"Сервис для генерации видео, требуется авторизация",
+      "https://stackoverflow.ai/":"ИИ чат от stackoverflow",
+      "https://slea.ai/ru/app":"Генератор логотипов на основе ИИ",
+      "https://notebooklm.google/":"Инструмент на основе последних моделей Gemini, который помогает анализировать данные и проводить исследования, используя надежные источники",
+      "https://stitch.withgoogle.com/":"Инструмент для быстрой генерации дизайна для Web-приложений и не только, требуется регистрация",
+      "https://aistudio.google.com/welcome":"Сервис для работы с различными ИИ от Google, требуется авторизация",
+      "https://www.aihumanizeer.com/":"Сервис для очеловечивания текста, бесплатно 5000 символов",
+      "https://perchance.org/humanize-ai-text":"Сервис для очеловечивания текста"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
