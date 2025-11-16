@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://www.wondera.ai/","https://ayesoul.com","https://scispace.com/","https://huggingface.co/spaces/llamameta/Grok-4-heavy-free","https://noiz.io/free-ai-tools/","https://huggingface.co/spaces/Qwen/Qwen3-MT-Demo","https://deep-seek-ai.ru/free-deepseek-chat/","https://gpt-chatbot.ru/openai-o3-mini","https://www.waveterm.dev/","https://cline.bot/","https://addons.mozilla.org/en-US/firefox/addon/polination-ai-chat/",
     "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
     "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/","https://huggingface.co/spaces/spectral-labs/SGS-1","https://higgsfield.ai/create/video","https://ibrief.co/","https://chat.qwenlm.ai/","https://flowith.io/","https://deepai.org/chat","https://pi.ai/onboarding",
-    "https://grok.com/","https://llmarena.ru/","https://lmarena.ai/","https://stackoverflow.ai/","https://slea.ai/ru/app","https://notebooklm.google/","https://stitch.withgoogle.com/","https://aistudio.google.com/welcome","https://perchance.org/humanize-ai-text"
+    "https://grok.com/","https://llmarena.ru/","https://lmarena.ai/","https://stackoverflow.ai/","https://slea.ai/ru/app","https://notebooklm.google/","https://stitch.withgoogle.com/","https://aistudio.google.com/welcome","https://perchance.org/humanize-ai-text","https://fish.audio"
   ];
 
 
@@ -1791,7 +1791,15 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://stitch.withgoogle.com/":"Инструмент для быстрой генерации дизайна для Web-приложений и не только, требуется регистрация",
       "https://aistudio.google.com/welcome":"Сервис для работы с различными ИИ от Google, требуется авторизация",
       "https://www.aihumanizeer.com/":"Сервис для очеловечивания текста, бесплатно 5000 символов",
-      "https://perchance.org/humanize-ai-text":"Сервис для очеловечивания текста"
+      "https://perchance.org/humanize-ai-text":"Сервис для очеловечивания текста",
+      "https://runable.com/":"Мультитул с ИИ, требуется авторизация",
+      "https://fish.audio":"Сервис для озвучки текста",
+      "https://www.datalab.to/playground/documents/new":" Chandra — новая, лучшая на сегодня OCR модель по распознаванию PDF и изображений и преобразующая их в текстовые документы",
+      "https://midigen.app/melody-generator/":"Генератор мелодий",
+      "https://www.aistudios.com/":"Сервис для создания реалистичных видео, созданных с помощью ИИ, используя только текст, требуется авторизация, есть бесплатный план",
+      "https://jiji.ru/":"Поисковая система с ИИ",
+      "https://artifica.ru/":"Сервис для генерации изображений, требуется авторизация",
+      "https://marble.worldlabs.ai/":"Сервис для генерации целых миров, требуется авторизация"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
