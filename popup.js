@@ -100,7 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://www.wondera.ai/","https://ayesoul.com","https://scispace.com/","https://huggingface.co/spaces/llamameta/Grok-4-heavy-free","https://noiz.io/free-ai-tools/","https://huggingface.co/spaces/Qwen/Qwen3-MT-Demo","https://deep-seek-ai.ru/free-deepseek-chat/","https://gpt-chatbot.ru/openai-o3-mini","https://www.waveterm.dev/","https://cline.bot/","https://addons.mozilla.org/en-US/firefox/addon/polination-ai-chat/",
     "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
     "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/","https://huggingface.co/spaces/spectral-labs/SGS-1","https://higgsfield.ai/create/video","https://ibrief.co/","https://chat.qwenlm.ai/","https://flowith.io/","https://deepai.org/chat","https://pi.ai/onboarding",
-    "https://grok.com/","https://llmarena.ru/","https://lmarena.ai/","https://stackoverflow.ai/","https://slea.ai/ru/app","https://notebooklm.google/","https://stitch.withgoogle.com/","https://aistudio.google.com/welcome","https://perchance.org/humanize-ai-text","https://fish.audio"
+    "https://grok.com/","https://llmarena.ru/","https://lmarena.ai/","https://stackoverflow.ai/","https://slea.ai/ru/app","https://notebooklm.google/","https://stitch.withgoogle.com/","https://aistudio.google.com/welcome","https://perchance.org/humanize-ai-text","https://fish.audio","https://github.com/google-gemini/gemini-cli","https://qwenlm.github.io/qwen-code-docs/en/","https://download.kodacode.ru/", 
+    "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev","https://www.coze.com/","https://huggingface.co/spaces/mrfakename/Z-Image-Turbo","https://nouswise.com/homepage","https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796","https://d37ozmhmvu2kcg.cloudfront.net/"
   ];
 
 
@@ -1799,7 +1800,20 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.aistudios.com/":"Сервис для создания реалистичных видео, созданных с помощью ИИ, используя только текст, требуется авторизация, есть бесплатный план",
       "https://jiji.ru/":"Поисковая система с ИИ",
       "https://artifica.ru/":"Сервис для генерации изображений, требуется авторизация",
-      "https://marble.worldlabs.ai/":"Сервис для генерации целых миров, требуется авторизация"
+      "https://marble.worldlabs.ai/":"Сервис для генерации целых миров, требуется авторизация",
+      "https://nouswise.com/homepage":"Поисковая система с ИИ",
+      "https://www.dorkgpt.com/":"Генератор Google Dorks",
+      "https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796":"Сервис позволяет использовать NanoBanaPro и Gemeni 3, требуется авторизация",
+      "https://pebblely.com/":"Сервис позволяет превратить скучные изображения продуктов в красивые маркетинговые активы любого размера, требуется авторизация",
+      "https://d37ozmhmvu2kcg.cloudfront.net/":"Perplexed - поисковая система с ИИ",
+      "https://ai-sdk-gateway-demo.labs.vercel.dev/":"Сервис позволяет взаимодействовать с различными LLM",
+      "https://download.kodacode.ru/":"Документация по использованию Koda CLI, это агент для написания кода и помощи в отладке",
+      "https://qwenlm.github.io/qwen-code-docs/en/":"Документация по использованию Qwen CLI, это агент для написания кода и помощи в отладке",
+      "https://github.com/google-gemini/gemini-cli":"Документация по использованию Gemeni CLI, это агент для написания кода и помощи в отладке",
+      "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev":"Модель для генерации реалистичных изображений",
+      "https://playground.bfl.ai/image/generate":"Сервис для тестирования моеделей от Black Forest Labs, требуется авторизация",
+      "https://www.coze.com/":"Сервис позволяет внедрять различные LLM модели с плагинами в приложения, создавать ботов и не только, требуется авторизация",
+      "https://huggingface.co/spaces/mrfakename/Z-Image-Turbo":"Меодель для генерации картинок"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
