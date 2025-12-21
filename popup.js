@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
     "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/","https://huggingface.co/spaces/spectral-labs/SGS-1","https://higgsfield.ai/create/video","https://ibrief.co/","https://chat.qwenlm.ai/","https://flowith.io/","https://deepai.org/chat","https://pi.ai/onboarding",
     "https://grok.com/","https://llmarena.ru/","https://lmarena.ai/","https://stackoverflow.ai/","https://slea.ai/ru/app","https://notebooklm.google/","https://stitch.withgoogle.com/","https://aistudio.google.com/welcome","https://perchance.org/humanize-ai-text","https://fish.audio","https://github.com/google-gemini/gemini-cli","https://qwenlm.github.io/qwen-code-docs/en/","https://download.kodacode.ru/", 
-    "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev","https://www.coze.com/","https://huggingface.co/spaces/mrfakename/Z-Image-Turbo","https://nouswise.com/homepage","https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796","https://d37ozmhmvu2kcg.cloudfront.net/"
+    "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev","https://www.coze.com/","https://huggingface.co/spaces/mrfakename/Z-Image-Turbo","https://nouswise.com/homepage","https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796","https://d37ozmhmvu2kcg.cloudfront.net/","https://copilot.microsoft.com/","https://algion.dev/","https://chatbotchatapp.com/"
   ];
 
 
@@ -1749,7 +1749,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://gpt-chatbot.ru/openai-o3-mini":"Сервис предоставляет доступ к различным LLM",
       "https://webos.live/":"Достаточно интересный проект операциионной системы с внедренным ИИ агентом, проект еще разрабатывается, некоторые функции могут не работать",
       "https://huggingface.co/spaces/Qwen/Qwen3-MT-Demo":"Переводчик от Qwen",
-      "https://pollinations.ai/":"Бесплатный сервис, который предоставляет доступ к различным LLM, доступ к генерации фото и чату можно получить сразу на главной странице",
+      "https://pollinations.ai/":"Бесплатный сервис, который предоставляет доступ к различным LLM, доступ к генерации фото и чату можно получить сразу на главной странице, предоставляет бесплатные API",
       "https://writify.ai/tool/":"Множество бесплатных инструментов с ИИ",
       "https://faces.app/":"Генератор сайтов",
       "https://www.waveterm.dev/":"Продвинутый терминал для разработчиков с интегрированным браузером и ИИ",
@@ -1813,7 +1813,14 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev":"Модель для генерации реалистичных изображений",
       "https://playground.bfl.ai/image/generate":"Сервис для тестирования моеделей от Black Forest Labs, требуется авторизация",
       "https://www.coze.com/":"Сервис позволяет внедрять различные LLM модели с плагинами в приложения, создавать ботов и не только, требуется авторизация",
-      "https://huggingface.co/spaces/mrfakename/Z-Image-Turbo":"Меодель для генерации картинок"
+      "https://huggingface.co/spaces/mrfakename/Z-Image-Turbo":"Меодель для генерации картинок",
+      "https://copilot.microsoft.com/":"Сервис для работы с различными ИИ от Microsoft",
+      "https://algion.dev/":"Сервис предоставляет бесплатные API для взаимодействия с различнми LLM, ограничение - 150 запросов с 1 IP",
+      "https://chat.gradient.network/":"Сервис предоставляте доступ к различным LLM моделям",
+      "https://apiscout.ai/":"Сервис предоставляте доступ к различным LLM моделям",
+      "https://photokit.com/editor/":"Редактор изображений",
+      "https://typli.ai/ai-text-generator":"Сервис предоставляте доступ к различным LLM моделям",
+      "https://chatbotchatapp.com/":"Сервис предоставляте доступ к различным LLM моделям и предоставляет дополнительные инструменты"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
