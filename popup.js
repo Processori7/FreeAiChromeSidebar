@@ -63,14 +63,14 @@ document.addEventListener("DOMContentLoaded", function () {
   canOpen.addEventListener('change', updateCanOpenState);
 
   //filters
-  let blockSites = ["https://duck.ai/", "https://www.phind.com", "https://www.perplexity.ai/", 
-    "https://chat.tune.app/", "https://labs.perplexity.ai/", "https://huggingface.co/spaces/Qwen/Qwen2-72B-Instruct",
-    "https://you.com/search?q=hi&fromSearchBar=true&tbm=youchat", "https://finechat.ai/ru/app", "https://iask.ai/", 
-    "https://chatgptchatapp.com", "https://chat.chatgptdemo.net", "https://promptboom.com/PowerChat/PowerChatTalk",
-    "https://chat.mistral.ai/chat", "https://share.wendaalpha.net", "https://chat.swt-ai.com/", "https://groq.com/", 
-    "https://ya.ru/", "https://codepal.ai/", "https://t.me/EdyaAIrobot", "https://github.com/KudoAI/googlegpt",
+  let blockSites = ["https://duck.ai/","https://www.phind.com","https://www.perplexity.ai/","https://github.com/IridiumIO/CompactGUI",
+    "https://chat.tune.app/", "https://labs.perplexity.ai/", "https://huggingface.co/spaces/Qwen/Qwen2-72B-Instruct","https://github.com/blader/humanizer-ai-text",
+    "https://you.com/search?q=hi&fromSearchBar=true&tbm=youchat", "https://finechat.ai/ru/app", "https://iask.ai/", "https://ai.io.net/ai/app/new",
+    "https://chatgptchatapp.com", "https://chat.chatgptdemo.net", "https://promptboom.com/PowerChat/PowerChatTalk","https://tokenfactory.nebius.com/playground",
+    "https://chat.mistral.ai/chat", "https://share.wendaalpha.net", "https://chat.swt-ai.com/", "https://groq.com/", "https://skillsmp.com/",
+    "https://ya.ru/", "https://codepal.ai/", "https://t.me/EdyaAIrobot", "https://github.com/KudoAI/googlegpt","https://github.com/IridiumIO/CompactGUI",
     "https://github.com/KudoAI/duckduckgpt", "https://github.com/KudoAI/bravegpt", "https://github.com/Processori7/llm/releases",
-    "https://perchance.org/ai-text-to-image-generator", "https://dewatermark.ai/ru", "https://pika.art/login", 
+    "https://perchance.org/ai-text-to-image-generator", "https://dewatermark.ai/ru", "https://pika.art/login", "https://github.com/blader/humanizer-ai-text",
     "ttps://huggingface.co/spaces/ehristoforu/dalle-3-xl-lora-v2", "https://www.veed.io/", "https://gamma.app/",
     "https://slidesgo.com/", "https://hidola.ai/en", "https://gpt-chatbot.ru/chat-gpt-ot-openai-dlya-generacii-teksta",
     "https://huggingface.co/spaces/stabilityai/stable-diffusion-3-medium", "https://huggingface.co/spaces/mukaist/DALLE-4K", "https://huggingface.co/spaces/Xenova/whisper-webgpu",
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
     "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/","https://huggingface.co/spaces/spectral-labs/SGS-1","https://higgsfield.ai/create/video","https://ibrief.co/","https://chat.qwenlm.ai/","https://flowith.io/","https://deepai.org/chat","https://pi.ai/onboarding",
     "https://grok.com/","https://llmarena.ru/","https://lmarena.ai/","https://stackoverflow.ai/","https://slea.ai/ru/app","https://notebooklm.google/","https://stitch.withgoogle.com/","https://aistudio.google.com/welcome","https://perchance.org/humanize-ai-text","https://fish.audio","https://github.com/google-gemini/gemini-cli","https://qwenlm.github.io/qwen-code-docs/en/","https://download.kodacode.ru/", 
-    "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev","https://www.coze.com/","https://huggingface.co/spaces/mrfakename/Z-Image-Turbo","https://nouswise.com/homepage","https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796","https://d37ozmhmvu2kcg.cloudfront.net/","https://copilot.microsoft.com/","https://algion.dev/","https://chatbotchatapp.com/"
+    "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev","https://www.coze.com/","https://huggingface.co/spaces/mrfakename/Z-Image-Turbo","https://nouswise.com/homepage","https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796","https://d37ozmhmvu2kcg.cloudfront.net/","https://copilot.microsoft.com/","https://algion.dev/","https://chatbotchatapp.com/","https://labs.google/fx/tools/flow"
   ];
 
 
@@ -1816,11 +1816,20 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://huggingface.co/spaces/mrfakename/Z-Image-Turbo":"Меодель для генерации картинок",
       "https://copilot.microsoft.com/":"Сервис для работы с различными ИИ от Microsoft",
       "https://algion.dev/":"Сервис предоставляет бесплатные API для взаимодействия с различнми LLM, ограничение - 150 запросов с 1 IP",
-      "https://chat.gradient.network/":"Сервис предоставляте доступ к различным LLM моделям",
-      "https://apiscout.ai/":"Сервис предоставляте доступ к различным LLM моделям",
+      "https://chat.gradient.network/":"Сервис предоставляет доступ к различным LLM моделям",
+      "https://apiscout.ai/":"Сервис предоставляет доступ к различным LLM моделям",
       "https://photokit.com/editor/":"Редактор изображений",
-      "https://typli.ai/ai-text-generator":"Сервис предоставляте доступ к различным LLM моделям",
-      "https://chatbotchatapp.com/":"Сервис предоставляте доступ к различным LLM моделям и предоставляет дополнительные инструменты"
+      "https://typli.ai/ai-text-generator":"Сервис предоставляет доступ к различным LLM моделям",
+      "https://chatbotchatapp.com/":"Сервис предоставляте доступ к различным LLM моделям и предоставляет дополнительные инструменты",
+      "https://labs.google/fx/tools/flow":"Сервис позволяет бесплатно использовать NanoBana Pro и Google VEO, требуется авторизация",
+      "https://modelscope.ai/models":"Сервис предоставляет API для множества LLM, есть ограничения ",
+      "https://ai.io.net/ai/app/new":"Сервис предоставляет доступ к различным LLM моделям",
+      "https://lucidquery.com/":"Сервис предоставляет доступ к различным LLM моделям",
+      "https://tokenfactory.nebius.com/playground":"Сервис предоставляет доступ к различным LLM моделям",
+      "https://opencode.ai/":"Документация по использованию Opencode CLI, это агент для написания кода и помощи в отладке",
+      "https://skillsmp.com/":"Сборник различных скилов для ИИ",
+      "https://github.com/IridiumIO/CompactGUI":"CompactGUI - инструмент для сжатия файлов без потери качества и ускорения работы системы",
+      "https://github.com/blader/humanizer-ai-text":"Скилл для очелавечивания ИИ текста"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
