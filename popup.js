@@ -101,9 +101,9 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
     "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/","https://huggingface.co/spaces/spectral-labs/SGS-1","https://higgsfield.ai/create/video","https://ibrief.co/","https://chat.qwenlm.ai/","https://flowith.io/","https://deepai.org/chat","https://pi.ai/onboarding",
     "https://grok.com/","https://llmarena.ru/","https://lmarena.ai/","https://stackoverflow.ai/","https://slea.ai/ru/app","https://notebooklm.google/","https://stitch.withgoogle.com/","https://aistudio.google.com/welcome","https://perchance.org/humanize-ai-text","https://fish.audio","https://github.com/google-gemini/gemini-cli","https://qwenlm.github.io/qwen-code-docs/en/","https://download.kodacode.ru/", 
-    "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev","https://www.coze.com/","https://huggingface.co/spaces/mrfakename/Z-Image-Turbo","https://nouswise.com/homepage","https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796","https://d37ozmhmvu2kcg.cloudfront.net/","https://copilot.microsoft.com/","https://algion.dev/","https://chatbotchatapp.com/","https://labs.google/fx/tools/flow"
-  ];
-
+    "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev","https://www.coze.com/","https://huggingface.co/spaces/mrfakename/Z-Image-Turbo","https://nouswise.com/homepage","https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796","https://d37ozmhmvu2kcg.cloudfront.net/","https://copilot.microsoft.com/","https://algion.dev/","https://chatbotchatapp.com/","https://labs.google/fx/tools/flow","https://build.nvidia.com/","https://console.groq.com/home",
+    "https://github.com/marketplace?type=models","https://www.recraft.ai/blog/introducing-recraft-v4-design-taste-meets-image-generation"
+  ]
 
   function updateCanOpenState() {
       localStorage.setItem("canOpen", canOpen.checked);
@@ -1829,7 +1829,15 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://opencode.ai/":"Документация по использованию Opencode CLI, это агент для написания кода и помощи в отладке",
       "https://skillsmp.com/":"Сборник различных скилов для ИИ",
       "https://github.com/IridiumIO/CompactGUI":"CompactGUI - инструмент для сжатия файлов без потери качества и ускорения работы системы",
-      "https://github.com/blader/humanizer-ai-text":"Скилл для очелавечивания ИИ текста"
+      "https://github.com/blader/humanizer-ai-text":"Скилл для очелавечивания ИИ текста",
+      "https://www.airbrush.ai/":"Сервис для генерации изображений",
+      "https://www.k2think.ai/":"Сервис предоставляет доступ к Kimi K2",
+      "https://build.nvidia.com/":"Сервис предоставляет доступ к различным LLM",
+      "https://console.groq.com/home":"Сервис предоставляет доступ к различным LLM моделям",
+      "https://github.com/marketplace?type=models":"Сервис предоставляет доступ к различным LLM моделям от разных компаний, есть бесплатные модели, а также модели с платным доступом",
+      "https://arena.ai/":"Сервис предоставляет доступ к различным LLM моделям от разных компаний",
+      "https://chat.falconllm.tii.ae/":"Сервис предоставляет доступ к различным LLM моделям Falcon",
+      "https://www.recraft.ai/blog/introducing-recraft-v4-design-taste-meets-image-generation":"Генератор картинок специально для дизайнеро"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
