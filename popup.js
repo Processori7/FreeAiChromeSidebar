@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/","https://huggingface.co/spaces/spectral-labs/SGS-1","https://higgsfield.ai/create/video","https://ibrief.co/","https://chat.qwenlm.ai/","https://flowith.io/","https://deepai.org/chat","https://pi.ai/onboarding",
     "https://grok.com/","https://llmarena.ru/","https://lmarena.ai/","https://stackoverflow.ai/","https://slea.ai/ru/app","https://notebooklm.google/","https://stitch.withgoogle.com/","https://aistudio.google.com/welcome","https://perchance.org/humanize-ai-text","https://fish.audio","https://github.com/google-gemini/gemini-cli","https://qwenlm.github.io/qwen-code-docs/en/","https://download.kodacode.ru/", 
     "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev","https://www.coze.com/","https://huggingface.co/spaces/mrfakename/Z-Image-Turbo","https://nouswise.com/homepage","https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796","https://d37ozmhmvu2kcg.cloudfront.net/","https://copilot.microsoft.com/","https://algion.dev/","https://chatbotchatapp.com/","https://labs.google/fx/tools/flow","https://build.nvidia.com/","https://console.groq.com/home",
-    "https://github.com/marketplace?type=models","https://www.recraft.ai/blog/introducing-recraft-v4-design-taste-meets-image-generation"
+    "https://github.com/marketplace?type=models","https://www.recraft.ai/blog/introducing-recraft-v4-design-taste-meets-image-generation","https://www.designarena.ai/","https://chat.cosverse.ai/","https://www.studley.ai/study-sets"
   ]
 
   function updateCanOpenState() {
@@ -1007,11 +1007,49 @@ document.addEventListener('click', function(e) {
   }
 });
 
-// Функция для перевода текста
+// Функции для кэширования переводов
+function getTranslationCacheKey(sourceLang, targetLang) {
+    return `translation_cache_${sourceLang}_${targetLang}`;
+}
+
+function getCachedTranslation(text, sourceLang, targetLang) {
+    const cacheKey = getTranslationCacheKey(sourceLang, targetLang);
+    const cache = JSON.parse(localStorage.getItem(cacheKey) || '{}');
+    return cache[text] || null;
+}
+
+function setCachedTranslation(text, sourceLang, targetLang, translation) {
+    const cacheKey = getTranslationCacheKey(sourceLang, targetLang);
+    const cache = JSON.parse(localStorage.getItem(cacheKey) || '{}');
+    cache[text] = translation;
+    localStorage.setItem(cacheKey, JSON.stringify(cache));
+}
+
+// Функция для перевода текста с кэшированием
 function translateText(text, lang) {
-    translateUrl = "https://translate.googleapis.com/translate_a/single?format=text&client=gtx&sl=" + lang + "&tl=" + userLang + "&dt=t&q=" + encodeURIComponent(text); //lang = "ru"
+    const srcLang = lang.slice(0, 2);
+    const tgtLang = userLang.slice(0, 2);
+    
+    // Проверяем если исходный и целевой языки одинаковые, перевод не нужен
+    if (srcLang === tgtLang) {
+        return text;
+    }
+    
+    // Проверяем кэш перед запросом
+    const cachedTranslation = getCachedTranslation(text, srcLang, tgtLang);
+    if (cachedTranslation) {
+        return cachedTranslation;
+    }
+    
+    // Если в кэше нет, делаем запрос
+    translateUrl = "https://translate.googleapis.com/translate_a/single?format=text&client=gtx&sl=" + srcLang + "&tl=" + tgtLang + "&dt=t&q=" + encodeURIComponent(text);
     translatedText = httpGet(translateUrl);
-    return cleanAndTrimData(translatedText);
+    const cleanedTranslation = cleanAndTrimData(translatedText);
+    
+    // Сохраняем перевод в кэш
+    setCachedTranslation(text, srcLang, tgtLang, cleanedTranslation);
+    
+    return cleanedTranslation;
 }
 
 if (userLang.startsWith('ru')) {
@@ -1219,7 +1257,6 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
                 var website = this.getAttribute('data-website');
                 if (descriptions.hasOwnProperty(website)) {
                     var description = descriptions[website];
-                    let translateUrl = "https://translate.googleapis.com/translate_a/single?format=text&client=gtx&sl=" + "ru" + "&tl=" + userLang + "&dt=t&q=" + description;
                     // sl – язык оригинала, tl – язык для перевода, originalText – текст запроса (можно использовать результат string.match(/.{1,2000}(?=\.)/gi))
                     if(userLang.startsWith('ru'))
                         {
@@ -1227,9 +1264,9 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
                         }
                     else
                     {
-                        let translatedText = httpGet(translateUrl);
-                        translatedText = cleanAndTrimData(translatedText);
-                        popup.textContent =translatedText;
+                        // Используем функцию translateText с кэшированием
+                        let translatedText = translateText(description, "ru");
+                        popup.textContent = translatedText;
                     }
 
                     // Устанавливаем позицию popup
@@ -1252,13 +1289,11 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
         for (var url in descriptions) {
             if (descriptions.hasOwnProperty(url)) {
                 var description = descriptions[url]; // Получаем описание для текущего URL
-                let translateUrl = "https://translate.googleapis.com/translate_a/single?format=text&client=gtx&sl=ru&tl=" + userLang + "&dt=t&q=" + encodeURIComponent(description);
     
                 // Если язык пользователя не русский, переводим описание
                 if (!userLang.startsWith('ru')) {
-                    // Получаем переведенный текст
-                    let translatedText = httpGet(translateUrl);
-                    translatedText = cleanAndTrimData(translatedText);
+                    // Используем функцию translateText с кэшированием
+                    let translatedText = translateText(description, "ru");
                     userLangDesc.push({url, translatedText }); // Добавляем объект с URL и переведенным описанием
                 } else {
                     // Если язык русский, просто добавляем оригинальное описание
@@ -1837,7 +1872,12 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://github.com/marketplace?type=models":"Сервис предоставляет доступ к различным LLM моделям от разных компаний, есть бесплатные модели, а также модели с платным доступом",
       "https://arena.ai/":"Сервис предоставляет доступ к различным LLM моделям от разных компаний",
       "https://chat.falconllm.tii.ae/":"Сервис предоставляет доступ к различным LLM моделям Falcon",
-      "https://www.recraft.ai/blog/introducing-recraft-v4-design-taste-meets-image-generation":"Генератор картинок специально для дизайнеро"
+      "https://www.recraft.ai/blog/introducing-recraft-v4-design-taste-meets-image-generation":"Генератор картинок специально для дизайнеро",
+      "https://www.designarena.ai/":"Сервис предоставляет доступ к различным LLM моделям от разных компаний, а также к генератору изображений для дизайнеров",
+      "https://ru.ruwiki.ru/wiki/%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0:":"Бесплатная поисковая система",
+      "https://chat.cosverse.ai/":"Сервис предоставляет доступ к различным LLM моделям от разных компаний, есть бесплтаный план, требуется авторизация",
+      "https://link.fuckicoding.com/#/chat":"Сервис предоставляет доступ к различным LLM моделям от разных компаний",
+      "https://www.studley.ai/study-sets":"Сервис для обучения на основе ИИ, требуется регистрация"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
