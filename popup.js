@@ -101,8 +101,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
     "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/","https://huggingface.co/spaces/spectral-labs/SGS-1","https://higgsfield.ai/create/video","https://ibrief.co/","https://chat.qwenlm.ai/","https://flowith.io/","https://deepai.org/chat","https://pi.ai/onboarding",
     "https://grok.com/","https://llmarena.ru/","https://lmarena.ai/","https://stackoverflow.ai/","https://slea.ai/ru/app","https://notebooklm.google/","https://stitch.withgoogle.com/","https://aistudio.google.com/welcome","https://perchance.org/humanize-ai-text","https://fish.audio","https://github.com/google-gemini/gemini-cli","https://qwenlm.github.io/qwen-code-docs/en/","https://download.kodacode.ru/", 
-    "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev","https://www.coze.com/","https://huggingface.co/spaces/mrfakename/Z-Image-Turbo","https://nouswise.com/homepage","https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796","https://d37ozmhmvu2kcg.cloudfront.net/","https://copilot.microsoft.com/","https://algion.dev/","https://chatbotchatapp.com/","https://labs.google/fx/tools/flow","https://build.nvidia.com/","https://console.groq.com/home",
-    "https://github.com/marketplace?type=models","https://www.recraft.ai/blog/introducing-recraft-v4-design-taste-meets-image-generation","https://www.designarena.ai/","https://chat.cosverse.ai/","https://www.studley.ai/study-sets"
+    "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev","https://www.coze.com/","https://huggingface.co/spaces/mrfakename/Z-Image-Turbo","https://nouswise.com/homepage","https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796","https://d37ozmhmvu2kcg.cloudfront.net/","https://copilot.microsoft.com/","https://algion.dev/","https://chatbotchatapp.com/","https://labs.google/fx/tools/flow","https://build.nvidia.com/models?filters=nimType%3Anim_type_preview","https://console.groq.com/home",
+    "https://github.com/marketplace?type=models","https://www.recraft.ai/blog/introducing-recraft-v4-design-taste-meets-image-generation","https://www.designarena.ai/","https://chat.cosverse.ai/","https://www.studley.ai/study-sets","https://lbrty.ai/","https://docs.google.com/videos/u/0/","https://github.com/JuliusBrussee/caveman","https://app.lumalabs.ai/"
   ]
 
   function updateCanOpenState() {
@@ -1867,7 +1867,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://github.com/blader/humanizer-ai-text":"Скилл для очелавечивания ИИ текста",
       "https://www.airbrush.ai/":"Сервис для генерации изображений",
       "https://www.k2think.ai/":"Сервис предоставляет доступ к Kimi K2",
-      "https://build.nvidia.com/":"Сервис предоставляет доступ к различным LLM",
+      "https://build.nvidia.com/models?filters=nimType%3Anim_type_preview":"Сервис предоставляет доступ к различным LLM",
       "https://console.groq.com/home":"Сервис предоставляет доступ к различным LLM моделям",
       "https://github.com/marketplace?type=models":"Сервис предоставляет доступ к различным LLM моделям от разных компаний, есть бесплатные модели, а также модели с платным доступом",
       "https://arena.ai/":"Сервис предоставляет доступ к различным LLM моделям от разных компаний",
@@ -1877,7 +1877,18 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://ru.ruwiki.ru/wiki/%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0:":"Бесплатная поисковая система",
       "https://chat.cosverse.ai/":"Сервис предоставляет доступ к различным LLM моделям от разных компаний, есть бесплтаный план, требуется авторизация",
       "https://link.fuckicoding.com/#/chat":"Сервис предоставляет доступ к различным LLM моделям от разных компаний",
-      "https://www.studley.ai/study-sets":"Сервис для обучения на основе ИИ, требуется регистрация"
+      "https://www.studley.ai/study-sets":"Сервис для обучения на основе ИИ, требуется регистрация",
+      "https://lbrty.ai/":"Сервис позволяет использовать поисковую систему с ИИ 5 раз в день бесплтано, также позволяет генерировать картинки, требуется авторизация",
+      "https://bbycroft.net/llm":"Сервис позволяет заглянуть внутрь LLM и посмотреть, как она работает",
+      "https://www.blueprint.am/":"Сервис, который может воплотить в жизнь любое ваше изобретение или задумку",
+      "https://docs.google.com/videos/u/0/":"Сервис от Google, который позволяет использовать Veo 3.1 бесплатно для генерации видео, требуется авторизация",
+      "https://github.com/JuliusBrussee/caveman":"Проект позволяет экономить токены при использовании LLM",
+      "https://llm7.io/":"Сервис предоставляет доступ к различным LLM моделям от разных компаний, есть бесплатный план, требуется авторизация",
+      "https://app.lumalabs.ai/":"Сервис позволяет генерировать фото, видео, звуки, фигуры, в бесплатно плане доступно 3000 кредитов, требуется авторизация",
+      "https://saveto.ai/":"Множество бесплатных сервисов с ИИ, среди них переводчик, загрузчик видео, сумаризатор текста и т.д.",
+      "https://faceai.art/face-swap/":"Сервис для замены лиц на фотографиях и видео",
+      "https://aihumanizer.work/ru/bypass-ai":"Сервис для очеловечивания текста",
+      "https://designarena.ai/":"Сервис позволяет создавать дизайны, логотипы и не только с помощью ИИ, требуется авторизация"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
