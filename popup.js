@@ -1,3 +1,5 @@
+var browserAPI = (typeof browser !== 'undefined' && browser.storage) ? browser : chrome;
+
 document.addEventListener("DOMContentLoaded", function () {
   const openInNewTab = document.getElementById("openInNewTab");
   const dropdownMenu = document.getElementById('dropdown-menu');
@@ -72,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem('frameCheckCache', JSON.stringify([...frameCache.entries()]));
     } catch {}
     try {
-      chrome.storage.local.set({ frameCheckCache: [...frameCache.entries()] });
+      browserAPI.storage.local.set({ frameCheckCache: [...frameCache.entries()] });
     } catch {}
   }
 
@@ -125,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem('deadSites', JSON.stringify([...deadSites.entries()]));
     } catch {}
     try {
-      chrome.storage.local.set({ deadSites: [...deadSites.entries()] });
+      browserAPI.storage.local.set({ deadSites: [...deadSites.entries()] });
     } catch {}
   }
 
@@ -147,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem('healthySites', JSON.stringify([...healthySites.entries()]));
     } catch {}
     try {
-      chrome.storage.local.set({ healthySites: [...healthySites.entries()] });
+      browserAPI.storage.local.set({ healthySites: [...healthySites.entries()] });
     } catch {}
   }
 
@@ -192,8 +194,8 @@ document.addEventListener("DOMContentLoaded", function () {
     healthySites.clear();
     try { localStorage.removeItem('deadSites'); } catch {}
     try { localStorage.removeItem('healthySites'); } catch {}
-    try { chrome.storage.local.remove('deadSites'); } catch {}
-    try { chrome.storage.local.remove('healthySites'); } catch {}
+    try { browserAPI.storage.local.remove('deadSites'); } catch {}
+    try { browserAPI.storage.local.remove('healthySites'); } catch {}
     document.querySelectorAll('li[data-website]').forEach(function(li) { li.style.display = ''; });
     console.log('DeadSites wiped');
   }
@@ -335,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
           else {
             lastScan = Date.now();
             try { localStorage.setItem('lastScan', lastScan); } catch {}
-            try { chrome.storage.local.set({ lastScan: lastScan }); } catch {}
+            try { browserAPI.storage.local.set({ lastScan: lastScan }); } catch {}
             console.log('Scan: finished. ' + deadCount + ' dead sites of ' + checked + ' checked');
           }
           return;
@@ -367,7 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
       else {
         lastScan = Date.now();
         try { localStorage.setItem('lastScan', lastScan); } catch {}
-        try { chrome.storage.local.set({ lastScan: lastScan }); } catch {}
+        try { browserAPI.storage.local.set({ lastScan: lastScan }); } catch {}
         console.log('Scan: finished. ' + deadCount + ' dead sites of ' + checked + ' checked');
       }
       } catch (e) { console.error('Scan batch error:', e); }
@@ -519,7 +521,7 @@ async function checkForUpdates() {
     
     // Получаем локальную версию из manifest.json расширения
     //const localVersion = "16.6.27"; // Для тестирования;
-    const localVersion = chrome.runtime.getManifest().version;
+    const localVersion = browserAPI.runtime.getManifest().version;
     
     try {
         const response = await fetch(repoUrl);
@@ -1274,11 +1276,11 @@ function setCachedTranslation(text, sourceLang, targetLang, translation) {
     cache[text] = translation;
     localStorage.setItem(cacheKey, JSON.stringify(cache));
     try {
-      chrome.storage.local.get('translationCaches', function (r) {
+      browserAPI.storage.local.get('translationCaches', function (r) {
         var all = r.translationCaches || {};
         if (!all[cacheKey]) all[cacheKey] = {};
         all[cacheKey][text] = translation;
-        chrome.storage.local.set({ translationCaches: all });
+        browserAPI.storage.local.set({ translationCaches: all });
       });
     } catch {}
 }
@@ -1618,7 +1620,7 @@ document.getElementById('advancedSearchText').style.display="block";
         }
         // Здесь можно записать userLangDesc в кэш, если это необходимо
         localStorage.setItem('translatedDescriptions', JSON.stringify(userLangDesc));
-        try { chrome.storage.local.set({ translatedDescriptions: userLangDesc }); } catch {}
+        try { browserAPI.storage.local.set({ translatedDescriptions: userLangDesc }); } catch {}
     }
     
     var websiteDescriptionsRu = {
@@ -2596,7 +2598,7 @@ const defaultTheme = {
 
 
 
-  chrome.storage.local.get(['deadSites', 'healthySites', 'frameCheckCache', 'translationCaches', 'translatedDescriptions', 'lastScan'], function (result) {
+  browserAPI.storage.local.get(['deadSites', 'healthySites', 'frameCheckCache', 'translationCaches', 'translatedDescriptions', 'lastScan'], function (result) {
     try {
       var now = Date.now();
 
@@ -2646,7 +2648,7 @@ const defaultTheme = {
         if (allCached) {
           lastScan = Date.now();
           try { localStorage.setItem('lastScan', lastScan); } catch {}
-          try { chrome.storage.local.set({ lastScan: lastScan }); } catch {}
+          try { browserAPI.storage.local.set({ lastScan: lastScan }); } catch {}
           console.log('Scan: skipped (all sites cached)');
         } else {
           scanDeadSites();
