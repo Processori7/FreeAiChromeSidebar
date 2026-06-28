@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const headerDropdownMenu = document.getElementById("header-dropdown-menu");
   const themeMenuToggle = document.getElementById("theme-menu-toggle");
   const themeDropdownMenu = document.getElementById("theme-dropdown-menu");
-  const canOpen = document.getElementById("canOpen");
   const searchSuggestions = document.getElementById("searchSuggestions"); // Используется для подсказок во время поиска
 
   // Переменные для подсказок
@@ -56,74 +55,324 @@ document.addEventListener("DOMContentLoaded", function () {
   // Загрузка состояния чекбоксов из localStorage
   openOnRightClick.checked = JSON.parse(localStorage.getItem("openOnRightClick")) || false;
   copyOnRightClick.checked = JSON.parse(localStorage.getItem("copyOnRightClick")) || false;
-  copyOnRightClick.checked = JSON.parse(localStorage.getItem("advancedSearch")) || false;
-  canOpen.checked = JSON.parse(localStorage.getItem("canOpen")) || false;
+  advancedSearch.checked = JSON.parse(localStorage.getItem("advancedSearch")) || false;
+  const frameCache = new Map();
 
-  // Обработчик события для canOpen
-  canOpen.addEventListener('change', updateCanOpenState);
-
-  //filters
-  let blockSites = ["https://duck.ai/","https://www.phind.com","https://www.perplexity.ai/","https://github.com/IridiumIO/CompactGUI",
-    "https://chat.tune.app/", "https://labs.perplexity.ai/", "https://huggingface.co/spaces/Qwen/Qwen2-72B-Instruct","https://github.com/blader/humanizer-ai-text",
-    "https://you.com/search?q=hi&fromSearchBar=true&tbm=youchat", "https://finechat.ai/ru/app", "https://iask.ai/", "https://ai.io.net/ai/app/new",
-    "https://chatgptchatapp.com", "https://chat.chatgptdemo.net", "https://promptboom.com/PowerChat/PowerChatTalk","https://tokenfactory.nebius.com/playground",
-    "https://chat.mistral.ai/chat", "https://share.wendaalpha.net", "https://chat.swt-ai.com/", "https://groq.com/", "https://skillsmp.com/",
-    "https://ya.ru/", "https://codepal.ai/", "https://t.me/EdyaAIrobot", "https://github.com/KudoAI/googlegpt","https://github.com/IridiumIO/CompactGUI",
-    "https://github.com/KudoAI/duckduckgpt", "https://github.com/KudoAI/bravegpt", "https://github.com/Processori7/llm/releases",
-    "https://perchance.org/ai-text-to-image-generator", "https://dewatermark.ai/ru", "https://pika.art/login", "https://github.com/blader/humanizer-ai-text",
-    "ttps://huggingface.co/spaces/ehristoforu/dalle-3-xl-lora-v2", "https://www.veed.io/", "https://gamma.app/",
-    "https://slidesgo.com/", "https://hidola.ai/en", "https://gpt-chatbot.ru/chat-gpt-ot-openai-dlya-generacii-teksta",
-    "https://huggingface.co/spaces/stabilityai/stable-diffusion-3-medium", "https://huggingface.co/spaces/mukaist/DALLE-4K", "https://huggingface.co/spaces/Xenova/whisper-webgpu",
-    "https://huggingface.co/spaces/THUDM/CodeGeeX", "https://huggingface.co/spaces/gokaygokay/Kolors", "https://www.craiyon.com/","https://simplified.com/",
-    "https://elevenlabs.io/","https://huggingface.co/spaces/KwaiVGI/LivePortrait","https://character.ai","https://ltx.studio", "https://www.hedra.com/",
-    "https://huggingface.co/spaces/TencentARC/PhotoMaker-Style", "https://app.scenario.com/upscale", "https://easywithai.com/tools/vidiq", 
-    "https://smartbuddy.ru/models/gpt-4-omni", "https://smartbuddy.ru/models/gpt-4o-mini", "https://huggingface.co/spaces/Xenova/whisper-word-level-timestamps",
-    "https://huggingface.co/spaces/gokaygokay/Tile-Upscaler", "https://github.com/Anjok07/ultimatevocalremovergui/releases", "https://huggingface.co/spaces/yizhezhu/MoMA_zeroGPU",
-    "https://klingai.com/", "https://huggingface.co/spaces/lllyasviel/IC-Light", "https://huggingface.co/spaces/gokaygokay/AuraSR-v2","https://huggingface.co/spaces/finegrain/finegrain-object-eraser",
-    "https://huggingface.co/spaces/finegrain/finegrain-image-enhancer", "https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer", "https://huggingface.co/spaces/Kwai-Kolors/Kolors-Virtual-Try-On",
-    "https://github.com/ToonCrafter/ToonCrafter","https://github.com/captainzero93/Protect-Images-from-AI-PixelGuard#","https://labs.heygen.com/expressive-photo-avatar", "https://elevenlabs.io/dubbing",
-    "https://huggingface.co/spaces/GanymedeNil/Qwen2-VL-7B","https://huggingface.co/spaces/finegrain/finegrain-object-cutter","https://huggingface.co/spaces/yanze/PuLID-FLUX","https://seapik.com/",
-    "https://huggingface.co/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/fffiloni/diffusers-image-outpaint","https://www.figma.com/community/plugin/1326990370920029683/figma-to-replit",
-    "https://tinywow.com/tools/write","https://huggingface.co/spaces/DamarJati/FLUX.1-RealismLora","https://yce.perfectcorp.com/colorize","https://venice.ai/chat","https://huggingface.co/chat/","https://app.giz.ai/assistant?mode=chat",
-    "https://huggingface.co/spaces/OzzyGT/diffusers-image-fill","https://app.myshell.ai/explore","https://huggingface.co/spaces/TheEeeeLin/HivisionIDPhotos","https://huggingface.co/spaces/fffiloni/expression-editor","https://komo.ai/","https://pythonspath.ru/gpt4o",
-    "https://huggingface.co/spaces/kayfahaarukku/fufufafa-makan-brem","https://gpt-4o.biz/playground","https://gpt4o.so/ru/app","https://rubiks.ai/","https://julius.ai/ai-chatbot","https://chat.eqing.tech/","https://ai.mitup.ru/chatgpt-free","https://magictellers.com/",
-    "https://tools.rotato.app/compress","https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt","https://huggingface.co/spaces/AI4Editing/MagicQuill","https://www.askmarcus.app/chat", "https://huggingface.co/spaces/fffiloni/text-guided-image-colorization",
-    "https://huggingface.co/spaces/aifeifei798/FeiFei-Lora-8step","https://www.eraser.io/diagramgpt","https://www.askmarcus.app/chat", "https://huggingface.co/spaces/fffiloni/text-guided-image-colorization",
-    "https://huggingface.co/spaces/JeffreyXiang/TRELLIS","https://discord.com/invite/domoai","https://aistudio.google.com/live","https://huggingface.co/spaces/OAOA/InvSR","https://huggingface.co/spaces/MoonQiu/FreeScale","https://www.zarla.com/","https://www.hotbot.com/chat","https://suno.com/me",
-    "https://huggingface.co/spaces/artificialguybr/video-dubbing", "https://huggingface.co/spaces/lllyasviel/iclight-v2-vary","https://doodad.dev/pattern-generator/","https://sourcegraph.com/cody/chat","https://huggingface.co/spaces/franciszzj/Leffa","https://oo.ai/","https://x-doc.ai/","https://huggingface.co/spaces/osanseviero/gemini-coder",
-    "https://huggingface.co/spaces/akhaliq/anychat","https://huggingface.co/spaces/Qwen/QVQ-72B-preview","https://huggingface.co/spaces/stabilityai/stable-diffusion-3.5-large","https://huggingface.co/spaces/eswardivi/phi-4","https://huggingface.co/spaces/playgroundai/playground-v2.5","https://huggingface.co/spaces/llamameta/llama3.1-405B","https://huggingface.co/spaces/Qwen/Qwen2.5-Coder-demo",
-    "https://huggingface.co/spaces/Lightricks/LTX-Video-Playground","https://huggingface.co/spaces/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Demo","https://huggingface.co/spaces/webml-community/text-to-speech-webgpu","https://t.me/gpt_lama_bot","https://www.hailuo.ai/","https://v0.dev/","https://www.whatmore.ai/studio","https://huggingface.co/spaces/tencent/Hunyuan3D-2","https://www.dzine.ai/",
-    "https://huggingface.co/spaces/deepseek-ai/deepseek-vl2-small","https://huggingface.co/spaces/Trudy/gemini-image-to-code","https://chat.deepseek.com/","https://backgrounderase.net/home","https://huggingface.co/spaces/webml-community/kokoro-webgpu","https://www.morphic.sh/","https://scira.app/","https://kagi.com/fastgpt","https://shapen.com/","https://alice.yandex.ru/chat/01953c1a-be79-4000-9e88-5177131e2739/",
-    "https://notedly.ai/dashboard","https://playground.ai.cloudflare.com/","https://huggingface.co/spaces/ASLP-lab/DiffRhythm","https://chat.akash.network/","https://www.sesame.com/research/crossing_the_uncanny_valley_of_voice#demo","https://www.imagineanything.ai/","https://huggingface.co/spaces/prs-eth/thera","https://www.openai.fm/","https://huggingface.co/spaces/starvector/starvector-1b-im2svg",
-    "https://huggingface.co/spaces/enzostvs/deepsite","https://huggingface.co/spaces/jasperai/Flux.1-dev-Controlnet-Upscaler","https://huggingface.co/spaces/nightfury/Image_Face_Upscale_Restoration-GFPGAN","https://auphonic.com/","https://wordpress.com/ai-website-builder/","https://t.me/askplexbot","https://digma.ai/","https://lightpdf.com/","https://dxgpt.app/","https://humanize-ai.click/",
-    "https://huggingface.co/spaces/nvidia/parakeet-tdt-0.6b-v2","https://app.youlearn.ai/","https://spinbot.com/paraphrasing-tool","https://puter.com/","https://www.eraser.io/ai","https://www.scribbr.com/paraphrasing-tool/","https://www.eraser.io/ai/uml-diagram-generator","https://huggingface.co/spaces/ByteDance/Dolphin","https://gptkit.ai/","https://huggingface.co/spaces/Stable-X/Hi3DGen","https://www.warp.dev/",
-    "https://www.wondera.ai/","https://ayesoul.com","https://scispace.com/","https://huggingface.co/spaces/llamameta/Grok-4-heavy-free","https://noiz.io/free-ai-tools/","https://huggingface.co/spaces/Qwen/Qwen3-MT-Demo","https://deep-seek-ai.ru/free-deepseek-chat/","https://gpt-chatbot.ru/openai-o3-mini","https://www.waveterm.dev/","https://cline.bot/","https://addons.mozilla.org/en-US/firefox/addon/polination-ai-chat/",
-    "https://github.com/Processori7/Poli_Sidebar","https://writify.ai/tool/","https://qoder.com/download","https://windsurf.com/download","https://www.trae.ai/","https://qwenlm.github.io/blog/qwen3-coder/","https://huggingface.co/spaces/Qwen/Qwen-Image","https://bagoodex.io/","https://www.design.com/ai-logo-generator","https://www.wolframalpha.com/","https://www.texttospeechpro.com/tts","https://x-minus.pro/ai",
-    "https://processor.alwaysdata.net/","https://www.minimax.io/audio/text-to-speech","https://www.meshy.ai/","https://app.reve.com/home","https://www.naturalreaders.com/online/","https://platform.decart.ai/","https://huggingface.co/spaces/spectral-labs/SGS-1","https://higgsfield.ai/create/video","https://ibrief.co/","https://chat.qwenlm.ai/","https://flowith.io/","https://deepai.org/chat","https://pi.ai/onboarding",
-    "https://grok.com/","https://llmarena.ru/","https://lmarena.ai/","https://stackoverflow.ai/","https://slea.ai/ru/app","https://notebooklm.google/","https://stitch.withgoogle.com/","https://aistudio.google.com/welcome","https://perchance.org/humanize-ai-text","https://fish.audio","https://github.com/google-gemini/gemini-cli","https://qwenlm.github.io/qwen-code-docs/en/","https://download.kodacode.ru/", 
-    "https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev","https://www.coze.com/","https://huggingface.co/spaces/mrfakename/Z-Image-Turbo","https://nouswise.com/homepage","https://zenmux.ai/settings/chat?chatId=2547CHHiXMPi16898796","https://d37ozmhmvu2kcg.cloudfront.net/","https://copilot.microsoft.com/","https://algion.dev/","https://chatbotchatapp.com/","https://labs.google/fx/tools/flow","https://build.nvidia.com/models?filters=nimType%3Anim_type_preview","https://console.groq.com/home",
-    "https://github.com/marketplace?type=models","https://www.recraft.ai/blog/introducing-recraft-v4-design-taste-meets-image-generation","https://www.designarena.ai/","https://chat.cosverse.ai/","https://www.studley.ai/study-sets","https://lbrty.ai/","https://docs.google.com/videos/u/0/","https://github.com/JuliusBrussee/caveman","https://app.lumalabs.ai/"
-  ]
-
-  function updateCanOpenState() {
-      localStorage.setItem("canOpen", canOpen.checked);
-      hideBlockedServices();
+  function loadFrameCache() {
+    try {
+      const stored = localStorage.getItem('frameCheckCache');
+      if (stored) {
+        JSON.parse(stored).forEach(([key, value]) => frameCache.set(key, value));
+      }
+    } catch {}
   }
-  
-  // Обработчик события для canOpen
-  canOpen.addEventListener('change', updateCanOpenState);
 
-  function hideBlockedServices() {
-    items.forEach(item => {
-      const website = item.getAttribute('data-website');
-      if (blockSites.includes(website)) {
-        if (!canOpen.checked) {
-          item.style.display = ""; // Показываем элемент
-        } else {
-          item.style.display = "none"; // Скрываем элемент
-        }
+  function saveFrameCache() {
+    try {
+      localStorage.setItem('frameCheckCache', JSON.stringify([...frameCache.entries()]));
+    } catch {}
+    try {
+      chrome.storage.local.set({ frameCheckCache: [...frameCache.entries()] });
+    } catch {}
+  }
+
+  loadFrameCache();
+
+  const DEAD_SITE_EXPIRY = 2 * 24 * 60 * 60 * 1000;
+  const deadSites = new Map();
+  const healthySites = new Map();
+  var lastScan = 0;
+
+  var KNOWN_UNFRAMABLE = new Set([
+    'https://www.xdash.ai',
+    'https://xdash.ai',
+    'https://chat.openai.com',
+    'https://chatgpt.com',
+    'https://gemini.google.com',
+    'https://copilot.microsoft.com',
+    'https://claude.ai',
+    'https://poe.com',
+    'https://you.com',
+    'https://phind.com',
+    'https://kagi.com',
+    'https://huggingface.co'
+  ]);
+
+  function loadLastScan() {
+    try {
+      var s = localStorage.getItem('lastScan');
+      if (s) lastScan = parseInt(s, 10) || 0;
+    } catch {}
+  }
+
+  function loadDeadSites() {
+    try {
+      var stored = localStorage.getItem('deadSites');
+      if (stored) {
+        var now = Date.now();
+        JSON.parse(stored).forEach(function (_a) {
+          var url = _a[0], val = _a[1];
+          if (typeof val === 'object' && val !== null && now - val.checkedAt < DEAD_SITE_EXPIRY) {
+            deadSites.set(url, val);
+          }
+        });
+      }
+    } catch {}
+  }
+
+  function saveDeadSites() {
+    try {
+      localStorage.setItem('deadSites', JSON.stringify([...deadSites.entries()]));
+    } catch {}
+    try {
+      chrome.storage.local.set({ deadSites: [...deadSites.entries()] });
+    } catch {}
+  }
+
+  function loadHealthySites() {
+    try {
+      var stored = localStorage.getItem('healthySites');
+      if (stored) {
+        var now = Date.now();
+        JSON.parse(stored).forEach(function (_a) {
+          var url = _a[0], ts = _a[1];
+          if (now - ts < DEAD_SITE_EXPIRY) healthySites.set(url, ts);
+        });
+      }
+    } catch {}
+  }
+
+  function saveHealthySites() {
+    try {
+      localStorage.setItem('healthySites', JSON.stringify([...healthySites.entries()]));
+    } catch {}
+    try {
+      chrome.storage.local.set({ healthySites: [...healthySites.entries()] });
+    } catch {}
+  }
+
+  function markSiteDead(url, reason) {
+    deadSites.set(url, { reason: reason, checkedAt: Date.now() });
+    healthySites.delete(url);
+    saveDeadSites();
+    saveHealthySites();
+    var li = document.querySelector('[data-website="' + url.replace(/"/g, '\\"') + '"]');
+    if (li) li.style.display = 'none';
+    console.warn('Dead site [' + reason + ']: ' + url);
+  }
+
+  function markSiteHealthy(url) {
+    healthySites.set(url, Date.now());
+    deadSites.delete(url);
+    saveHealthySites();
+    saveDeadSites();
+  }
+
+  function hideDeadSites(silent) {
+    var found = [];
+    deadSites.forEach(function (entry, url) {
+      var li = document.querySelector('[data-website="' + url.replace(/"/g, '\\"') + '"]');
+      if (li) {
+        li.style.display = 'none';
+        found.push(url);
       }
     });
+    if (found.length && !silent) {
+      console.warn('=== Dead/broken sites (' + found.length + ') ===');
+      console.group('Dead sites');
+      found.forEach(function (url) {
+        console.warn(url + ' [' + deadSites.get(url).reason + ']');
+      });
+      console.groupEnd();
+    }
+  }
+
+  function wipeDeadSites() {
+    deadSites.clear();
+    healthySites.clear();
+    try { localStorage.removeItem('deadSites'); } catch {}
+    try { localStorage.removeItem('healthySites'); } catch {}
+    try { chrome.storage.local.remove('deadSites'); } catch {}
+    try { chrome.storage.local.remove('healthySites'); } catch {}
+    document.querySelectorAll('li[data-website]').forEach(function(li) { li.style.display = ''; });
+    console.log('DeadSites wiped');
+  }
+
+  loadDeadSites();
+  loadHealthySites();
+  loadLastScan();
+
+  async function checkSiteContent(url) {
+    try {
+      var resp = await fetch(url, { method: 'GET', headers: { 'Range': 'bytes=0-4096' } });
+      if (resp.status === 404 || resp.status === 410 || resp.status >= 500) return 'HTTP ' + resp.status;
+      var text = (await resp.text()).slice(0, 4096);
+      var low = text.toLowerCase();
+      if (low.includes('this space is currently paused') || low.includes('space is paused') || low.includes('deploy paused')) return 'Space paused';
+      if (low.includes('404 not found') || low.includes('page not found') || low.includes('site not found')) return 'Not found';
+      if (low.includes('could not be found') || low.includes('this page could not be loaded')) return 'Not found';
+      if (low.includes('this page is not available') || low.includes('this site is not available')) return 'Not available';
+    } catch {}
+    return null;
+  }
+
+  function parseFrameHeaders(response) {
+    const xfo = response.headers.get('X-Frame-Options');
+    if (xfo) {
+      const v = xfo.toUpperCase();
+      if (v === 'DENY' || v === 'SAMEORIGIN' || v.startsWith('ALLOW-FROM')) return false;
+    }
+    const csp = response.headers.get('Content-Security-Policy');
+    if (csp) {
+      const m = csp.match(/frame-ancestors\s+([^;]+)/i);
+      if (m) {
+        const val = m[1].trim();
+        if (val === "'none'" || val === "'self'") return false;
+        if (!val.includes('*')) return false;
+      }
+    }
+    return true;
+  }
+
+  async function canFrameWebsite(url) {
+    const cached = frameCache.get(url);
+    if (cached !== undefined) return cached;
+
+    if (KNOWN_UNFRAMABLE.has(url)) {
+      frameCache.set(url, false);
+      saveFrameCache();
+      return false;
+    }
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 3000);
+
+    try {
+      if (!deadSites.has(url)) {
+        let resp = await fetch(url, { method: 'HEAD', signal: controller.signal, redirect: 'manual' });
+        if (resp.type === 'opaqueredirect' || (resp.status >= 300 && resp.status < 400)) {
+          frameCache.set(url, false);
+          saveFrameCache();
+          return false;
+        }
+        var gotBody = false;
+        if (resp.status === 405) {
+          resp = await fetch(url, { method: 'GET', signal: controller.signal, redirect: 'manual' });
+          if (resp.type === 'opaqueredirect' || (resp.status >= 300 && resp.status < 400)) {
+            frameCache.set(url, false);
+            saveFrameCache();
+            return false;
+          }
+          gotBody = true;
+        }
+        if (resp.status >= 400) {
+          markSiteDead(url, 'HTTP ' + resp.status);
+          frameCache.set(url, false);
+          saveFrameCache();
+          return false;
+        }
+        if (gotBody) {
+          var text = await resp.text();
+          var low = text.toLowerCase();
+          if (low.includes('this space is currently paused') || low.includes('deploy paused')) {
+            markSiteDead(url, 'Space paused');
+            frameCache.set(url, false);
+            saveFrameCache();
+            return false;
+          }
+          if (low.includes('404 not found') || low.includes('page not found')) {
+            markSiteDead(url, 'Not found');
+            frameCache.set(url, false);
+            saveFrameCache();
+            return false;
+          }
+          var stripped = text.replace(/<[^>]+>/g, '').trim();
+          if (stripped.length < 20) {
+            frameCache.set(url, false);
+            saveFrameCache();
+            return false;
+          }
+        }
+        const result = parseFrameHeaders(resp);
+        frameCache.set(url, result);
+        saveFrameCache();
+        if (result) markSiteHealthy(url);
+        return result;
+      }
+      return false;
+    } catch {
+      frameCache.set(url, false);
+      saveFrameCache();
+      return false;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async function scanDeadSites() {
+    console.log('Scan: starting...');
+    var items = document.querySelectorAll('li[data-website]');
+    var total = items.length;
+    console.log('Scan: found ' + total + ' items');
+    if (!total) { console.log('Scan: no items found'); return; }
+    var chunk = 20, delay = 200, i = 0;
+    var checked = 0, deadCount = 0;
+
+    var next = async function () {
+      try {
+        var batch = [].slice.call(items, i, i + chunk);
+        i += chunk;
+        var urls = [];
+        for (var j = 0; j < batch.length; j++) {
+          var u = batch[j].getAttribute('data-website');
+          if (u) urls.push(u);
+        }
+        checked += urls.length;
+        if (urls.length === 0) {
+          saveDeadSites();
+          saveHealthySites();
+          if (i < items.length) setTimeout(next, delay);
+          else {
+            lastScan = Date.now();
+            try { localStorage.setItem('lastScan', lastScan); } catch {}
+            try { chrome.storage.local.set({ lastScan: lastScan }); } catch {}
+            console.log('Scan: finished. ' + deadCount + ' dead sites of ' + checked + ' checked');
+          }
+          return;
+        }
+        await Promise.all(urls.map(async function (url) {
+          if (deadSites.has(url) || healthySites.has(url)) return;
+          var idx = checked - urls.length + urls.indexOf(url) + 1;
+          console.log('Scan: [' + idx + '/' + total + '] ' + url);
+          try {
+            var r = await Promise.race([
+              fetch(url, { method: 'HEAD' }),
+              new Promise(function (_, reject) { setTimeout(reject, 5000); })
+            ]);
+            if (r.status >= 400) { console.log('  -> DEAD (HTTP ' + r.status + ')'); markSiteDead(url, 'HTTP ' + r.status); deadCount++; return; }
+            try {
+              var reason = await Promise.race([
+                checkSiteContent(url),
+                new Promise(function (_, reject) { setTimeout(reject, 5000); })
+              ]);
+              if (reason) { console.log('  -> DEAD (' + reason + ')'); markSiteDead(url, reason); deadCount++; return; }
+            } catch (e) {}
+            markSiteHealthy(url);
+          } catch (e) { console.log('  -> ERROR (skipped)'); }
+        }));
+        saveDeadSites();
+        saveHealthySites();
+        console.log('Scan: ' + checked + '/' + total + ' checked, ' + deadCount + ' dead');
+      if (i < items.length) setTimeout(next, delay);
+      else {
+        lastScan = Date.now();
+        try { localStorage.setItem('lastScan', lastScan); } catch {}
+        try { chrome.storage.local.set({ lastScan: lastScan }); } catch {}
+        console.log('Scan: finished. ' + deadCount + ' dead sites of ' + checked + ' checked');
+      }
+      } catch (e) { console.error('Scan batch error:', e); }
+    };
+    next().catch(function (e) { console.error('Scan fatal:', e); });
   }
 
   function countElements()
@@ -815,7 +1064,8 @@ function performSearch(query, exactMatch = false) {
       item.style.display = "";
       item.style.order = "";
     });
-    hideBlockedServices();
+    // Скрываем dead-сайты из общего списка
+    hideDeadSites(true);
     return;
   }
 
@@ -926,7 +1176,7 @@ function performSearch(query, exactMatch = false) {
     }
   });
   
-  // НЕ вызываем hideBlockedServices() во время поиска, чтобы показать все найденные результаты
+
 }
 
 // Вспомогательная функция для вычисления бонуса за близость слов
@@ -1023,6 +1273,14 @@ function setCachedTranslation(text, sourceLang, targetLang, translation) {
     const cache = JSON.parse(localStorage.getItem(cacheKey) || '{}');
     cache[text] = translation;
     localStorage.setItem(cacheKey, JSON.stringify(cache));
+    try {
+      chrome.storage.local.get('translationCaches', function (r) {
+        var all = r.translationCaches || {};
+        if (!all[cacheKey]) all[cacheKey] = {};
+        all[cacheKey][text] = translation;
+        chrome.storage.local.set({ translationCaches: all });
+      });
+    } catch {}
 }
 
 // Функция для перевода текста с кэшированием
@@ -1070,7 +1328,7 @@ if (userLang.startsWith('ru')) {
   openOnRightClick.nextSibling.textContent="Открывать сайт в новой вкладке при нажатии правой кнопкой мыши";
   copyOnRightClick.nextSibling.textContent="Копировать ссылку при нажатии правой кнопкой мыши";
   NewYearTheme.nextSibling.textContent = "Новогодняя тема";
-  canOpen.nextSibling.textContent = "Скрыть сервисы, которые не могут быть открыты в боковой панели";
+
   document.querySelector('#theme-settings-title').textContent = 'Настройки темы';
   document.querySelector('#background-color .translate-text').textContent = 'Цвет фона:';
   document.querySelector('#text-color-headings .translate-text').textContent = 'Цвет заголовков:';
@@ -1129,7 +1387,7 @@ document.querySelector('#tooltip-font-size .translate-text').textContent = trans
 document.querySelector('#resetTheme .translate-text').textContent = translateText('Сбросить тему', "ru");
 advancedSearch.nextSibling.textContent = translateText("Enable contextual search (Attention! Initialization can take up to 20 seconds on first startup)", "en");
 document.getElementById('advancedSearchText').style.display="block";
-canOpen.nextSibling.textContent = translateText("Скрыть сервисы, которые не могут быть открыты в боковой панели","ru");
+
   }
   openInNewTab.checked = JSON.parse(localStorage.getItem("openInNewTab")) || false;
 
@@ -1178,47 +1436,112 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
     document.body.appendChild(backButton);
 }
 
+	document.addEventListener('mousedown', function (e) {
+		if (e.button !== 1) return;
+		var li = e.target.closest('li[data-website]');
+		if (!li) return;
+		e.preventDefault();
+		e.stopPropagation();
+		var url = li.getAttribute('data-website');
+		navigator.clipboard.writeText(url).then(function () {
+			var orig = li.style.background;
+			li.style.background = '#4CAF50';
+			setTimeout(function () { li.style.background = orig; }, 400);
+		}).catch(function () {
+			var ta = document.createElement('textarea');
+			ta.value = url;
+			ta.style.position = 'fixed';
+			ta.style.left = '-9999px';
+			ta.style.top = '-9999px';
+			document.body.appendChild(ta);
+			ta.select();
+			document.execCommand('copy');
+			document.body.removeChild(ta);
+			var orig = li.style.background;
+			li.style.background = '#4CAF50';
+			setTimeout(function () { li.style.background = orig; }, 400);
+		});
+	}, true);
+
+	document.addEventListener('securitypolicyviolation', function (e) {
+		if (e.effectiveDirective === 'script-src' || e.effectiveDirective === 'script-src-elem') {
+			var iframe = document.getElementById('websiteFrame');
+			if (iframe) {
+				var src = iframe.getAttribute('src');
+				if (src && e.blockedURI && !e.blockedURI.includes('chrome-extension://')) {
+					frameCache.set(src, false);
+					saveFrameCache();
+					console.warn('CSP violation detected for: ' + src + ' (' + e.blockedURI + ')');
+				}
+			}
+		}
+	});
+
   function initializeListItems() {
-    const listItems = document.querySelectorAll("li");
-    listItems.forEach((li) => {
-        li.addEventListener("click", function () {
-            let website = this.getAttribute("data-website");
-            currentWebsite = website;
-            localStorage.setItem('currentWebsite', currentWebsite);
-                if (openInNewTab.checked) {
-                    window.open(website, '_blank');
-                } else {
-                    if (blockSites.includes(website)) {
-                        let text = translateText("Этот сайт не может быть открыт в боковой панели, открыть его в новой вкладке?", "ru");
-                        let answer = userLang.startsWith('ru') 
-                            ? confirm("Этот сайт не может быть открыт в боковой панели, открыть его в новой вкладке?")
-                            : confirm(text);
-                        if (answer) {
-                            window.open(website, '_blank');
-                        }
-                    } else {
+    document.addEventListener('click', async function (e) {
+      const li = e.target.closest('li');
+      if (!li) return;
+      const website = li.getAttribute('data-website');
+      if (!website) return;
 
-                        // Скрываем оригинальное содержимое и создаем iframe
-                        document.body.innerHTML = ''; // Очищаем содержимое body
-
-                        let iframe = document.createElement("iframe");
-                        iframe.id = "websiteFrame";
-                        iframe.style.width = "100%";
-                        iframe.style.height = "100%";
-                        iframe.style.position = "fixed";
-                        iframe.style.top = "0";
-                        iframe.style.left = "0";
-                        iframe.style.border = "none";
-                        iframe.src = website;
-                        document.body.appendChild(iframe);
-
-                        // Создаем кнопку "Назад"
-                        createBackButton();
-                    }
+      currentWebsite = website;
+      localStorage.setItem('currentWebsite', currentWebsite);
+      if (deadSites.has(website)) {
+        var deadReason = deadSites.get(website).reason;
+        var msg = 'Site is dead (' + deadReason + '): ' + website;
+        console.warn(msg);
+        var text = translateText('Этот сайт недоступен (' + deadReason + '), открыть всё равно в новой вкладке?', 'ru');
+        var answer = userLang.startsWith('ru')
+          ? confirm('Сайт недоступен (' + deadReason + '). Открыть в новой вкладке?')
+          : confirm(text);
+        if (answer) window.open(website, '_blank');
+      } else if (openInNewTab.checked) {
+        window.open(website, '_blank');
+      } else {
+        if (!(await canFrameWebsite(website))) {
+          let text = translateText("Этот сайт не может быть открыт в боковой панели, открыть его в новой вкладке?", "ru");
+          let answer = userLang.startsWith('ru')
+            ? confirm("Этот сайт не может быть открыт в боковой панели, открыть его в новой вкладке?")
+            : confirm(text);
+          if (answer) {
+            window.open(website, '_blank');
+          }
+        } else {
+          localStorage.setItem('scrollPos', window.scrollY || document.documentElement.scrollTop || 0);
+          document.body.innerHTML = '';
+          let iframe = document.createElement("iframe");
+          iframe.id = "websiteFrame";
+          iframe.style.width = "100%";
+          iframe.style.height = "100%";
+          iframe.style.position = "fixed";
+          iframe.style.top = "0";
+          iframe.style.left = "0";
+          iframe.style.border = "none";
+          iframe.src = website;
+          document.body.appendChild(iframe);
+          iframe.addEventListener('load', function () {
+            try {
+              var doc = iframe.contentDocument || iframe.contentWindow.document;
+              var scripts = doc.querySelectorAll('script[src]');
+              for (var s = 0; s < scripts.length; s++) {
+                var src = scripts[s].getAttribute('src');
+                if (src && (src.startsWith('http://') || src.startsWith('https://')) && !src.includes(new URL(website).hostname)) {
+                  frameCache.set(website, false);
+                  saveFrameCache();
+                  console.warn('CSP blocked external script on: ' + website + ' (' + src + ')');
+                  document.body.innerHTML = '';
+                  createBackButton();
+                  return;
                 }
-            });
-        });
-    }
+              }
+            } catch (e) {}
+          });
+          createBackButton();
+        }
+      }
+    });
+
+  }
 
     // Отправка запроса
     function httpGet(url) {
@@ -1243,42 +1566,34 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
             return trimmedText;
         }
 
-    //Функция для создания описания
     function initializePopup() {
-        var aiMenuItems = document.querySelectorAll('.aiMenu li');
         var popup = document.createElement('div');
         popup.classList.add('popup');
-        document.body.appendChild(popup); // Добавляем popup в body один раз
-    
-        var descriptions = websiteDescriptionsRu;
-            
-        aiMenuItems.forEach(function(item) {
-            item.addEventListener('mouseover', function(event) {
-                var website = this.getAttribute('data-website');
-                if (descriptions.hasOwnProperty(website)) {
-                    var description = descriptions[website];
-                    // sl – язык оригинала, tl – язык для перевода, originalText – текст запроса (можно использовать результат string.match(/.{1,2000}(?=\.)/gi))
-                    if(userLang.startsWith('ru'))
-                        {
-                            popup.textContent = description;
-                        }
-                    else
-                    {
-                        // Используем функцию translateText с кэшированием
-                        let translatedText = translateText(description, "ru");
-                        popup.textContent = translatedText;
-                    }
+        document.body.appendChild(popup);
 
-                    // Устанавливаем позицию popup
-                    popup.style.left = event.pageX + 'px'; // Позиция по X
-                    popup.style.top = event.pageY + 'px'; // Позиция по Y
-                    popup.classList.add('show'); // Показываем popup
-                }
-            });
-    
-            item.addEventListener('mouseout', function() {
-                popup.classList.remove('show'); // Скрываем popup
-            });
+        var descriptions = userLang.startsWith('ru')
+            ? websiteDescriptionsRu
+            : getTranslatedDescriptions();
+
+        document.addEventListener('mouseover', function(event) {
+            var item = event.target.closest('.aiMenu li[data-website]');
+            if (!item) return;
+            var website = item.getAttribute('data-website');
+            if (descriptions.hasOwnProperty(website)) {
+                popup.textContent = descriptions[website];
+                popup.style.left = event.pageX + 'px';
+                popup.style.top = event.pageY + 'px';
+                popup.classList.add('show');
+            }
+        });
+
+        document.addEventListener('mouseout', function(event) {
+            var item = event.target.closest('.aiMenu li[data-website]');
+            if (!item) return;
+            var to = event.relatedTarget;
+            if (!to || !item.contains(to)) {
+                popup.classList.remove('show');
+            }
         });
     }
 
@@ -1303,37 +1618,32 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
         }
         // Здесь можно записать userLangDesc в кэш, если это необходимо
         localStorage.setItem('translatedDescriptions', JSON.stringify(userLangDesc));
+        try { chrome.storage.local.set({ translatedDescriptions: userLangDesc }); } catch {}
     }
     
     var websiteDescriptionsRu = {
       "https://duck.ai/": "Бесплатно: Claude3 Hiku, GPT-4o-mini, Llama3.1 70B, Mixtral 8x7B.",
       "https://thinkany.ai/": "Бесплатно можно использовать различные LLM, на сайте есть тёмная тема и нужна авторизация.",
-      "https://www.phind.com": "Phind LLM, бесплатная поисковая система, на сайте есть тёмная тема.",
-      "https://www.prefind.ai/": "Бесплатная поисковая система, доступны модели: Llama 3, Claude 3.",
       "https://www.blackbox.ai/": "Бесплатно: BlackBox AI LLM, на сайте есть тёмная тема.",
       "https://www.perplexity.ai/": "Бесплатная поисковая система, на сайте есть тёмная тема, использует GPT-3.5 Turbo",
-      "https://chat.tune.app/": "Бесплатно досткпны несколько LLM, а остальные доступные после регистрации, на сайте есть тёмная тема.",
       "https://labs.perplexity.ai/": "Бесплатно доступны несколько моделей LLM, на сайте есть тёмная тема.",
       "https://jeeves.ai/": "Бесплатная поисковая система, доступны модели: Jeeves LLM, на сайте есть тёмная тема.",
       "https://bagoodex.io/": "Бесплатная поисковая система, использует GPT-4o, BaGooDex чат и другие инструменты, доступна тёмная тема.",
       "https://www.aiuncensored.info": "Бесплатно можно использовать: GPT-3.5, на сайте есть тёмная тема.",
-      "https://huggingface.co/spaces/Qwen/Qwen2-72B-Instruct": "Бесплатно: Qwen2-72B-Instruct.",
       "https://chat.tinycms.xyz:3002/#/chat": "Доступны: GPT-4 и другие модели бесплатно, но с ограничениями, на сайте есть тёмная тема.",
       "https://you.com/search?q=hi&fromSearchBar=true&tbm=youchat": "Бесплатно: You Chat LLM, GPT-4o (с ограничениями), на сайте есть тёмная тема.",
       "https://finechat.ai/ru/app": "Бесплатно: GPT-4o (с ограничениями).",
-      "https://gpt-4o.biz/playground": "Бесплатно: GPT-4o (с ограничениями).",
       "https://gpt4o.so/ru/app": "Бесплатно: GPT4o (с ограничениями).",
       "https://iask.ai/": "Бесплатная поисковая система и другие инструменты ИИ.",
       "https://www.popai.pro/": "Бесплатно: GPT и другие инструменты ИИ, но требуется вход в систему и у этого сервиса есть ограничения.",
       "https://useadrenaline.com/": "Бесплатный ИИ для программистов, позволяет анализировать репозитории на GitHub.",
       "https://gpt.h2o.ai/": "Бесплатные LLM.",
       "https://chat.deepseek.com/": "ИИ для программистов, отлично справляется с написанием кода, но требуется регистрация.",
-      "https://chatgate.ai/gpt4/": "Бесплатно: ChatGPT-4 и другие инструменты, но с ограничениями.",
+      "https://chatgate.ai": "Бесплатно: ChatGPT-4 и другие инструменты, но с ограничениями.",
       "https://agentgpt.reworkd.ai/ru": "Это сервис, который может находить решения ваших проблем, для этого нужно напишисать, что вам нужно, и он предложит варианты, однако функционал доступен только после регистрация, а также на сайте есть тёмная тема.",
       "https://smartbuddy.ru/models/gpt-4-omni": "Бесплатно GPT-4o, с ограничениями.",
       "https://andisearch.com/": "Бесплатная поисковая система.",
       "https://anonchatgpt.com/": "Бесплатно GPT-3.5, на сайте есть тёмная тема.",
-      "https://aoyo.ai/": "Бесплатная поисковая система.",
       "https://pi.ai/talk": "Бесплатный ИИ-ассистент.",
       "https://gpt-chatbot.ru/chat-gpt-ot-openai-dlya-generacii-teksta": "Бесплатно: Чат-бот",
       "https://devv.ai/": "ИИ для программистов, включает чат с LLM: Gemeni 1.5 и Claude 3 (требуется регистрация), веб-поиск и работа с GitHub, но требуется вход в систему.",
@@ -1348,11 +1658,11 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://pbot2.bus1.skybyte.me/#/chat/1002": "Бесплатный чат, но нет SSL-сертификата.",
       "https://chataibot.ru/app/free-chat": "Бесплатный чат (GPT-3.5 Turbo).",
       "https://chat.mistral.ai/chat": "Бесплатный чат Mistral (требуется вход в систему)",
-      "https://yep.com/chat/": "Бесплатный поиск и чат Yep.",
+      "https://yep.com": "Бесплатный поиск",
       "https://share.wendaalpha.net": "Бесплатно GPT-4o, на сайте есть тёмная тема, но отвечает только на китайском.",
       "https://groq.com/": "Бесплатный GPT, блокирует запросы из РФ.",
       "https://ya.ru/": "Бесплатно: Yandex GPT",
-      "https://talkai.info/ru/": "Бесплатно Gpt-3.5, с ограничениями, на сайте есть тёмная тема.",
+      "https://talkai.info/chat/": "Бесплатно несколько LLM, с ограничениями, на сайте есть тёмная тема.",
       "https://ai.mitup.ru/chatgpt-free": "Бесплатный чат",
       "https://www.anytopic.io": "Бесплатные модели Claude, но требуется регистрация.",
       "https://codepal.ai/": "Бесплатный чат, но требуется вход в систему.",
@@ -1434,7 +1744,6 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://textbot.ru/":"TextBot — нейросеть которая поможет сгенерировать, дополнить, улучшить или отрерайтить текст на любую тему.",
       "https://www.seaart.ai/ai-tools/ai-face-swap":"Инструмент для объединения вашего лица с различными художественными стилями и сценами, он поддерживает обмен лицами как в видео, так и в изображениях, что облегчает создание уникального и развлекательного контента.",
       "https://llmplayground.net/":"Сайт с тёмной темой оформления и большим выбором LLM.",
-      "https://www.farfalle.dev":"Бесплатный поисковый движок, с тёмной темой оформления, доступны GPT-3.5 Turbo и LLAMA 3-70B.",
       "https://www.pizzagpt.it/en":"Бесплатный Chat GPT-3.5 Turbo, сайт с тёмной темой оформления.",
       "https://www.turboseek.io":"Бесплатная поисковая система с ИИ, используются LLAMA 3-8B или Mixtrai 8x7B.",
       "https://www.xdash.ai":"Бесплатная поисковая система, использует ИИ для улучшения результатов поиска.",
@@ -1515,7 +1824,6 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://minitoolai.com/":"Сервис, который предоставляет доступ к нескольким полезным сервисам с ИИ в том числе и GPT-4o",
       "https://komo.ai/":"Бесплатная поисковая система с ИИ, имеет дополнительные платные функции",
       "https://heybro.ai/web":"Бесплатный доступ к GPT-4o-mini",
-      "https://kingnish-opengpt-4o.hf.space/?__theme=dark":"Сервис позволяет общаться с GPT-4o, генерировать видео и картинки",
       "https://pythonspath.ru/gpt4o":"Сервис позволяет использовать GPT-4o",
       "https://huggingface.co/spaces/kayfahaarukku/fufufafa-makan-brem":"Бесплатный генератор изображений высокого качества",
       "https://www.genmo.ai/play":"Бесплатный генератор видео, нобходима авторизация",
@@ -1538,7 +1846,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.photoroom.com/tools":"Набор инструментов для обработки фото",
       "https://llamaocr.com/":"Бесплатная нейросеть для распознавания текста на фото",
       "https://gptengineer.app/":"Агент с открытым исходным кодом, который может помочь в создании кода",
-      "https://www.yeschat.ai/ru/gpts-ZxWyZIKg-EE-GPT":"GPT эксперт по электротехнике на основе ИИ",
+      "https://www.yeschat.ai/":"Сервис предоставвляет бесплатный доступ к LLM",
       "https://www.rubbrband.com/":"Бесплатный генератор изображений и видео, который позволяет последовательно создавать изображения в уникальных стилях, есть лимит",
       "https://huggingface.co/spaces/AI4Editing/MagicQuill":"Бесплатный редактор изображений с ИИ",
       "https://iki.ai":"Платформа для хранения и организации знаний",
@@ -1564,7 +1872,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.zarla.com/":"Конструктор веб-сайтов",
       "https://huggingface.co/spaces/OAOA/InvSR":"Сервис для улучшения изображений",
       "http://multimodalart-stable-cascade.hf.space/":"Бесплатный сервис , который позволяет генерировать изображения",
-      "https://www.hotbot.com/chat":"Бесплатный сервис для общения с ИИ",
+      "https://www.hotbot.com":"Бесплатный сервис для общения с ИИ",
       "https://free-ai-chat.com/en/model/o1-mini":"Бесплатный сервис для общения с различными LLM",
       "https://suno.com/me":"Бесплатный сервис для генерации музыки",
       "https://huggingface.co/spaces/MoonQiu/FreeScale":"Бесплатный сервис для генерации изображений",
@@ -1573,8 +1881,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://huggingface.co/spaces/artificialguybr/video-dubbing":"Нейросеть может полностью переводить видеоролики и фильмы, сохраняя подлинные голоса (при необходимости редактируя отдельные фрагменты)",
       "https://www.clipfly.ai/":"Бесплатный видеогенератор с искусственным интеллектом и платформа для создания, идеально подходящая для пользователей, не имеющих предыдущего опыта работы с видео",
       "https://huggingface.co/spaces/lllyasviel/iclight-v2-vary":"ИИ для замены фона и освещения на фото",
-      "https://sourcegraph.com/cody/chat":"Бесплатный сервис для общения с ИИ, 200 запросов в месяц, требуется регистрация",
-      "https://snapedit.app/ru/remove-object/upload":"Бесплтаный сервис для редактирования изображений и удаления лишних объектов",
+      "https://snapedit.app/":"Бесплтаный сервис для редактирования изображений и удаления лишних объектов",
       "https://huggingface.co/spaces/franciszzj/Leffa":"ИИ-примерочная — бесплатная и с максимально понятным интерфейсом",
       "https://huggingface.co/spaces/TencentARC/InstantMesh":"Бесплатная нейросеть от Tencent, которая превращает изображение в 3D-объект",
       "https://oo.ai/":"Бесплатная поисковая система с ИИ",
@@ -1587,7 +1894,6 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://riverside.fm/transcription":"ИИ-инструмент для транскрибирования видео и подкастов",
       "https://huggingface.co/spaces/osanseviero/gemini-coder":"ИИ для создания различных приложений на React",
       "https://huggingface.co/spaces/akhaliq/anychat":"Сервис предоставляет доступ к большому количеству языковых моделей, поэтому может загружаться довольно долго",
-      "https://huggingface.co/spaces/Qwen/QVQ-72B-preview":"Сервис позволяет общаться с QVQ-72B-preview",
       "https://huggingface.co/spaces/stabilityai/stable-diffusion-3.5-large":"Сервис позволяет использовать Stable-diffusion-3.5-large для генерации изображений",
       "https://huggingface.co/spaces/eswardivi/phi-4":"Сервис позволяет общаться с Phi-4",
       "https://huggingface.co/spaces/playgroundai/playground-v2.5":"Очень быстрый генератор изображений по запросу",
@@ -1628,10 +1934,8 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://www.morphic.sh/":"Бесплатная поисковая система с ИИ",
       "https://scira.app/":"Бесплатная поисковая система с ИИ",
       "https://kagi.com/fastgpt":"Бесплатная поисковая система с ИИ",
-      "https://getliner.com/":"Бесплатная поисковая система с ИИ, требуется авторизация",
       "https://www.xdash.ai/":"Бесплатная поисковая система с ИИ",
       "https://correkt.ai/":"Бесплатная поисковая система с ИИ",
-      "https://compute.hyper.space/":"Довольно интересный проект, который совмещает различных ИИ агентов с поисковой системой",
       "https://hika.fyi/":"Бесплатная поисковая система с ИИ",
       "https://shapen.com/":"Загрузите изображение — ИИ сам соберёт детализированную 3D-модель",
       "https://app.invesst.ai/login":"ИИ-сервис для ИНВЕСТИЦИОННЫХ исследований — Invesst буквально «DeepResearch для инвестиций», объединяющий в себе мощь поиска с помощью ChatGPT и Perplexity",
@@ -1763,7 +2067,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://alphaxiv.org/assistant":"Агент ищет релевантные статьи по вашему запросу, анализирует их и помогает в исследованиях, работает с научными архивами, требуется авторизация",
       "https://www.publishstudio.one/creator-kit":"Различные инструменты для работы с изображениями, включая удаление фона",
       "https://www.wondera.ai/":"Аналог Suno, требуется авторизация",
-      "https://deepguardtech.com/app":"Сервис анализирует каждый пиксель видео, проверяет метаданные и выдаёт подробный отчёт о вероятности GenAI, проверка на генерацию ИИ",
+      "https://deepguardtech.com/":"Сервис анализирует каждый пиксель видео, проверяет метаданные и выдаёт подробный отчёт о вероятности GenAI, проверка на генерацию ИИ",
       "https://pdf2zh.com/":"Сервис для быстрого перевода PDF документов на различные языки",
       "https://ayesoul.com/":"Поисковая система с ИИ",
       "https://products.aspose.ai/total/":"Сервис предоставляет множество инструментов для работы с файлами",
@@ -1799,7 +2103,7 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://huggingface.co/spaces/Qwen/Qwen-Image":"Новая бесплатная генеративная модель Qwen Image выдаёт как гиперреалистичные фото, так и стильные постеры, арты и даже полноценные страницы комиксов",
       "https://www.trydoco.com/#Pricing":"DOCO сочетает в себе Grammarly, Google Translate, Co-Pilot и многое другое для работы с текстом и документами, бесплатный план ограничен, требуется регистрация",
       "https://www.zeroregai.com":"Сервис предоставляет бесплатный доступ к множеству LLM",
-      "https://www.design.com/ai-logo-generator":"Сервис включает в себя множество инструментов с ИИ, требуется авторизация",
+      "https://www.design.com/":"Сервис включает в себя множество инструментов с ИИ, требуется авторизация",
       "https://www.wolframalpha.com/":"Сервис для решения математических задач",
       "https://www.kimi.com/kimiplus/cvvm7bkheutnihqi2100":"Генератор презентаций от Kimi AI, требуется авторизация",
       "https://revast.xyz/":"Сервис для создания интерактивных учебников, есть бесплатный план, требуется авторизация",
@@ -1888,7 +2192,19 @@ canOpen.nextSibling.textContent = translateText("Скрыть сервисы, к
       "https://saveto.ai/":"Множество бесплатных сервисов с ИИ, среди них переводчик, загрузчик видео, сумаризатор текста и т.д.",
       "https://faceai.art/face-swap/":"Сервис для замены лиц на фотографиях и видео",
       "https://aihumanizer.work/ru/bypass-ai":"Сервис для очеловечивания текста",
-      "https://designarena.ai/":"Сервис позволяет создавать дизайны, логотипы и не только с помощью ИИ, требуется авторизация"
+      "https://designarena.ai/":"Сервис позволяет создавать дизайны, логотипы и не только с помощью ИИ, требуется авторизация",
+      "https://omniroute.online/":"Сервис позволяет создать единый API и интегрировать в него различных провайдеровLLM",
+      "https://github.com/pewdiepie-archdaemon/odysseus":"Альтернатива Cersor с множеством функций и параметров",
+      "https://app.notion.com/":"Сервис позволяет создавать заметки, базы данных, возможность использовать Claude, есть бесплатный план, требуется авторизация",
+      "https://www.stackai.com/":"Сервис позволяет бесплатно запускать множество ИИ агентов",
+      "https://askai.free/":"Сервис предоставляет дуступ к различным LLM моделям, есть бесплатный план, требуется авторизация",
+      "https://free.ai/":"Сервис предоставляет доступ к различным инструментам с ИИ",
+      "https://theoldllm.vercel.app/":"Сервис предоставляет доступ к различным LLM моделям",
+      "https://veoaifree.com/":"Сервис позволяет бесплатно генерировать видео",
+      "https://uncensored.chat/":"ИИ чат без цензуры",
+      "https://www.free-ai-online.com/":"Сервис предоставляет доступ к различным LLM моделям",
+      "https://gptfree.com/":"Сервис предоставляет доступ к различным LLM моделям",
+      "https://zcode.z.ai/en":"Бесплатная IDE со встроенными моделями от Z.ai"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
@@ -2274,20 +2590,89 @@ const defaultTheme = {
   tooltipFontSize: 14
 };
 
-  // Проверяем обновления при загрузке страницы
-  checkForUpdates();
   loadTheme();
-  // Навешиваем обработчики
-  initializeThemeListeners();
   initializePage();
   initializePopup();
-  countElements();
-  hideBlockedServices();
-  // Проверяем, существует ли элемент 'translatedDescriptions' в localStorage
-  if (!userLang.startsWith('ru'))
-    {
-        if (!localStorage.getItem('translatedDescriptions') !== null && advancedSearch.checked) {
-            translate_and_write_desc();
+
+
+
+  chrome.storage.local.get(['deadSites', 'healthySites', 'frameCheckCache', 'translationCaches', 'translatedDescriptions', 'lastScan'], function (result) {
+    try {
+      var now = Date.now();
+
+      if (result.deadSites && deadSites.size === 0) {
+        result.deadSites.forEach(function (_a) {
+          var url = _a[0], val = _a[1];
+          if (typeof val === 'object' && val !== null && now - val.checkedAt < DEAD_SITE_EXPIRY) {
+            deadSites.set(url, val);
+          }
+        });
+      }
+
+      if (result.healthySites && healthySites.size === 0) {
+        result.healthySites.forEach(function (_a) {
+          var url = _a[0], ts = _a[1];
+          if (now - ts < DEAD_SITE_EXPIRY) healthySites.set(url, ts);
+        });
+      }
+
+      if (result.frameCheckCache && frameCache.size === 0) {
+        result.frameCheckCache.forEach(function (_a) {
+          frameCache.set(_a[0], _a[1]);
+        });
+      }
+
+      if (result.lastScan && lastScan === 0) {
+        lastScan = parseInt(result.lastScan, 10) || 0;
+      }
+
+      if (result.translationCaches) {
+        Object.keys(result.translationCaches).forEach(function (key) {
+          if (!localStorage.getItem(key)) {
+            localStorage.setItem(key, JSON.stringify(result.translationCaches[key]));
+          }
+        });
+      }
+
+      hideDeadSites();
+      var scanExpired = (Date.now() - lastScan) > DEAD_SITE_EXPIRY;
+      if (scanExpired) {
+        var allCached = true;
+        var scanItems = document.querySelectorAll('li[data-website]');
+        for (var si = 0; si < scanItems.length; si++) {
+          var su = scanItems[si].getAttribute('data-website');
+          if (su && !deadSites.has(su) && !healthySites.has(su)) { allCached = false; break; }
         }
-    } 
+        if (allCached) {
+          lastScan = Date.now();
+          try { localStorage.setItem('lastScan', lastScan); } catch {}
+          try { chrome.storage.local.set({ lastScan: lastScan }); } catch {}
+          console.log('Scan: skipped (all sites cached)');
+        } else {
+          scanDeadSites();
+        }
+      } else {
+        console.log('Scan: skipped (last scan within 2 days)');
+      }
+
+      setTimeout(function () {
+        checkForUpdates();
+        countElements();
+        initializeThemeListeners();
+        if (!userLang.startsWith('ru') && advancedSearch.checked) {
+          var cached = localStorage.getItem('translatedDescriptions');
+          if (!cached && result.translatedDescriptions) cached = JSON.stringify(result.translatedDescriptions);
+          if (cached) {
+            try { userLangDesc = JSON.parse(cached); } catch {}
+          }
+          if (!userLangDesc || !userLangDesc.length) translate_and_write_desc();
+        }
+        var savedScroll = localStorage.getItem('scrollPos');
+        if (savedScroll) {
+          window.scrollTo(0, parseInt(savedScroll, 10) || 0);
+          localStorage.removeItem('scrollPos');
+        }
+      }, 0);
+    } catch (e) { console.error('Init error:', e); }
+  });
 });
