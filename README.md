@@ -6,7 +6,6 @@ This is an extension that allows you to conveniently use free AI services in you
 The following functions are available in this menu:  
 - The "Open sites in a new tab" checkbox - when active, opens links in a new tab by left-clicking on the desired item from the list.  
 - "Add to Favorites" checkbox - when active, adds the selected item to the favorites list. This way, the selected items will always be above the other items in the list, but they will remain in their sections.  
-- Scroll to the last selected item checkbox - when active, scrolls the list to the last selected item. This is useful if you frequently use different AI services.  
 - The "Open website in a new tab by right-clicking" checkbox - when active, opens the selected item in a new tab by right-clicking on it.  
 - The "Copy link when right-clicking" checkbox - when active, copies the link to the selected item when right-clicking on it.  
 - New Year's Theme checkbox - adds various Christmas elements and decorations when active.  
@@ -71,9 +70,8 @@ Thank you for your help with the layout and design of [ShikoDay](https://github.
 В данном меню доступны следующие функции:  
 - Чекбокс "Открывать сайты в новой вкладке" - при активном состоянии открывает ссылки в новой вкладке при нажатии левой кнопки мыши на нужный элемент из списка.  
 - Чекбокс "Добавить в избранное" - при активном состоянии добавляет выбранный элемент в список избранных. Таким образом, выбранные элементы будут всегда находиться выше других элементов в списке, но при этом будут оставаться в своих секциях.  
-- Чекбокс "Прокручивать к последнему выбранному элементу" - при активном состоянии прокручивает список к последнему выбранному элементу. Это полезно, если вы часто используете разные сервисы ИИ.  
-- Чекбокс "Открывать сайт в новой вкладке при нажатии правой кнопкой мыши" - при активном состоянии открывает выбранный элемент в новой вкладке при нажатии правой кнопкой мыши на нем.  
-- Чекбокс "Копировать ссылку при нажатии правой кнопкой мыши" - при активном состоянии копирует ссылку на выбранный элемент при нажатии правой кнопки мыши по нему.  
+- Чекбокс "Открывать сайт в новой вкладке при нажатии правой кнопкой мыши" - при активном состоянии открывает выбранный элемент в новой вкладке при нажатии правой кнопки мыши на нем.  
+- Чекбокс "Копировать ссылку при нажатии правой кнопкой мыши" - при активном состоянии копирует ссылку на выбранный элемент при нажатии правой кнопки мыши по нему.
 - Чекбокс "Новогодняя тема" - при активном состоянии добавляет различные новогодние элементы и украшения.  
 - Поиск - позволяет находить нужный элемент в списке не только по названию сервиса, но и по его описанию.  
 - Чекбокс "Скрыть сервисы, которые не могут быть открыты в боковой панели" - позволяет сразу скрыть сервисы, которые не могут быть открыты в боковой панели, при этом поиск работает по всем элементам, независимо от того, скрыты они или нет.  

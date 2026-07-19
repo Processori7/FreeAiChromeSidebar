@@ -568,7 +568,7 @@ async function checkForUpdates() {
             else if(h1.textContent =="Free AI Image Services"){menuItem.textContent="Бесплатные сервисы для работы с изображениями"}
             else if(h1.textContent =="Free AI Video Services"){menuItem.textContent="Бесплатные сервисы для работы с видео"}
             else if(h1.textContent =="Free AI Presentation Generators"){menuItem.textContent="Бесплатные сервисы для генерации презентаций"}
-            else if(h1.textContent =="Free AI sound services"){menuItem.textContent="Бесплатные сервисы для работы со звуком"}
+            else if(h1.textContent =="Free AI Sound services"){menuItem.textContent="Бесплатные сервисы для работы со звуком"}
             else if(h1.textContent =="Free AI TODO Services"){menuItem.textContent="Бесплатные сервисы для планирования"}
             else if(h1.textContent =="Other AI Services"){menuItem.textContent="Другие бесплатные сервисы с ИИ"}
         }
@@ -2206,7 +2206,17 @@ document.getElementById('advancedSearchText').style.display="block";
       "https://uncensored.chat/":"ИИ чат без цензуры",
       "https://www.free-ai-online.com/":"Сервис предоставляет доступ к различным LLM моделям",
       "https://gptfree.com/":"Сервис предоставляет доступ к различным LLM моделям",
-      "https://zcode.z.ai/en":"Бесплатная IDE со встроенными моделями от Z.ai"
+      "https://zcode.z.ai/en":"Бесплатная IDE со встроенными моделями от Z.ai",
+      "https://chat.sakana.ai/":"Постоянно учится и хорошо справляется с наукой и сложными задачами",
+      "https://console.aihubmix.com/":"Сервис предоставляет доступ к различным LLM моделям по API",
+      "https://github.com/charmbracelet/crush":"Аналог OpenCode cli",
+      "https://www.ecosia.org/ai-chat":"Многоцелевое WEB приложение с различными функциями с ИИ, авторизация не обязательна",
+      "https://www.bing.com/images/create/ai-image-generator":"Сервис позволяет генерировать изображения с помощью ИИ, авторизация обязательна",
+      "https://github.com/yetone/kill-ai-slop":"Сервис позволяет убирая следы ИИ",
+      "https://agnes-ai.com/":"Сервис предоставляет доступ к различным моделям компании agnes, есть бесплатный план, требуется авторизация",
+      "https://huggingface.co/spaces/webml-community/gemma-4-webgpu-kernels":"Сервис предоставляет доступ к экспериментальным моделям Gemma 4, работает через WebGPU",
+      "https://t3.chat/":"Сервис предоставляет доступ к различным LLM моделям, есть бесплатный план, авторизация не обязательно для коротких сессий",
+      "https://artbot.site/create":"Бесплатный генератор изображений"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
