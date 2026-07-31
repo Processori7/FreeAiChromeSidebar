@@ -4,7 +4,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const openInNewTab = document.getElementById("openInNewTab");
   const dropdownMenu = document.getElementById('dropdown-menu');
   const searchInput = document.getElementById('searchInput');
-  const userLang = navigator.language || navigator.userLanguage; 
+  const detectLanguageCheckbox = document.getElementById('detectLanguage');
+  const languageSelect = document.getElementById('languageSelect');
+  const detectLanguageLabel = document.getElementById('detectLanguageLabel');
+  const languageSelectLabel = document.getElementById('languageSelectLabel');
+  let detectLangAuto = localStorage.getItem('detectLangAuto') !== 'false';
+  let userLang = detectLangAuto
+    ? (navigator.language || navigator.userLanguage || 'en')
+    : (localStorage.getItem('selectedLanguage') || navigator.language || navigator.userLanguage || 'en');
+  userLang = userLang.slice(0, 2);
   const items = document.querySelectorAll('.aiMenu li'); // Получаем все элементы li из всех списков
   const h1items = document.querySelectorAll('h1');
   const favoriteCheckbox =  document.getElementById("favoriteCheckbox");
@@ -51,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let translatedText = "";
   let updateText = "Доступно обновление!"
   let userLangDesc = [];
+  let hoveredWebsite = null;
 
   currentWebsite = localStorage.getItem('currentWebsite'); // Загружаем из localStorage
   
@@ -58,6 +67,15 @@ document.addEventListener("DOMContentLoaded", function () {
   openOnRightClick.checked = JSON.parse(localStorage.getItem("openOnRightClick")) || false;
   copyOnRightClick.checked = JSON.parse(localStorage.getItem("copyOnRightClick")) || false;
   advancedSearch.checked = JSON.parse(localStorage.getItem("advancedSearch")) || false;
+
+  // Настройки языка
+  if (detectLanguageCheckbox) detectLanguageCheckbox.checked = detectLangAuto;
+  if (languageSelect) {
+    if (languageSelect.querySelector('option[value="' + userLang + '"]')) {
+      languageSelect.value = userLang;
+    }
+    languageSelect.disabled = detectLangAuto;
+  }
   const frameCache = new Map();
 
   function loadFrameCache() {
@@ -377,7 +395,7 @@ document.addEventListener("DOMContentLoaded", function () {
     next().catch(function (e) { console.error('Scan fatal:', e); });
   }
 
-  function countElements()
+  async function countElements()
   {
      // Выбираем все элементы li на странице
      const liElements = document.querySelectorAll("li");
@@ -386,7 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
      // Находим элемент, куда будем выводить результат
      const liCountContainer = document.getElementById("liCount");
      // Выводим результат
-     liCountContainer.textContent =  translateText("Количество бесплатных сервисов: ", "ru") + " " + count;
+     liCountContainer.textContent =  await translateText("Количество бесплатных сервисов: ", "ru") + " " + count;
   }
 
   // Функция для обновления состояния advancedSearch в localStorage
@@ -537,7 +555,7 @@ async function checkForUpdates() {
             if (userLang.startsWith('ru')) {
                 updateMessageElement.textContent = updateText;
             } else {
-                updateMessageElement.textContent = translateText(updateText, "ru");
+                updateMessageElement.textContent = await translateText(updateText, "ru");
             }
             updateMessageElement.style.display = 'block';
 
@@ -553,11 +571,11 @@ async function checkForUpdates() {
 }
     
    // Создаем элементы меню для каждого заголовка
-   h1items.forEach(h1 => {
+   h1items.forEach(async h1 => {
     const menuItem = document.createElement('div');
     if (!userLang.startsWith('ru'))
         {
-            menuItem.textContent = translateText(h1.textContent, "en"); // Текст заголовка
+            menuItem.textContent = await translateText(h1.textContent, "en"); // Текст заголовка
         }
         else
         {
@@ -1285,8 +1303,23 @@ function setCachedTranslation(text, sourceLang, targetLang, translation) {
     } catch {}
 }
 
+// Вспомогательная функция запроса перевода с таймаутом (6 секунд)
+async function fetchTranslation(url) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 6000);
+    try {
+        const response = await fetch(url, { signal: controller.signal });
+        if (!response.ok) return null;
+        return await response.text();
+    } catch (e) {
+        return null;
+    } finally {
+        clearTimeout(timer);
+    }
+}
+
 // Функция для перевода текста с кэшированием
-function translateText(text, lang) {
+async function translateText(text, lang) {
     const srcLang = lang.slice(0, 2);
     const tgtLang = userLang.slice(0, 2);
     
@@ -1302,20 +1335,45 @@ function translateText(text, lang) {
     }
     
     // Если в кэше нет, делаем запрос
-    translateUrl = "https://translate.googleapis.com/translate_a/single?format=text&client=gtx&sl=" + srcLang + "&tl=" + tgtLang + "&dt=t&q=" + encodeURIComponent(text);
-    translatedText = httpGet(translateUrl);
-    const cleanedTranslation = cleanAndTrimData(translatedText);
-    
-    // Сохраняем перевод в кэш
-    setCachedTranslation(text, srcLang, tgtLang, cleanedTranslation);
-    
-    return cleanedTranslation;
+    try {
+        translateUrl = "https://translate.googleapis.com/translate_a/single?format=text&client=gtx&sl=" + srcLang + "&tl=" + tgtLang + "&dt=t&q=" + encodeURIComponent(text);
+        let result = null;
+        const googleData = await fetchTranslation(translateUrl);
+        if (googleData) {
+            const cleanedTranslation = cleanAndTrimData(googleData);
+            if (cleanedTranslation) result = cleanedTranslation;
+        }
+        // Если Google Translate недоступен, пробуем запасной переводчик MyMemory
+        if (!result) {
+            const mmData = await fetchTranslation("https://api.mymemory.translated.net/get?q=" + encodeURIComponent(text) + "&langpair=" + srcLang + "|" + tgtLang);
+            if (mmData) {
+                try {
+                    const parsed = JSON.parse(mmData);
+                    if (parsed && parsed.responseData && parsed.responseData.translatedText) {
+                        result = parsed.responseData.translatedText;
+                    }
+                } catch (e) {}
+            }
+        }
+        if (!result) return text;
+        
+        // Сохраняем перевод в кэш
+        setCachedTranslation(text, srcLang, tgtLang, result);
+        
+        return result;
+    } catch (e) {
+        console.error('Ошибка перевода:', e);
+        return text;
+    }
 }
 
-if (userLang.startsWith('ru')) {
+async function applyTranslations() {
+  if (userLang.startsWith('ru')) {
   openInNewTab.nextSibling.textContent = 'Открывать сайты в новой вкладке.';
   searchInput.placeholder = 'Поиск...';
   favoriteCheckbox.nextSibling.textContent = 'Добавить в избранное';
+  if (detectLanguageLabel) detectLanguageLabel.textContent = 'Определять язык автоматически';
+  if (languageSelectLabel) languageSelectLabel.textContent = 'Язык:';
   aiChat.innerText = "Бесплатный чат с ИИ";
   aiScripts.innerText="Бесплатные GPT скрипты помощники для поисковых систем";
   aiPC.innerText="Бесплатный GPT на ПК с Windows";
@@ -1347,56 +1405,72 @@ if (userLang.startsWith('ru')) {
 }
 else
 {
-// Переводим все элементы
-openInNewTab.nextSibling.textContent = translateText("Открывать сайты в новой вкладке.", "ru");
-searchInput.placeholder = translateText('Поиск...', "ru");
-favoriteCheckbox.nextSibling.textContent = translateText('Добавить в избранное', "ru");
-const aiChat = document.getElementById("aiChat");
-aiChat.innerText = translateText("Бесплатный чат с ИИ", "ru");
-const aiScripts = document.getElementById("aiScripts");
-aiScripts.innerText = translateText("Бесплатные GPT скрипты помощники для поисковых систем", "ru");
-const aiPC = document.getElementById("aiPC");
-aiPC.innerText = translateText("Бесплатный GPT на ПК с Windows", "ru");
-const aiArticle = document.getElementById("aiArticle");
-aiArticle.innerText = translateText("Бесплатный генератор статей", "ru");
-const aiImage = document.getElementById("aiImage");
-aiImage.innerText = translateText("Бесплатные сервисы для работы с изображениями", "ru");
-const aiVideo = document.getElementById("aiVideo");
-aiVideo.innerText = translateText("Бесплатные сервисы для работы с видео", "ru");
-const aiPresentation = document.getElementById("aiPresentation");
-aiPresentation.innerText = translateText("Бесплатные сервисы для генерации презентаций", "ru");
-const aiSound = document.getElementById("aiSound");
-aiSound.innerText = translateText("Бесплатные сервисы для работы со звуком", "ru");
-const aiTODO = document.getElementById("aiTODO");
-aiTODO.innerText = translateText("Бесплатные сервисы для планирования", "ru");
-const aiOther = document.getElementById("aiOther");
-aiOther.innerText = translateText("Другие бесплатные сервисы с ИИ", "ru");
-const scrollToElement = document.getElementById("scrollToElement");
-scrollToElement.nextSibling.textContent = translateText("Прокручивать к последнему выбранному элементу", "ru");
-openOnRightClick.nextSibling.textContent=translateText("Открывать сайт в новой вкладке при нажатии правой кнопкой мыши", "ru");
-copyOnRightClick.nextSibling.textContent=translateText("Копировать ссылку при нажатии правой кнопкой мыши", "ru");
-NewYearTheme.nextSibling.textContent = translateText("Новогодняя тема", "ru");
-document.querySelector('#theme-settings-title').textContent = translateText('Настройки темы', "ru");
-document.querySelector('#background-color .translate-text').textContent = translateText('Цвет фона:', "ru");
-document.querySelector('#text-color-headings .translate-text').textContent = translateText('Цвет заголовков:', "ru");
-document.querySelector('#li-back-color .translate-text').textContent = translateText('Цвет фона элементов:', "ru");
-document.querySelector('#li-text-color .translate-text').textContent = translateText('Цвет текста элементов:', "ru");
-document.querySelector('#tooltip-background-color .translate-text').textContent = translateText('Цвет фона подсказок:', "ru");
-document.querySelector('#font-family-settings .translate-text').textContent = translateText('Семейство шрифтов:', "ru");
-document.querySelector('#heading-font-size .translate-text').textContent = translateText('Размер шрифта заголовков:', "ru");
-document.querySelector('#item-font-size .translate-text').textContent = translateText('Размер шрифта элементов:', "ru");
-document.querySelector('#tooltip-font-size .translate-text').textContent = translateText('Размер шрифта подсказок:', "ru");
-document.querySelector('#resetTheme .translate-text').textContent = translateText('Сбросить тему', "ru");
-advancedSearch.nextSibling.textContent = translateText("Enable contextual search (Attention! Initialization can take up to 20 seconds on first startup)", "en");
-document.getElementById('advancedSearchText').style.display="block";
+// Скрываем строку контекстного поиска, пока её текст не переведён (чтобы не было пустой строки)
+document.getElementById('advancedSearchText').style.display="none";
+
+// Переводим элементы параллельно: каждая метка появляется по мере готовности,
+// зависший запрос к одному сервису не блокирует остальные
+var translateTasks = [
+  translateText("Открывать сайты в новой вкладке.", "ru").then(function (t) { openInNewTab.nextSibling.textContent = t; }),
+  translateText('Поиск...', "ru").then(function (t) { searchInput.placeholder = t; }),
+  translateText('Добавить в избранное', "ru").then(function (t) { favoriteCheckbox.nextSibling.textContent = t; }),
+  translateText('Определять язык автоматически', "ru").then(function (t) { if (detectLanguageLabel) detectLanguageLabel.textContent = t; }),
+  translateText('Язык:', "ru").then(function (t) { if (languageSelectLabel) languageSelectLabel.textContent = t; }),
+  translateText("Бесплатный чат с ИИ", "ru").then(function (t) { aiChat.innerText = t; }),
+  translateText("Бесплатные GPT скрипты помощники для поисковых систем", "ru").then(function (t) { aiScripts.innerText = t; }),
+  translateText("Бесплатный GPT на ПК с Windows", "ru").then(function (t) { aiPC.innerText = t; }),
+  translateText("Бесплатный генератор статей", "ru").then(function (t) { aiArticle.innerText = t; }),
+  translateText("Бесплатные сервисы для работы с изображениями", "ru").then(function (t) { aiImage.innerText = t; }),
+  translateText("Бесплатные сервисы для работы с видео", "ru").then(function (t) { aiVideo.innerText = t; }),
+  translateText("Бесплатные сервисы для генерации презентаций", "ru").then(function (t) { aiPresentation.innerText = t; }),
+  translateText("Бесплатные сервисы для работы со звуком", "ru").then(function (t) { aiSound.innerText = t; }),
+  translateText("Бесплатные сервисы для планирования", "ru").then(function (t) { aiTODO.innerText = t; }),
+  translateText("Другие бесплатные сервисы с ИИ", "ru").then(function (t) { aiOther.innerText = t; }),
+  translateText("Прокручивать к последнему выбранному элементу", "ru").then(function (t) { scrollToElement.nextSibling.textContent = t; }),
+  translateText("Открывать сайт в новой вкладке при нажатии правой кнопкой мыши", "ru").then(function (t) { openOnRightClick.nextSibling.textContent = t; }),
+  translateText("Копировать ссылку при нажатии правой кнопкой мыши", "ru").then(function (t) { copyOnRightClick.nextSibling.textContent = t; }),
+  translateText("Новогодняя тема", "ru").then(function (t) { NewYearTheme.nextSibling.textContent = t; }),
+  translateText('Настройки темы', "ru").then(function (t) { document.querySelector('#theme-settings-title').textContent = t; }),
+  translateText('Цвет фона:', "ru").then(function (t) { document.querySelector('#background-color .translate-text').textContent = t; }),
+  translateText('Цвет заголовков:', "ru").then(function (t) { document.querySelector('#text-color-headings .translate-text').textContent = t; }),
+  translateText('Цвет фона элементов:', "ru").then(function (t) { document.querySelector('#li-back-color .translate-text').textContent = t; }),
+  translateText('Цвет текста элементов:', "ru").then(function (t) { document.querySelector('#li-text-color .translate-text').textContent = t; }),
+  translateText('Цвет фона подсказок:', "ru").then(function (t) { document.querySelector('#tooltip-background-color .translate-text').textContent = t; }),
+  translateText('Семейство шрифтов:', "ru").then(function (t) { document.querySelector('#font-family-settings .translate-text').textContent = t; }),
+  translateText('Размер шрифта заголовков:', "ru").then(function (t) { document.querySelector('#heading-font-size .translate-text').textContent = t; }),
+  translateText('Размер шрифта элементов:', "ru").then(function (t) { document.querySelector('#item-font-size .translate-text').textContent = t; }),
+  translateText('Размер шрифта подсказок:', "ru").then(function (t) { document.querySelector('#tooltip-font-size .translate-text').textContent = t; }),
+  translateText('Сбросить тему', "ru").then(function (t) { document.querySelector('#resetTheme .translate-text').textContent = t; }),
+  translateText("Enable contextual search (Attention! Initialization can take up to 20 seconds on first startup)", "en").then(function (t) {
+    advancedSearch.nextSibling.textContent = t;
+    document.getElementById('advancedSearchText').style.display="block";
+  })
+];
+await Promise.all(translateTasks);
 
   }
   openInNewTab.checked = JSON.parse(localStorage.getItem("openInNewTab")) || false;
+}
+applyTranslations();
 
   function updateCheckboxState() {
       localStorage.setItem("openInNewTab", openInNewTab.checked);
   }
   openInNewTab.addEventListener("change", updateCheckboxState);
+
+  // Настройки языка
+  function updateDetectLangState() {
+      localStorage.setItem("detectLangAuto", detectLanguageCheckbox.checked);
+      location.reload();
+  }
+  if (detectLanguageCheckbox) detectLanguageCheckbox.addEventListener("change", updateDetectLangState);
+
+  function updateSelectedLangState() {
+      localStorage.setItem("selectedLanguage", languageSelect.value);
+      localStorage.setItem("detectLangAuto", "false");
+      location.reload();
+  }
+  if (languageSelect) languageSelect.addEventListener("change", updateSelectedLangState);
 
   function initializePage() {
     saveOriginalOrder()
@@ -1492,7 +1566,7 @@ document.getElementById('advancedSearchText').style.display="block";
         var deadReason = deadSites.get(website).reason;
         var msg = 'Site is dead (' + deadReason + '): ' + website;
         console.warn(msg);
-        var text = translateText('Этот сайт недоступен (' + deadReason + '), открыть всё равно в новой вкладке?', 'ru');
+        var text = await translateText('Этот сайт недоступен (' + deadReason + '), открыть всё равно в новой вкладке?', 'ru');
         var answer = userLang.startsWith('ru')
           ? confirm('Сайт недоступен (' + deadReason + '). Открыть в новой вкладке?')
           : confirm(text);
@@ -1501,7 +1575,7 @@ document.getElementById('advancedSearchText').style.display="block";
         window.open(website, '_blank');
       } else {
         if (!(await canFrameWebsite(website))) {
-          let text = translateText("Этот сайт не может быть открыт в боковой панели, открыть его в новой вкладке?", "ru");
+          let text = await translateText("Этот сайт не может быть открыт в боковой панели, открыть его в новой вкладке?", "ru");
           let answer = userLang.startsWith('ru')
             ? confirm("Этот сайт не может быть открыт в боковой панели, открыть его в новой вкладке?")
             : confirm(text);
@@ -1545,14 +1619,6 @@ document.getElementById('advancedSearchText').style.display="block";
 
   }
 
-    // Отправка запроса
-    function httpGet(url) {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("GET", url, false);
-        xmlHttp.send(null);
-        return xmlHttp.responseText;
-        }
-
         //Убираю лишние символы и дубликаты
         function cleanAndTrimData(data) {
             
@@ -1573,19 +1639,19 @@ document.getElementById('advancedSearchText').style.display="block";
         popup.classList.add('popup');
         document.body.appendChild(popup);
 
-        var descriptions = userLang.startsWith('ru')
-            ? websiteDescriptionsRu
-            : getTranslatedDescriptions();
-
         document.addEventListener('mouseover', function(event) {
             var item = event.target.closest('.aiMenu li[data-website]');
             if (!item) return;
             var website = item.getAttribute('data-website');
-            if (descriptions.hasOwnProperty(website)) {
-                popup.textContent = descriptions[website];
-                popup.style.left = event.pageX + 'px';
-                popup.style.top = event.pageY + 'px';
-                popup.classList.add('show');
+            if (!websiteDescriptionsRu.hasOwnProperty(website)) return;
+            hoveredWebsite = website;
+            var text = websiteDescriptionsRu[website];
+            popup.textContent = text;
+            popup.style.left = event.pageX + 'px';
+            popup.style.top = event.pageY + 'px';
+            popup.classList.add('show');
+            if (!userLang.startsWith('ru')) {
+                showTranslatedTooltip(popup, website, text);
             }
         });
 
@@ -1594,12 +1660,33 @@ document.getElementById('advancedSearchText').style.display="block";
             if (!item) return;
             var to = event.relatedTarget;
             if (!to || !item.contains(to)) {
+                hoveredWebsite = null;
                 popup.classList.remove('show');
             }
         });
     }
 
-    function translate_and_write_desc() {
+    // Показывает перевод описания в тултипе: сразу русский текст, затем подменяет на перевод, когда готов
+    async function showTranslatedTooltip(popup, website, text) {
+        var translated = getTranslatedDescriptions()[website];
+        if (!translated) {
+            translated = await translateText(text, "ru");
+            if (translated) {
+                try {
+                    var cached = JSON.parse(localStorage.getItem('translatedDescriptions') || '[]');
+                    cached = cached.filter(function (item) { return item.url !== website; });
+                    cached.push({ url: website, translatedText: translated });
+                    localStorage.setItem('translatedDescriptions', JSON.stringify(cached));
+                    try { browserAPI.storage.local.set({ translatedDescriptions: cached }); } catch {}
+                } catch (e) {}
+            }
+        }
+        if (hoveredWebsite === website) {
+            popup.textContent = translated || text;
+        }
+    }
+
+    async function translate_and_write_desc() {
         var descriptions = websiteDescriptionsRu;
     
         // Перебираем каждую запись в объекте описаний
@@ -1610,8 +1697,10 @@ document.getElementById('advancedSearchText').style.display="block";
                 // Если язык пользователя не русский, переводим описание
                 if (!userLang.startsWith('ru')) {
                     // Используем функцию translateText с кэшированием
-                    let translatedText = translateText(description, "ru");
-                    userLangDesc.push({url, translatedText }); // Добавляем объект с URL и переведенным описанием
+                    let translated = await translateText(description, "ru");
+                    userLangDesc.push({url, translatedText: translated }); // Добавляем объект с URL и переведенным описанием
+                    // Небольшая задержка, чтобы не перегружать сервис перевода
+                    await new Promise(function (resolve) { setTimeout(resolve, 100); });
                 } else {
                     // Если язык русский, просто добавляем оригинальное описание
                     userLangDesc.push({url, description });

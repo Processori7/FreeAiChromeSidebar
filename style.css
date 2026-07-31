@@ -204,6 +204,17 @@
       /* position: absolute; */
       font-weight: 300;
     }
+
+    .language-select {
+      margin: 5px;
+      padding: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #70040e;
+      color: white;
+      font-size: 14px;
+      max-width: 140px;
+    }
   
     .dropdown {
         display: none; /* Скрываем выпадающий список по умолчанию */
