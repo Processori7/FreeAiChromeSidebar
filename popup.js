@@ -2305,7 +2305,10 @@ applyTranslations();
       "https://agnes-ai.com/":"Сервис предоставляет доступ к различным моделям компании agnes, есть бесплатный план, требуется авторизация",
       "https://huggingface.co/spaces/webml-community/gemma-4-webgpu-kernels":"Сервис предоставляет доступ к экспериментальным моделям Gemma 4, работает через WebGPU",
       "https://t3.chat/":"Сервис предоставляет доступ к различным LLM моделям, есть бесплатный план, авторизация не обязательно для коротких сессий",
-      "https://artbot.site/create":"Бесплатный генератор изображений"
+      "https://artbot.site/create":"Бесплатный генератор изображений",
+      "https://www.verdent.ai/":"Среда разработки с интегрированными функциями ИИ и несколькими параллельными агентами, есть бесплатный пробный период, необходима установка и авторизация",
+      "https://zsky.ai/":"Бесплатная платформа для генерации видео и изображений с ИИ, безлимитная генерация на бесплатном тарифе",
+      "https://www.tools-ai.online/":"Каталог ИИ-инструментов для различных задач"
   };   
 
 function applyTheme(backgroundColor, textColor, liColor, liTextColor, tooltipBgColor, fontFamily, headingFontSize, itemFontSize, tooltipFontSize) { 
